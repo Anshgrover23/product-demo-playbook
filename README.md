@@ -20,6 +20,13 @@ sound design, and music. Distilled from shipping the
 9. **Assemble** — founder intro, one branded transition, stem-based audio layering, −14 LUFS export
 10. **Ship checklist**
 
+Plus four appendices with the real artifacts from the shipped demo:
+
+- **A. The worked example** — the full 16-line VO script, the complete 10-cue sound sheet with levels and measured hit offsets, the music numbers
+- **B. Troubleshooting log** — 15 real failures as symptom → cause → fix
+- **C. Command reference** — every ffmpeg/ffprobe command: render, encode, hit measurement, cue verification, loudness, SRT shifting
+- **D. Research sources**
+
 ## Templates
 
 Working scripts extracted from the real pipeline, in [`templates/`](templates/):
