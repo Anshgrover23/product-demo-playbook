@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Product Demo Playbook</title>
+<meta name="description" content="A step-by-step playbook for making a YC-grade product demo video from your real app code: script, composition, deterministic recording, voiceover, sound design, music, assembly.">
+<style>
+  :root {
+    --bg: #faf8f4; --ink: #1c1a17; --muted: #6b6459; --line: #e3ddd2;
+    --accent: #c2410c; --card: #ffffff; --code-bg: #17150f; --code-ink: #e8e2d4;
+    --tag: #ecfccb; --tag-ink: #3f6212;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16140f; --ink: #ece7dc; --muted: #a09884; --line: #2e2a22;
+      --accent: #fb923c; --card: #1e1b14; --code-bg: #0d0c08; --code-ink: #ded8c8;
+      --tag: #2a3a12; --tag-ink: #bef264;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 17px/1.65 Georgia, 'Times New Roman', serif;
+  }
+  header, main, footer { max-width: 780px; margin: 0 auto; padding: 0 22px; }
+  header { padding-top: 64px; padding-bottom: 8px; }
+  .kicker {
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+  }
+  h1 { font-size: clamp(34px, 6vw, 52px); line-height: 1.08; margin: 10px 0 14px; letter-spacing: -0.01em; }
+  .lede { font-size: 20px; color: var(--muted); max-width: 640px; }
+  nav.toc {
+    margin: 36px 0 0; padding: 18px 20px; border: 1px solid var(--line);
+    background: var(--card); border-radius: 10px;
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 13.5px;
+  }
+  nav.toc ol { margin: 6px 0 0; padding-left: 22px; }
+  nav.toc li { margin: 3px 0; }
+  nav.toc a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }
+  nav.toc a:hover { color: var(--accent); border-color: var(--accent); }
+  main { padding-bottom: 40px; }
+  section { margin-top: 56px; }
+  .stepnum {
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px;
+    letter-spacing: 0.14em; color: var(--accent); text-transform: uppercase;
+  }
+  h2 { font-size: 29px; margin: 6px 0 12px; line-height: 1.15; }
+  h3 { font-size: 19px; margin: 26px 0 8px; }
+  p { margin: 12px 0; }
+  a { color: var(--accent); }
+  ul, ol { padding-left: 24px; }
+  li { margin: 6px 0; }
+  strong { letter-spacing: 0.005em; }
+  .rule {
+    border-left: 3px solid var(--accent); background: var(--card);
+    padding: 12px 16px; margin: 18px 0; border-radius: 0 8px 8px 0;
+  }
+  .rule .t { font-weight: bold; }
+  pre {
+    background: var(--code-bg); color: var(--code-ink); padding: 16px 18px;
+    border-radius: 10px; overflow-x: auto; font-size: 13.5px; line-height: 1.55;
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  }
+  code {
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.86em;
+    background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: inherit; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 15px; }
+  th, td { text-align: left; border-bottom: 1px solid var(--line); padding: 8px 10px; vertical-align: top; }
+  th { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .tag {
+    display: inline-block; font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 11.5px; background: var(--tag); color: var(--tag-ink);
+    border-radius: 99px; padding: 2px 10px; margin-right: 6px;
+  }
+  .checklist { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 20px 24px; }
+  .checklist li { list-style: none; margin: 8px 0; }
+  .checklist li::before { content: "☐  "; color: var(--accent); font-family: ui-monospace, monospace; }
+  footer { border-top: 1px solid var(--line); margin-top: 72px; padding-top: 20px; padding-bottom: 60px; color: var(--muted); font-size: 14.5px; }
+  @media (max-width: 640px) { body { font-size: 16px; } h1 { margin-top: 4px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="kicker">A field-tested pipeline</div>
+  <h1>The Product Demo Playbook</h1>
+  <p class="lede">How to make a YC-grade product demo video from your real app code — script, composition, frame-perfect recording, AI voiceover, sound design, and music. Every step below was used to ship a real demo; nothing here is theoretical.</p>
+  <nav class="toc">
+    THE STEPS, IN ORDER
+    <ol>
+      <li><a href="#shape">Know the shape of a good demo</a></li>
+      <li><a href="#script">Write the story first</a></li>
+      <li><a href="#components">Make your real UI renderable standalone</a></li>
+      <li><a href="#composition">Author the demo as code, on one clock</a></li>
+      <li><a href="#recording">Record frame-by-frame, never screen-record</a></li>
+      <li><a href="#voiceover">Captions and AI voiceover</a></li>
+      <li><a href="#sound">Sound design: make the demo score itself</a></li>
+      <li><a href="#music">Music: carve, duck, start at the drop</a></li>
+      <li><a href="#assembly">Assemble: intro, transition, export</a></li>
+      <li><a href="#checklist">The ship checklist</a></li>
+    </ol>
+  </nav>
+</header>
+
+<main>
+
+<section id="shape">
+  <div class="stepnum">Step 1</div>
+  <h2>Know the shape of a good demo</h2>
+  <p>Before touching any tool, decide what you're making. The demos that work share a shape:</p>
+  <ul>
+    <li><strong>45–60 seconds.</strong> Ours landed at 54.3s of demo plus a 5s founder intro. Past a minute, watch-through collapses.</li>
+    <li><strong>One claim per scene.</strong> Six scenes, six claims. If a scene proves two things, it proves neither.</li>
+    <li><strong>Problem → drop → magic → interaction → proof → brand.</strong> Open on the pain (the group-chat receipt war), drop the artifact into the product, show the product doing the impossible part, show humans touching it, show the numbers adding up, stamp the name.</li>
+    <li><strong>Honest data everywhere.</strong> Use a real receipt, real printed prices, a total that actually sums. Viewers can't articulate why fake data feels fake, but they feel it. If your OCR shows 8 line items, the math on screen must reconcile to the printed total.</li>
+    <li><strong>The product is the hero.</strong> Real components, real screens — not a Figma re-illustration of your app. Everything downstream of this page exists to make your actual UI filmable.</li>
+  </ul>
+</section>
+
+<section id="script">
+  <div class="stepnum">Step 2</div>
+  <h2>Write the story first</h2>
+  <p>The script drives every other decision — scene lengths, cue times, music tempo. Write it before building anything.</p>
+  <h3>What to produce</h3>
+  <ol>
+    <li><strong>A scene table.</strong> Name, duration, and the single claim for each scene. Ours: ColdOpen 6s, TheDrop 5.5s, MachineReads 8s, Witness 11s, AddsUp 12s, TheStamp 11.8s.</li>
+    <li><strong>Voiceover lines, one per beat,</strong> each with a start timecode. Short declaratives beat clever ones. Our best line came from ruthless iteration: <em>"Vouch reads the paper itself. Every line. Every price. Even the ink that's barely there."</em></li>
+    <li><strong>A rhythmic grid.</strong> Put repeated interactions (taps, claims) on a fixed grid — we used 0.6s, which is exactly 100 BPM. Later, music at that tempo locks to the picture for free.</li>
+    <li><strong>Air pockets.</strong> Mark 1–2 moments of deliberate silence (ours: the receipt drop at 0:09, and the final 6 seconds). The pauses are what make the loud moments loud.</li>
+  </ol>
+</section>
+
+<section id="components">
+  <div class="stepnum">Step 3</div>
+  <h2>Make your real UI renderable standalone</h2>
+  <p>Your app components assume a running app — routers, auth, data fetching, env vars. The demo needs them to render from a static folder with none of that. Two paths:</p>
+  <h3>Path A: sync into a design tool</h3>
+  <p>We synced the repo into Claude Design (<code>/design-sync</code>), which bundles components into a browsable design system and gives you an animation editor over the real code. The gotchas that cost us time, so they don't cost you any:</p>
+  <ul>
+    <li><strong>Pin every component explicitly</strong> to its source file. Auto-discovery finds one component and stops.</li>
+    <li><strong>Stub the framework.</strong> Next.js client components crash outside Next (<code>process is not defined</code>, missing router contexts). Ship a tiny process shim and a <code>PreviewShell</code> that provides fake <code>AppRouterContext</code>/<code>PathnameContext</code>.</li>
+    <li><strong>Cut server imports.</strong> A shared "kit" file that transitively imports your database will drag postgres into the browser bundle. Fork or split it.</li>
+    <li><strong>Split big screens into lego.</strong> Buttons, badges, textures, overlays, sheets, backgrounds as separate small components. Small pieces animate independently; monoliths don't.</li>
+  </ul>
+  <h3>Path B: vendor a bundle yourself</h3>
+  <p>Build your components + CSS + tokens + fonts into one static bundle (esbuild works) and commit the snapshot next to the demo (<code>demo/ds/</code>), with a refresh script for when components change. Either way, the demo directory must render with <code>python3 -m http.server</code> and nothing else. <strong>The demo must outlive the tools that made it.</strong></p>
+</section>
+
+<section id="composition">
+  <div class="stepnum">Step 4</div>
+  <h2>Author the demo as code, on one clock</h2>
+  <p>The single most important architectural decision: the whole demo is <strong>one React tree rendered as a pure function of an authored clock <code>T</code></strong>. No timelines in a GUI, no keyframes in a tool — a function from seconds to pixels.</p>
+<pre><code>// index.html — the master cue table, one JSON literal
+OM_SCENES = [
+  { name: "ColdOpen",     secs: 6   },
+  { name: "TheDrop",      secs: 5.5 },
+  { name: "MachineReads", secs: 8   },
+  { name: "Witness",      secs: 11  },
+  { name: "AddsUp",       secs: 12  },
+  { name: "TheStamp",     secs: 11.8},
+]  // scene code keys off CUES.&lt;Name&gt; offsets — move a scene, everything follows</code></pre>
+  <p>Why this wins:</p>
+  <ul>
+    <li><strong>Determinism.</strong> Ask for <code>T = 36.98</code> twice, get the same pixels twice. This is what makes flawless recording (step 5) and self-scoring sound (step 7) possible.</li>
+    <li><strong>Editability.</strong> Retiming a scene is editing one number. Fixtures (the receipt items, the prices) live in one table at the top of the file.</li>
+    <li><strong>A seek contract.</strong> The engine listens for a synchronous seek event that commits via <code>flushSync</code> — an external driver can say "show me exactly this frame" and get it in the same task.</li>
+  </ul>
+  <h3>Motion rules that read as confidence</h3>
+  <div class="rule"><span class="t">Nothing fades.</span> Everything stamps, slides, rips, or snaps. Fades read as apology; physical motion reads as conviction. Allow easing in exactly three shared helpers and nowhere else, so the whole film moves with one accent.</div>
+  <p>Build a small kit of instruments — stamp-in, slide, flip, ticker, sticker, badge, cursor, tape-wipe, paper-tear — and compose scenes from those, the way the soundtrack is composed from a few sounds.</p>
+</section>
+
+<section id="recording">
+  <div class="stepnum">Step 5</div>
+  <h2>Record frame-by-frame, never screen-record</h2>
+  <p>Screen-recording live playback inherits every skipped <code>requestAnimationFrame</code> — that's the stutter you can't edit out. Instead, drive the seek contract: for each output frame, seek to its timestamp, screenshot, repeat. A slow frame costs render time, never a dropped frame.</p>
+<pre><code>// record.mjs (full script in /templates) — the core loop
+for (let f = 0; f &lt;= frames; f++) {
+  const t = f / FPS;
+  await page.evaluate((time) =&gt; {
+    stage.dispatchEvent(new CustomEvent('seek-to-time', { detail: { time, sync: true } }));
+    // Pin CSS keyframe animations (spinners!) to the authored clock —
+    // they run on wall-clock time and race ahead under slow capture.
+    for (const a of document.getAnimations()) { a.pause(); a.currentTime = time * 1000; }
+  }, t);
+  await stage.screenshot({ path: `frames/f${String(f).padStart(5,'0')}.png` });
+}</code></pre>
+  <p>The <code>document.getAnimations()</code> pinning is the non-obvious line: our loading spinner spun ~11× too fast before it, because CSS animations ignore your seek clock entirely.</p>
+  <h3>Encode</h3>
+<pre><code>ffmpeg -framerate 60 -i frames/f%05d.png \
+  -vf scale=2560:1440:flags=lanczos \
+  -c:v libx264 -preset slow -crf 12 -pix_fmt yuv420p \
+  -movflags +faststart demo-1440p60.mp4</code></pre>
+  <p>Record <strong>two masters</strong>: one with captions burned in, one clean (pass a <code>--no-captions</code> flag that hides the caption layer). The clean one is your edit base for voiceover. Add a <code>--smoke</code> mode that renders 4 spot frames so you can eyeball a change in seconds instead of waiting 10 minutes.</p>
+</section>
+
+<section id="voiceover">
+  <div class="stepnum">Step 6</div>
+  <h2>Captions and AI voiceover</h2>
+  <ol>
+    <li><strong>Extract the caption table into SRT + VTT.</strong> The composition already knows every line and time; the caption files are a projection of that table, kept in sync by convention.</li>
+    <li><strong>Write the VO script with timecodes per line</strong>, plus delivery tags your voice tool understands — pauses (<code>&lt;#0.4#&gt;</code>-style), emotion tags, emphasis. Sync notes at the bottom of the file ("line 7 must land before the stamp at 0:37").</li>
+    <li><strong>If you clone a voice and it comes out slow and flat</strong>: raise speed slightly, split long sentences into short fragments (TTS phrases fragments with more energy), and put the emotion tag on the fragment, not the paragraph.</li>
+    <li><strong>Ship captions as a sidecar</strong> (upload the SRT wherever the video is posted) and keep the burned-in master for platforms that re-style CC poorly.</li>
+  </ol>
+</section>
+
+<section id="sound">
+  <div class="stepnum">Step 7</div>
+  <h2>Sound design: make the demo score itself</h2>
+  <p>Sound is where demos most often turn amateur. The rules that survived research and taste-testing:</p>
+  <div class="rule"><span class="t">No sound beats a forced sound.</span> One sound per story turn — we scored a 54s film with 10 cues. First ask if the moment needs sound at all; never repeat the same sound back-to-back.</div>
+  <ul>
+    <li><strong>Whooshes lead their motion by ~20ms</strong> (brains process audio faster than video); <strong>impacts land on the settle frame</strong>, not the start of the motion.</li>
+    <li><strong>Reward scales with the moment.</strong> Taps are whispers (−13 dB); the film's thesis moment gets the one big hit (−8 dB). If everything is loud, nothing is.</li>
+    <li><strong>Generate organic sounds</strong> (paper, rubber stamps, taps) rather than synth beeps — AI SFX generators do this well now.</li>
+  </ul>
+  <h3>Two traps in AI-generated SFX</h3>
+  <ol>
+    <li><strong>They pad silence before the hit.</strong> Our stamp's actual impact was 0.35s into the file. Measure each file's peak-energy offset and store it; every player subtracts it so impacts land frame-exact. Never assume the hit is at 0:00.</li>
+    <li><strong>They're mastered quiet</strong> (one peaked at −9.6 dBFS). Peak-normalize each file at mix time so your cue levels mean what they say — otherwise your sound design gets buried under any music bed.</li>
+  </ol>
+  <h3>The self-scoring architecture</h3>
+  <p>Put the cues <em>in the composition</em>, as data:</p>
+<pre><code>// sfx-cues.json — the single source of sound truth
+{ "sounds": { "big-stamp": { "file": "../sfx/big-stamp.mp3", "hit": 0.35 }, ... },
+  "cues": [
+    { "t": 8.26,  "sound": "paper-drop", "db": -10, "why": "receipt lands" },
+    { "t": 36.98, "sound": "big-stamp",  "db": -8,  "why": "the one big hit" },
+    ...
+  ] }</code></pre>
+  <p>Then two consumers of the same file: a tiny WebAudio player so the browser preview is audible while you author, and an ffmpeg mixer (<code>/templates/mix-audio.mjs</code>) that bakes the identical cues onto any export. Preview and final can never disagree, and sound survives re-renders with zero editor work.</p>
+</section>
+
+<section id="music">
+  <div class="stepnum">Step 8</div>
+  <h2>Music: carve, duck, start at the drop</h2>
+  <ul>
+    <li><strong>Tempo-match the picture.</strong> Your interaction grid is a BPM (0.6s = 100 BPM). Pick music at that tempo and the taps sit on the beat without any editing.</li>
+    <li><strong>Start the music at its drop, not the file start.</strong> Trim into the track so the energetic section hits when your video starts. Nobody grants your video a 15-second intro build.</li>
+    <li><strong>Carve, don't just duck.</strong> Notch the music a few dB at ~250 Hz and ~2.8 kHz (the voice's body and presence bands). The voice pops <em>through</em> the music instead of the music pumping up and down.
+<pre><code>equalizer=f=250:t=q:w=1.0:g=-3, equalizer=f=2800:t=q:w=1.1:g=-4.5</code></pre></li>
+    <li><strong>Then duck gently on top:</strong> music sits 15–20 dB under dialogue, dipping another 3–6 dB while lines land, swelling in the gaps and for the outro.</li>
+    <li><strong>Target −14 LUFS integrated, −1 dBTP</strong> for the final export — the loudness platforms normalize to anyway.</li>
+  </ul>
+</section>
+
+<section id="assembly">
+  <div class="stepnum">Step 9</div>
+  <h2>Assemble: intro, transition, export</h2>
+  <ol>
+    <li><strong>Founder intro up front</strong> (≤5s, camera-real, one sentence). Authenticity before polish is the whole point of the format.</li>
+    <li><strong>A branded transition</strong> between intro and demo — ours was a tape strip with the product name swiping across, with a whoosh riding the motion. One transition, used once.</li>
+    <li><strong>Layer the audio in an editor</strong> (any NLE with keyframes): VO track, the composition's SFX stem, the carved music bed with ducking keyframes. Because the SFX live in the composition (step 7), export the demo's audio as one stem and lay it in — don't re-place individual sounds by hand.</li>
+    <li><strong>Export H.264, 1440p or 4K, 60fps</strong>, then make a small 1080p copy for chats and review links. Shift your SRT by the intro's length for the combined cut.</li>
+  </ol>
+</section>
+
+<section id="checklist">
+  <div class="stepnum">Step 10</div>
+  <h2>The ship checklist</h2>
+  <div class="checklist">
+    <ul>
+      <li>Under 60 seconds; one claim per scene</li>
+      <li>All on-screen data is real and reconciles (totals sum, counts match)</li>
+      <li>Composition renders from a static folder with no app running</li>
+      <li>Recorded frame-by-frame; CSS animations pinned; smoke-tested first</li>
+      <li>Two masters: captions burned + clean; SRT/VTT sidecars in the repo</li>
+      <li>VO timed to the frame; captions match VO word-for-word</li>
+      <li>≤ 10 sound cues; hits measured and frame-exact; nothing repeated back-to-back</li>
+      <li>Music tempo matches the interaction grid; starts at the drop; carved at 250 Hz / 2.8 kHz</li>
+      <li>Loudness: −14 LUFS, −1 dBTP; the big moment is the loudest thing in the film</li>
+      <li>Everything committed: composition, scripts, cues, captions, vendored runtime — the demo re-renders from a clean checkout</li>
+    </ul>
+  </div>
+</section>
+
+<section id="templates">
+  <div class="stepnum">Appendix</div>
+  <h2>Templates in this repo</h2>
+  <table>
+    <tr><th>File</th><th>What it is</th></tr>
+    <tr><td><code>templates/record.mjs</code></td><td>Deterministic playwright frame renderer: local static server, seek-per-frame, animation pinning, <code>--smoke</code> / <code>--no-captions</code> / <code>--fps</code> / <code>--scale</code> flags.</td></tr>
+    <tr><td><code>templates/mix-audio.mjs</code></td><td>ffmpeg auto-mixer: reads <code>sfx-cues.json</code>, peak-normalizes each sound, retimes by measured hit offset, optional EQ-carved music bed, limiter, pads to video length.</td></tr>
+    <tr><td><code>templates/sfx-cues.example.json</code></td><td>A real cue file: sounds with measured <code>hit</code> offsets, sparse cues with levels and a <code>why</code> per cue.</td></tr>
+    <tr><td><code>templates/package.json</code></td><td>The npm scripts: <code>smoke</code>, <code>record</code>, <code>record:clean</code>, <code>encode</code>, <code>encode:clean</code>, <code>mix</code>, <code>mix:bgm</code>.</td></tr>
+  </table>
+  <p><span class="tag">stack</span> React (or any UI framework) · Playwright · ffmpeg · an AI voice tool · an AI SFX generator · any keyframe NLE</p>
+</section>
+
+</main>
+
+<footer>
+  <p>Written from the pipeline built for the <a href="https://vouch.anshgrover.com">Vouch</a> product demo. Everything here was used in anger. Source for this page and the templates: see the repo this site is published from.</p>
+</footer>
+
+</body>
+</html>

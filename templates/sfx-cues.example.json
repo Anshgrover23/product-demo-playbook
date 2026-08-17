@@ -1,0 +1,103 @@
+{
+  "comment": "Sound cues for the demo composition. Times are authored seconds on the demo clock. Whooshes are pre-cued 20ms before their motion (audio leads visuals); impacts land on the settle frame. Keep sparse: one sound per story turn, reward scale ordered big-stamp > paper-drop > everything else. Each sound's 'hit' is the measured peak-energy offset inside the file; players subtract it so the impact lands exactly on the cue time.",
+  "sounds": {
+    "paper-drop": {
+      "file": "../sfx/paper-drop.mp3",
+      "hit": 0.1
+    },
+    "page-whoosh": {
+      "file": "../sfx/page-whoosh.mp3",
+      "hit": 1.15
+    },
+    "rubber-stamp": {
+      "file": "../sfx/rubber-stamp.mp3",
+      "hit": 0.0
+    },
+    "ui-tap": {
+      "file": "../sfx/ui-tap.mp3",
+      "hit": 0.0
+    },
+    "success-chime": {
+      "file": "../sfx/success-chime.mp3",
+      "hit": 0.1
+    },
+    "big-stamp": {
+      "file": "../sfx/big-stamp.mp3",
+      "hit": 0.35
+    },
+    "send-swoosh": {
+      "file": "../sfx/send-swoosh.mp3",
+      "hit": 0.6
+    },
+    "notification-pop": {
+      "file": "../sfx/notification-pop.mp3",
+      "hit": 0.05
+    },
+    "tape-whoosh": {
+      "file": "../sfx/tape-whoosh.mp3",
+      "hit": 0.15
+    }
+  },
+  "cues": [
+    {
+      "t": 5.58,
+      "sound": "tape-whoosh",
+      "db": -12,
+      "why": "lime tape wipe into TheDrop"
+    },
+    {
+      "t": 8.26,
+      "sound": "paper-drop",
+      "db": -10,
+      "why": "receipt lands, squash-on-impact"
+    },
+    {
+      "t": 11.03,
+      "sound": "page-whoosh",
+      "db": -13,
+      "why": "paper tear into MachineReads"
+    },
+    {
+      "t": 15.65,
+      "sound": "rubber-stamp",
+      "db": -12,
+      "why": "LOW CONFIDENCE badge stamps"
+    },
+    {
+      "t": 21.7,
+      "sound": "ui-tap",
+      "db": -13,
+      "why": "first claim tap (one establishes the sound)"
+    },
+    {
+      "t": 36.98,
+      "sound": "big-stamp",
+      "db": -8,
+      "why": "ADDS UP. \u2014 the one big hit"
+    },
+    {
+      "t": 38.9,
+      "sound": "send-swoosh",
+      "db": -13,
+      "why": "WhatsApp send"
+    },
+    {
+      "t": 41.9,
+      "sound": "notification-pop",
+      "db": -13,
+      "why": "thumbs-up lands"
+    },
+    {
+      "t": 42.08,
+      "sound": "tape-whoosh",
+      "db": -12,
+      "why": "pink tape wipe into TheStamp"
+    },
+    {
+      "t": 45.18,
+      "sound": "big-stamp",
+      "db": -11,
+      "why": "THREE TAPS. NO FIGHTS. headline"
+    }
+  ]
+}
