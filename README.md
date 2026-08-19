@@ -26,8 +26,15 @@ instructions. Prereqs: Node 20+, ffmpeg, `npx playwright install chromium`.
 
 Then ask your agent:
 
-> Make a product demo video for this app. Use the product-demo skill, start
-> with the scene table.
+> Use the product-demo skill to make a launch demo video for the app in
+> this repo. Run the whole pipeline yourself, start to finish. Ask me in
+> chat when you need something: script approval, the voiceover audio, the
+> music file. Track progress in demo/PROGRESS.md so we can resume anytime.
+
+That is the only prompt. The agent orchestrates all eight steps and asks
+you in conversation at the moments it needs a human: approving the script,
+pasting the tagged voiceover block it writes into MiniMax or ElevenLabs,
+and pasting its music prompt into a generator.
 
 ## What's inside
 

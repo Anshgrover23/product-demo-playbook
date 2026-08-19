@@ -25,6 +25,37 @@ demo re-renders and re-scores from a clean checkout.
 Work the steps in order; each consumes the previous step's output. Steps 5-8
 are optional for a silent draft, mandatory for a launch-quality film.
 
+## One starter prompt runs everything
+
+When the user asks for a demo, orchestrate all eight steps yourself. Never
+hand the user a step list or tell them to come back with the next prompt.
+Instead, ask the user directly in conversation at exactly the moments you
+need something only they can give, and attach the artifact that makes the
+question answerable in seconds:
+
+1. After step 1: show the scene table and voiceover script, ask for
+   approval before writing any code. Retiming a script is cheap; retiming
+   a rendered film is not.
+2. After the smoke render: show the 4 spot frames, ask to proceed before
+   the long full render.
+3. At step 5: hand over the paste-ready tagged voiceover block (no sync
+   notes in it) and ask for the generated audio file path.
+4. At step 7: hand over the music-generator prompt you wrote and ask for
+   the generated file path. Both asks can be batched with step 3's if the
+   user prefers one trip to the tools.
+5. After the scored preview: deliver a small cut for a listen before
+   exporting final masters.
+
+Between asks, proceed without checking in. If the user declines an
+optional asset (voice, music), ship without it rather than stalling.
+
+## Progress tracking (resumable runs)
+
+Maintain demo/PROGRESS.md in the target repo: one line per step with
+status (todo / in progress / done) and the artifact paths produced. Read
+it FIRST in every session; a half-finished pipeline resumes from its last
+question instead of restarting. Update it after every step.
+
 ## Decision rules
 
 - **User has no script or story** → start at 01. Never start by writing code.

@@ -197,6 +197,8 @@
   }
   .step h3 { font-size: 1.5rem; margin: 10px 0 8px; }
   .step p { font-size: 0.98rem; margin: 8px 0; }
+  .prompt.master { max-width: 760px; margin: 26px 0 6px; }
+  .prompt.master .plabel { background: var(--color-lime); }
   .prompt {
     margin-top: 14px; border: 2px solid var(--ink); background: var(--paper-2);
     box-shadow: var(--shadow-hard-sm);
@@ -294,19 +296,19 @@
 
 <section id="steps">
   <div class="wrap">
-    <span class="kick">The pipeline · 8 steps</span>
-    <h2>Copy a prompt. Paste it to your agent.</h2>
-    <p class="sub">The agent does the film. You do exactly two paste jobs: it hands you a tagged voiceover script for MiniMax or ElevenLabs, and a style prompt for the music generator. Paste each, download the audio, give it the files. That is the whole human workload.</p>
+    <span class="kick">The pipeline · what your agent does</span>
+    <h2>One prompt. Your agent runs the rest.</h2>
+    <p class="sub">Paste the starter prompt once. The agent works all eight steps itself and asks you in chat when it needs something only you have: a yes on the script, the voiceover audio (it writes the tagged block for MiniMax or ElevenLabs), the music file (it writes that prompt too). Everything below is what it does between questions.</p>
+    <div class="prompt master">
+      <div class="plabel"><span>The starter prompt · the only one you paste</span><button onclick="cpEl(this)">Copy</button></div>
+      <pre>Use the product-demo skill to make a launch demo video for the app in this repo. Run the whole pipeline yourself, start to finish. Ask me in chat when you need something: script approval, the voiceover audio, the music file. Track progress in demo/PROGRESS.md so we can resume anytime.</pre>
+    </div>
 
     <div class="step">
       <div>
         <span class="stepnum">01 · Script</span>
         <h3>Write the story first</h3>
         <p>45 to 60 seconds, ~6 scenes, one claim per scene: problem, drop, magic, interaction, proof, brand. Interactions on a 0.6s grid (that's 100 BPM, so the music locks to it later, free). Real data only: real items, printed prices, totals that reconcile.</p>
-        <div class="prompt">
-          <div class="plabel"><span>Prompt · paste into your agent</span><button onclick="cpEl(this)">Copy</button></div>
-          <pre>Read .claude/skills/product-demo (start with SKILL.md and 01-script.md). Write the scene table and voiceover script for a ~50s demo of the app in this repo. One claim per scene, real fixture data, interactions on a 0.6s grid.</pre>
-        </div>
       </div>
       <div class="media duo"><div><div class="vframe"><video src="assets/clip-script.mp4" autoplay muted loop playsinline></video></div><div class="cap">Vouch</div></div><div><div class="vframe"><video src="assets/clip-x-script.mp4" autoplay muted loop playsinline></video></div><div class="cap">Excalidraw</div></div></div>
     </div>
@@ -316,10 +318,6 @@
         <span class="stepnum">02 + 03 · Composition</span>
         <h3>Your real UI, on one clock</h3>
         <p>Vendor your actual components into a static bundle, then author the film as one React tree: a pure function of a clock <code>T</code>, with a synchronous seek contract. Nothing fades. Everything stamps, slides, rips, or snaps.</p>
-        <div class="prompt">
-          <div class="plabel"><span>Prompt</span><button onclick="cpEl(this)">Copy</button></div>
-          <pre>Follow 02-standalone-ui.md and 03-composition.md: vendor this repo's UI components into demo/ds/ so they render from a static folder, then build the composition with an OM_SCENES cue table and a synchronous seek event. Motion rule: nothing fades.</pre>
-        </div>
       </div>
       <div class="media duo"><div><div class="vframe"><video src="assets/clip-composition.mp4" autoplay muted loop playsinline></video></div><div class="cap">Vouch</div></div><div><div class="vframe"><video src="assets/clip-x-canvas.mp4" autoplay muted loop playsinline></video></div><div class="cap">Excalidraw</div></div></div>
     </div>
@@ -329,10 +327,6 @@
         <span class="stepnum">04 · Record</span>
         <h3>Frame-perfect, never screen-recorded</h3>
         <p>Screen recording inherits every dropped frame; that stutter can't be edited out. The renderer seeks to each timestamp and screenshots it: 3,260 deterministic PNGs into visually lossless H.264. CSS animations get pinned to the clock (a spinner once ran 11× too fast without this).</p>
-        <div class="prompt">
-          <div class="plabel"><span>Prompt</span><button onclick="cpEl(this)">Copy</button></div>
-          <pre>Follow 04-record.md using templates/record.mjs: render the composition frame-by-frame (smoke test first), pin CSS animations to the seek clock, and encode two 1440p60 masters, captions burned and clean.</pre>
-        </div>
       </div>
       <div class="media duo"><div><div class="vframe"><video src="assets/clip-scan.mp4" autoplay muted loop playsinline></video></div><div class="cap">Vouch</div></div><div><div class="vframe"><video src="assets/clip-x-diagram.mp4" autoplay muted loop playsinline></video></div><div class="cap">Excalidraw</div></div></div>
     </div>
@@ -342,10 +336,6 @@
         <span class="stepnum">05 · Captions + VO</span>
         <h3>Captions from the source of truth</h3>
         <p>The composition already knows every line and time, so the agent hands you a paste-ready tagged script for MiniMax or ElevenLabs (emotion tags, pause tags, breaths) plus a private sync-notes file. Paste the tag block only. If the tool drifts the pauses, the agent re-times each line to the frame afterward.</p>
-        <div class="prompt">
-          <div class="plabel"><span>Prompt</span><button onclick="cpEl(this)">Copy</button></div>
-          <pre>Follow 05-captions-vo.md: project the caption table into SRT/VTT sidecars, and give me a paste-ready tagged voiceover block for MiniMax (emotion + pause tags, no sync notes in the block). After I return the MP3, retime each line to its timecode.</pre>
-        </div>
       </div>
       <div class="media duo"><div><div class="vframe"><video src="assets/clip-captions.mp4" autoplay muted loop playsinline></video></div><div class="cap">Vouch</div></div><div><div class="vframe"><video src="assets/clip-x-collab.mp4" autoplay muted loop playsinline></video></div><div class="cap">Excalidraw</div></div></div>
     </div>
@@ -355,10 +345,6 @@
         <span class="stepnum">06 · Sound</span>
         <h3>The demo scores itself</h3>
         <p>Ten sparse cues in a JSON file the composition owns, each with a measured hit offset (AI sound effects pad ~0.3s of silence before the impact) and a true peak level (they're mastered quiet; the mixer normalizes). One cue file, two players: live browser preview and the ffmpeg export mixer. They can never disagree.</p>
-        <div class="prompt">
-          <div class="plabel"><span>Prompt</span><button onclick="cpEl(this)">Copy</button></div>
-          <pre>Follow 06-sound.md: write sfx-cues.json for this demo (max ~10 cues, one per story turn, each with a why), measure every sound file's hit offset, wire the WebAudio preview player, and score the export with templates/mix-audio.mjs.</pre>
-        </div>
       </div>
       <div class="media duo"><div><div class="vframe"><video src="assets/clip-stamp.mp4" autoplay muted loop playsinline></video></div><div class="cap">Vouch</div></div><div><div class="vframe"><video src="assets/clip-x-stamp.mp4" autoplay muted loop playsinline></video></div><div class="cap">Excalidraw</div></div></div>
     </div>
@@ -368,10 +354,6 @@
         <span class="stepnum">07 + 08 · Music + Ship</span>
         <h3>Carve, duck, start at the drop</h3>
         <p>The agent writes your music-generator prompt too (instruments, the grid's BPM, an explicit no-drums list, "starts immediately"). You paste it, hand back the file, and the mixer finds the track's real arrival point, carves 250 Hz and 2.8 kHz for the voice, and fades out with the picture.</p>
-        <div class="prompt">
-          <div class="plabel"><span>Prompt</span><button onclick="cpEl(this)">Copy</button></div>
-          <pre>Follow 07-music.md and 08-assemble.md: write me a music prompt for MiniMax Music (grid BPM, no drums, starts immediately). When I give you the file, scan for its arrival point, mix it carved under the voice, and export the masters.</pre>
-        </div>
       </div>
       <div class="media duo"><div><div class="vframe"><video src="assets/clip-stickers.mp4" autoplay muted loop playsinline></video></div><div class="cap">Vouch</div></div><div><div class="vframe"><video src="assets/clip-x-end.mp4" autoplay muted loop playsinline></video></div><div class="cap">Excalidraw</div></div></div>
     </div>
