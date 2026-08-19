@@ -25,6 +25,42 @@ demo re-renders and re-scores from a clean checkout.
 Work the steps in order; each consumes the previous step's output. Steps 5-8
 are optional for a silent draft, mandatory for a launch-quality film.
 
+## Running the whole pipeline from one ask
+
+When the user asks for a demo without naming a step, orchestrate all eight
+yourself. Do not run blind end to end; pause at exactly three gates where
+human taste matters and show the artifact:
+
+1. **Gate A, after step 1:** show the scene table and voiceover script.
+   Get approval before writing any code; retiming a script is cheap,
+   retiming a rendered film is not.
+2. **Gate B, after the smoke render:** show the 4 spot frames before
+   committing to the full multi-minute render.
+3. **Gate C, after the scored preview:** deliver a small scored cut for a
+   listen before exporting final masters.
+
+Between gates, proceed without asking. Request user assets only when the
+step needs them, never as an upfront questionnaire: voice tool choice at 05,
+music file at 07, founder intro video at 08. Each is optional; ship without
+it if the user has none.
+
+## Progress tracking (resumable runs)
+
+Maintain `demo/PROGRESS.md` in the target repo: one line per step with
+status (todo / in progress / done) and the artifact paths it produced.
+Read it FIRST on every session; a half-finished pipeline resumes from its
+last gate instead of restarting. Update it after every step.
+
+## Definition of done
+
+- Two 1440p60 masters (captions burned + clean) plus a captioned 1080p
+  social cut
+- SRT and VTT sidecars; timecoded voiceover script
+- `sfx-cues.json` with measured hit offsets; cue peaks verified in the
+  exported file, not just the editor
+- `demo/README.md` telling a stranger how to re-render everything from a
+  clean checkout
+
 ## Decision rules
 
 - **User has no script or story** → start at 01. Never start by writing code.
