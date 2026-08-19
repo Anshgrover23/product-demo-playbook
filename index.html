@@ -3,386 +3,307 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Product Demo Skill by the creators of Vouch</title>
+<title>Showreel</title>
 <meta name="description" content="Showreel is an agent skill: your coding agent turns your repo into a scored, captioned launch film from your real components. Open source, works with any agent.">
 <meta property="og:title" content="Showreel">
-<meta property="og:description" content="Install one skill. Your coding agent turns your repo into a scored, captioned launch film.">
+<meta property="og:description" content="The demo-video skill for AI agents. Your coding agent turns your repo into a scored, captioned launch film.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: oklch(96.2% 0.012 102);
-    --paper-2: oklch(99% 0.008 102);
-    --paper-3: oklch(93% 0.014 102);
-    --ink: oklch(16% 0.02 80);
-    --ink-2: oklch(28% 0.02 80);
-    --muted: oklch(42% 0.014 80);
-    --lime: oklch(94% 0.21 122);
-    --blue: oklch(52% 0.27 270);
-    --blue-ink: oklch(98% 0.01 102);
-    --pink: oklch(65% 0.24 12);
-    --orange: oklch(70% 0.2 50);
-    --graphite: oklch(14% 0.012 80);
-    --graphite-ink: oklch(96% 0.01 102);
-    --grid-line: oklch(16% 0.02 80 / 0.07);
-    --font-display: "Bricolage Grotesque", sans-serif;
-    --font-body: "Geist", sans-serif;
-    --font-mono: "Geist Mono", ui-monospace, monospace;
-    --shadow-hard: 5px 5px 0 0 var(--ink);
-    --shadow-hard-sm: 3px 3px 0 0 var(--ink);
-    --shadow-card: 6px 6px 0 0 var(--ink);
-    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-    --dur: 140ms;
+    --bg: #f2efe9;
+    --card: #ffffff;
+    --ink: #171512;
+    --ink-2: #46423a;
+    --muted: #7d776b;
+    --line: rgba(23, 21, 18, 0.09);
+    --accent: #e8590c;
+    --dark: #1b1916;
+    --dark-ink: #f4f1ea;
+    --r-lg: 22px;
+    --r-md: 14px;
+    --r-pill: 999px;
+    --shadow-soft: 0 1px 2px rgba(23,21,18,0.05), 0 12px 32px -12px rgba(23,21,18,0.18);
+    --shadow-float: 0 2px 4px rgba(23,21,18,0.06), 0 24px 60px -18px rgba(23,21,18,0.28);
+    --sans: "Geist", system-ui, sans-serif;
+    --serif: "Instrument Serif", Georgia, serif;
+    --mono: "Geist Mono", ui-monospace, monospace;
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   html, body { overflow-x: clip; }
   body {
-    margin: 0;
-    background-color: var(--paper);
-    background-image:
-      linear-gradient(var(--grid-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-    background-size: 28px 28px;
-    color: var(--ink-2);
-    font-family: var(--font-body);
-    font-size: 16.5px;
-    line-height: 1.55;
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--sans); font-size: 16.5px; line-height: 1.6;
+    background-image: radial-gradient(1200px 600px at 78% -8%, rgba(232,89,12,0.05), transparent 60%),
+                      radial-gradient(900px 500px at 8% 22%, rgba(23,21,18,0.035), transparent 55%);
   }
-  h1, h2, h3 {
-    font-family: var(--font-display);
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: -0.04em;
-    color: var(--ink);
-    line-height: 0.95;
-    margin: 0;
-  }
-  a { color: var(--ink); text-decoration-thickness: 2px; text-underline-offset: 3px; }
-  a:hover { color: var(--blue); }
-  .mono {
-    font-family: var(--font-mono); letter-spacing: 0.08em;
-    text-transform: uppercase; font-size: 0.72rem; font-weight: 500;
-  }
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  ::selection { background: rgba(232,89,12,0.22); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  a { color: inherit; }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 28px; }
 
-  /* top bar */
-  .bar {
-    display: flex; align-items: center; gap: 14px;
-    padding: 14px 0; border-bottom: 2px solid var(--ink);
-    background: var(--paper-2);
-  }
-  .bar .wrap { display: flex; align-items: center; gap: 14px; width: 100%; }
-  .wordmark {
-    font-family: var(--font-display); font-weight: 800; font-size: 1.05rem;
-    letter-spacing: -0.02em; text-transform: uppercase; text-decoration: none;
-    background: var(--blue); color: var(--blue-ink);
-    padding: 4px 10px; border: 2px solid var(--ink); box-shadow: var(--shadow-hard-sm);
-    transform: rotate(-1.2deg);
-  }
-  .barlabel { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-  .bar nav { margin-left: auto; display: flex; gap: 18px; align-items: center; }
-  .bar nav a { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-bottom: 2px solid transparent; }
-  .bar nav a:hover { border-color: var(--blue); }
-  @media (max-width: 720px) { .bar nav a.hide-sm { display: none; } }
+  /* ---------- floating nav ---------- */
+  .nav { position: sticky; top: 18px; z-index: 40; }
+  .nav .wrap { display: flex; justify-content: space-between; align-items: center; pointer-events: none; }
+  .nav .pill { pointer-events: auto; display: flex; align-items: center; gap: 4px;
+    background: var(--card); border-radius: var(--r-pill); box-shadow: var(--shadow-soft); padding: 8px 10px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; padding: 4px 12px 4px 6px; }
+  .brand .dot { width: 30px; height: 30px; border-radius: 9px; background: var(--dark); color: var(--dark-ink);
+    display: grid; place-items: center; font-size: 13px; }
+  .brand b { font-weight: 600; font-size: 16px; letter-spacing: -0.01em; }
+  .nav nav { display: flex; align-items: center; gap: 2px; }
+  .nav nav a { text-decoration: none; font-size: 14.5px; font-weight: 500; color: var(--ink-2);
+    padding: 8px 14px; border-radius: var(--r-pill); transition: background 140ms ease, color 140ms ease; }
+  .nav nav a:hover { background: var(--bg); color: var(--ink); }
+  .gh { background: var(--dark) !important; color: var(--dark-ink) !important; display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 16px !important; font-variant-numeric: tabular-nums; }
+  .gh:hover { background: #000 !important; }
+  .gh .star { color: #f5c542; }
+  @media (max-width: 760px) { .nav nav a.hide { display: none; } }
 
-  /* buttons */
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    border: 2px solid var(--ink); background: var(--paper-2); color: var(--ink);
-    padding: 12px 18px; font-family: var(--font-display); font-weight: 800;
-    font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
-    text-decoration: none; cursor: pointer; box-shadow: var(--shadow-hard);
-    transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
-  }
-  .btn:hover { transform: translate(2px, 2px); box-shadow: var(--shadow-hard-sm); color: var(--ink); }
-  .btn:active { transform: translate(5px, 5px); box-shadow: none; }
-  .btn-blue { background: var(--blue); color: var(--blue-ink); }
-  .btn-blue:hover { color: var(--blue-ink); }
-  .btn-lime { background: var(--lime); color: var(--ink); }
+  /* ---------- hero ---------- */
+  .hero { padding: 92px 0 40px; }
+  .hero .wrap { display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 56px; align-items: center; }
+  @media (max-width: 960px) { .hero .wrap { grid-template-columns: 1fr; gap: 64px; } }
+  .badge { display: inline-flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--r-pill); padding: 7px 16px; font-size: 13.5px; font-weight: 500; color: var(--ink-2);
+    box-shadow: var(--shadow-soft); text-decoration: none; }
+  .badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+  .hero h1 { font-size: clamp(56px, 7.2vw, 88px); font-weight: 700; letter-spacing: -0.045em; line-height: 1.0; margin: 26px 0 14px; }
+  .hero .sub { font-family: var(--serif); font-size: clamp(26px, 3vw, 34px); line-height: 1.22; color: var(--ink); margin: 0 0 14px; font-weight: 400; }
+  .tagline { color: var(--accent); font-weight: 600; font-size: 18px; margin: 0 0 14px; }
+  .hero .body { color: var(--ink-2); max-width: 34em; margin: 0 0 30px; }
+  .cmd { display: flex; align-items: center; background: var(--dark); color: var(--dark-ink);
+    border-radius: var(--r-md); box-shadow: var(--shadow-soft); max-width: 620px; overflow: hidden; }
+  .cmd code { flex: 1; font-family: var(--mono); font-size: 14px; padding: 16px 18px; white-space: nowrap; overflow-x: auto; }
+  .cmd code::before { content: "$ "; color: var(--muted); }
+  .cmd button { border: none; background: none; color: var(--dark-ink); font-family: var(--sans); font-weight: 600;
+    font-size: 13px; letter-spacing: 0.04em; padding: 16px 20px; cursor: pointer; opacity: 0.85; }
+  .cmd button:hover { opacity: 1; }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 600; font-size: 15px;
+    border-radius: var(--r-pill); padding: 13px 24px; transition: transform 140ms ease, box-shadow 140ms ease; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-dark { background: var(--dark); color: var(--dark-ink); box-shadow: var(--shadow-soft); }
+  .btn-light { background: var(--card); color: var(--ink); box-shadow: var(--shadow-soft); }
 
-  /* hero */
-  .hero { padding: 64px 0 48px; }
-  .hero .wrap { display: block; }
-  @media (max-width: 920px) { .hero .wrap { grid-template-columns: 1fr; } }
-  .sticker {
-    display: inline-block; font-family: var(--font-mono); font-size: 0.7rem;
-    font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 4px 10px; border: 2px solid var(--ink); box-shadow: var(--shadow-hard-sm);
+  /* floating film cards */
+  .stack { position: relative; min-height: 560px; }
+  .float { position: absolute; background: var(--card); border-radius: var(--r-lg); box-shadow: var(--shadow-float);
+    padding: 12px 12px 14px; cursor: pointer; transition: transform 220ms ease; margin: 0; }
+  .float video { display: block; width: 100%; border-radius: 12px; }
+  .float .meta { display: flex; justify-content: space-between; align-items: center; padding: 12px 6px 2px; }
+  .float .meta b { font-size: 14.5px; font-weight: 600; }
+  .float .play { display: inline-flex; align-items: center; gap: 7px; background: var(--bg); border-radius: var(--r-pill);
+    padding: 6px 13px; font-size: 12.5px; font-weight: 600; color: var(--ink); }
+  .float .play::before { content: "▶"; font-size: 9px; color: var(--accent); }
+  .float-a { width: 78%; top: 0; left: 0; transform: rotate(-2.4deg); z-index: 1; }
+  .float-b { width: 74%; bottom: 0; right: 0; transform: rotate(1.8deg); z-index: 2; }
+  .float:hover { transform: rotate(0deg) scale(1.02); z-index: 5; }
+  @media (max-width: 960px) {
+    .stack { min-height: 0; display: grid; gap: 24px; }
+    .float { position: static; width: 100% !important; transform: none !important; }
   }
-  .sticker-lime { background: var(--lime); transform: rotate(-1.5deg); }
-  .sticker-pink { background: var(--pink); color: var(--blue-ink); transform: rotate(1.4deg); }
-  .sticker-orange { background: var(--orange); transform: rotate(-1deg); }
-  .hero h1 { font-size: clamp(2.6rem, 6.2vw, 4.7rem); margin: 18px 0 16px; }
-  .hero h1 .hl { background: var(--lime); box-shadow: var(--shadow-hard-sm); padding: 0 8px; display: inline-block; border: 2px solid var(--ink); }
-  .hero p.lede { font-size: 1.12rem; max-width: 34em; margin: 0 0 22px; }
-  .hero p.lede b { color: var(--ink); }
-  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 22px; }
 
-  .heroduo { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .heroduo > div { position: relative; }
-  .tapename {
-    position: absolute; top: -15px; left: 16px; z-index: 3;
-    font-family: var(--font-mono); font-size: 12px; font-weight: 700;
-    letter-spacing: 0.12em; text-transform: uppercase; line-height: 1;
-    padding: 4px 14px; border: 2px solid var(--ink);
-    background: var(--lime); color: var(--ink);
-    box-shadow: var(--shadow-hard-sm); transform: rotate(-3deg);
-  }
-  .tapename.alt { left: auto; right: 14px; transform: rotate(2deg); background: var(--blue); color: var(--blue-ink); }
-  .thesis { font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); margin-top: 16px; }
-  .heroduo .cap { font-family: var(--font-mono); font-size: 11.5px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin-top: 12px; }
-  .media.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 580px; align-self: start; padding-top: 6px; }
-  .media.duo .vframe { box-shadow: var(--shadow-hard-sm); border-width: 2px; }
-  .media.duo .cap { font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin-top: 8px; }
-  @media (max-width: 860px) { .heroduo { grid-template-columns: 1fr; } }
+  /* ---------- sections ---------- */
+  section { padding: 110px 0 0; }
+  .h2 { font-size: clamp(38px, 5vw, 58px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.04; margin: 0 0 14px; }
+  .h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+  .lead { color: var(--ink-2); max-width: 36em; margin: 0; }
 
-  .hero-top { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: end; margin-bottom: 64px; }
-  @media (max-width: 900px) { .hero-top { grid-template-columns: 1fr; } }
-  .hero-side .lede { margin-top: 0; }
-  .filmdesk { display: grid; grid-template-columns: 1.04fr 0.96fr; align-items: start; }
-  @media (max-width: 900px) { .filmdesk { grid-template-columns: 1fr; gap: 40px; } .print-b { margin: 0 !important; } .print { transform: none !important; } }
-  .print { position: relative; margin: 0; cursor: pointer; transition: transform 180ms var(--ease-out); }
-  .print-a { transform: rotate(-1.4deg); z-index: 2; }
-  .print-b { transform: rotate(1.8deg); z-index: 3; margin-top: 46px; margin-left: -44px; }
-  .print:hover { transform: rotate(0deg) scale(1.015); z-index: 5; }
-  .print .vframe { border-width: 3px; }
-  .soundbadge {
-    position: absolute; right: 14px; bottom: 14px; z-index: 4;
-    font-family: var(--font-mono); font-size: 11px; font-weight: 700;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    background: var(--lime); color: var(--ink); border: 2px solid var(--ink);
-    padding: 6px 12px; box-shadow: var(--shadow-hard-sm);
-  }
-  .soundbadge.blue { background: var(--blue); color: var(--blue-ink); }
-  .print:hover .soundbadge { background: var(--paper-2); color: var(--ink); }
-  .print .cap { font-family: var(--font-mono); font-size: 11.5px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin-top: 14px; }
-  .thesis { text-align: center; margin-top: 44px; }
+  /* agents */
+  .agents { margin-top: 44px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media (max-width: 900px) { .agents { grid-template-columns: repeat(2, 1fr); } }
+  .agent { background: var(--card); border-radius: var(--r-md); box-shadow: var(--shadow-soft);
+    padding: 18px 20px; display: flex; align-items: baseline; gap: 14px; }
+  .agent .n { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .agent b { font-weight: 600; font-size: 15.5px; }
 
-  /* copy box */
-  .copybox {
-    display: flex; align-items: stretch; border: 2px solid var(--ink);
-    background: var(--graphite); color: var(--graphite-ink);
-    box-shadow: var(--shadow-hard); max-width: 620px;
-  }
-  .copybox code {
-    flex: 1; font-family: var(--font-mono); font-size: 0.78rem; padding: 13px 14px;
-    white-space: nowrap; overflow-x: auto;
-  }
-  .copybox button {
-    border: none; border-left: 2px solid var(--paper); background: var(--lime); color: var(--ink);
-    font-family: var(--font-display); font-weight: 800; font-size: 0.75rem;
-    letter-spacing: 0.06em; text-transform: uppercase; padding: 0 16px; cursor: pointer;
-  }
-  .copybox button:hover { background: var(--paper-2); }
+  /* films */
+  .films { margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  @media (max-width: 900px) { .films { grid-template-columns: 1fr; } }
+  .filmcard { background: var(--card); border-radius: var(--r-lg); box-shadow: var(--shadow-soft);
+    padding: 14px 14px 18px; cursor: pointer; transition: transform 180ms ease, box-shadow 180ms ease; }
+  .filmcard:hover { transform: translateY(-3px); box-shadow: var(--shadow-float); }
+  .filmcard video { display: block; width: 100%; border-radius: 12px; }
+  .filmcard .row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 8px 0; }
+  .filmcard .t b { font-size: 17px; font-weight: 600; display: block; }
+  .filmcard .t span { font-size: 13.5px; color: var(--muted); }
+  .watchpill { background: var(--dark); color: var(--dark-ink); border-radius: var(--r-pill); white-space: nowrap;
+    padding: 9px 18px; font-size: 13.5px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+  .watchpill::before { content: "▶"; font-size: 9px; color: var(--accent); }
 
-  /* video frames */
-  .vframe { position: relative; border: 3px solid var(--ink); box-shadow: var(--shadow-card); background: var(--ink); line-height: 0; }
-  .vframe video { width: 100%; height: auto; display: block; }
-  .step .media video { aspect-ratio: 16 / 9; object-fit: cover; height: auto; }
-  .tape {
-    position: absolute; width: 110px; height: 26px; background: var(--lime);
-    border: 2px solid var(--ink); opacity: 0.95; z-index: 2;
-    font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; display: flex; align-items: center; justify-content: center; color: var(--ink);
-  }
-  .tape-tl { top: -14px; left: 18px; transform: rotate(-4deg); }
-  .tape-br { bottom: -14px; right: 22px; transform: rotate(3deg); background: var(--pink); color: var(--blue-ink); }
-
-  /* sections */
-  section { padding: 72px 0 8px; }
-  .kick { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); }
-  section h2 { font-size: clamp(1.9rem, 4vw, 3rem); margin: 10px 0 14px; }
-  .sub { max-width: 44em; font-size: 1.05rem; }
-
-  /* what-it-is cards */
-  .cards3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 30px; }
-  @media (max-width: 860px) { .cards3 { grid-template-columns: 1fr; } }
-  .card {
-    border: 2px solid var(--ink); background: var(--paper-2); box-shadow: var(--shadow-card); padding: 22px;
-  }
-  .card h3 { font-size: 1.15rem; margin-bottom: 8px; }
-  .card p { margin: 8px 0 0; font-size: 0.95rem; }
-  .card .mono { color: var(--muted); }
-
-  /* steps */
-  .step {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 34px; align-items: start;
-    padding: 44px 0 48px; border-top: 3px solid var(--ink);
-  }
-  .step:first-of-type { border-top: none; }
-  @media (max-width: 860px) { .step { grid-template-columns: 1fr; } .step .media { order: -1; } }
-  .stepnum {
-    font-family: var(--font-display); font-weight: 800; font-size: 0.8rem;
-    background: var(--ink); color: var(--paper-2); display: inline-block; padding: 3px 10px;
-    letter-spacing: 0.08em;
-  }
-  .step h3 { font-size: 1.5rem; margin: 10px 0 8px; }
-  .step p { font-size: 0.98rem; margin: 8px 0; }
-  .prompt.master { max-width: 760px; margin: 26px 0 6px; }
-  .prompt.master .plabel { background: var(--lime); }
-  .prompt {
-    margin-top: 14px; border: 2px solid var(--ink); background: var(--paper-2);
-    box-shadow: var(--shadow-hard-sm);
-  }
-  .prompt .plabel {
-    display: flex; align-items: center; justify-content: space-between;
-    border-bottom: 2px solid var(--ink); padding: 6px 10px; background: var(--paper-3);
-  }
-  .prompt .plabel span { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
-  .prompt .plabel button {
-    border: 2px solid var(--ink); background: var(--lime); font-family: var(--font-display);
-    font-weight: 800; font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase;
-    padding: 3px 10px; cursor: pointer; box-shadow: 2px 2px 0 0 var(--ink);
-  }
-  .prompt .plabel button:active { transform: translate(2px,2px); box-shadow: none; }
-  .prompt pre {
-    margin: 0; padding: 12px 14px; font-family: var(--font-mono); font-size: 0.78rem;
-    line-height: 1.5; white-space: pre-wrap; color: var(--ink-2);
-  }
-  .media .vframe { max-width: 520px; }
-
-  /* install */
-  .install-box {
-    border: 3px solid var(--ink); background: var(--paper-2); box-shadow: var(--shadow-card);
-    padding: 30px; margin-top: 28px;
-  }
-  .install-box ol { padding-left: 22px; margin: 12px 0 0; }
-  .install-box li { margin: 10px 0; }
-  .install-box .copybox { margin: 10px 0; }
-  .agents { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  /* prompt */
+  .promptcard { margin-top: 48px; background: var(--dark); color: var(--dark-ink); border-radius: var(--r-lg);
+    box-shadow: var(--shadow-float); padding: 34px 36px; }
+  .promptcard .label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+  .promptcard .label span { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(244,241,234,0.55); }
+  .promptcard .label button { border: none; background: rgba(244,241,234,0.1); color: var(--dark-ink); border-radius: var(--r-pill);
+    padding: 9px 20px; font-family: var(--sans); font-weight: 600; font-size: 13.5px; cursor: pointer; }
+  .promptcard .label button:hover { background: rgba(244,241,234,0.2); }
+  .promptcard pre { margin: 0; font-family: var(--mono); font-size: 15px; line-height: 1.75; white-space: pre-wrap; color: var(--dark-ink); }
+  .asks { margin-top: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  @media (max-width: 900px) { .asks { grid-template-columns: 1fr; } }
+  .ask { background: var(--card); border-radius: var(--r-md); box-shadow: var(--shadow-soft); padding: 20px 22px; }
+  .ask .n { font-family: var(--mono); font-size: 12px; color: var(--accent); display: block; margin-bottom: 8px; }
+  .ask b { font-weight: 600; font-size: 15.5px; display: block; margin-bottom: 4px; }
+  .ask p { margin: 0; font-size: 14px; color: var(--ink-2); }
 
   /* footer */
-  footer { margin-top: 90px; border-top: 3px solid var(--ink); background: var(--graphite); color: var(--graphite-ink); }
-  footer .wrap { padding: 40px 24px 56px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; }
-  @media (max-width: 720px) { footer .wrap { grid-template-columns: 1fr; } }
-  footer h3 { color: var(--graphite-ink); font-size: 1.3rem; margin-bottom: 10px; }
-  footer a { color: var(--lime); }
-  footer p { font-size: 0.92rem; }
-  footer .mono { color: oklch(70% 0.02 102); }
-  .stampline {
-    font-family: var(--font-display); font-weight: 800; text-transform: uppercase;
-    letter-spacing: -0.02em; font-size: 0.95rem; display: inline-block;
-    border: 2px solid var(--lime); color: var(--lime); padding: 4px 12px; transform: rotate(-1.6deg); margin-top: 12px;
-  }
-  .watch { color: var(--blue); font-weight: 700; text-decoration-thickness: 1.5px; }
-  .watch:hover { color: var(--ink); }
-  .lb { position: fixed; inset: 0; z-index: 100; background: oklch(16% 0.02 80 / 0.88); display: flex; align-items: center; justify-content: center; padding: 4vmin; }
+  footer { margin-top: 130px; border-top: 1px solid var(--line); }
+  footer .wrap { padding: 44px 28px 64px; display: flex; justify-content: space-between; gap: 28px; flex-wrap: wrap; align-items: baseline; }
+  footer p { margin: 0; color: var(--muted); font-size: 14.5px; max-width: 44em; }
+  footer p a { color: var(--ink-2); }
+  footer nav { display: flex; gap: 22px; }
+  footer nav a { text-decoration: none; font-size: 14.5px; font-weight: 500; color: var(--ink-2); }
+  footer nav a:hover { color: var(--ink); }
+
+  /* lightbox */
+  .lb { position: fixed; inset: 0; z-index: 100; background: rgba(23,21,18,0.82); backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center; padding: 4vmin; }
   .lb[hidden] { display: none; }
-  .lb video { max-width: min(1280px, 92vw); max-height: 86vh; border: 3px solid var(--ink); background: #000; box-shadow: var(--shadow-hard); }
-  .lb-close {
-    position: absolute; top: 22px; right: 26px; border: 2px solid var(--ink);
-    background: var(--lime); color: var(--ink); font-family: var(--font-display);
-    font-weight: 800; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase;
-    padding: 8px 14px; cursor: pointer; box-shadow: var(--shadow-hard-sm);
-  }
-  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+  .lb video { max-width: min(1240px, 92vw); max-height: 86vh; border-radius: var(--r-lg); background: #000; box-shadow: var(--shadow-float); }
+  .lb-close { position: absolute; top: 24px; right: 28px; border: none; background: var(--card); color: var(--ink);
+    font-family: var(--sans); font-weight: 600; font-size: 14px; border-radius: var(--r-pill); padding: 11px 20px;
+    cursor: pointer; box-shadow: var(--shadow-soft); }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } html { scroll-behavior: auto; } }
 </style>
 </head>
 <body>
 
-<div class="bar">
+<div class="nav">
   <div class="wrap">
-    <a class="wordmark" href="#">Showreel</a>
-    <span class="barlabel">an agent skill · demo films from real code</span>
-    <nav>
-      <a href="#steps" class="hide-sm">Pipeline</a>
-      <a href="manual.html">Manual</a>
-      <a href="https://github.com/Anshgrover23/product-demo-playbook">GitHub ↗</a>
-    </nav>
+    <div class="pill">
+      <a class="brand" href="#"><span class="dot">▶</span><b>Showreel</b></a>
+    </div>
+    <div class="pill">
+      <nav>
+        <a href="#films" class="hide">Films</a>
+        <a href="#prompt" class="hide">Prompt</a>
+        <a href="manual.html">Manual</a>
+        <a class="gh" href="https://github.com/Anshgrover23/product-demo-playbook"><span class="star">★</span><span id="stars">GitHub</span></a>
+      </nav>
+    </div>
   </div>
 </div>
 
 <header class="hero">
   <div class="wrap">
-    <div class="hero-top">
-      <div>
-        <span class="sticker sticker-lime">Open source · works with any agent</span>
-        <h1>Your agent<br>makes your<br><span class="hl">demo video.</span></h1>
+    <div>
+      <a class="badge" href="https://github.com/Anshgrover23/product-demo-playbook/tree/main/examples/excalidraw">Second reference film just shipped</a>
+      <h1>Showreel</h1>
+      <p class="sub">The demo-video skill for AI&nbsp;agents</p>
+      <p class="tagline">Your agent makes the demo video.</p>
+      <p class="body">Open-source skill files that let Claude Code, Cursor, Codex, and any coding agent turn the repo you already have into a scored, captioned launch film, built from your real components.</p>
+      <div class="cmd">
+        <code id="install-cmd">npx skills add Anshgrover23/product-demo-playbook</code>
+        <button onclick="cp('install-cmd', this)">COPY</button>
       </div>
-      <div class="hero-side">
-        <p class="lede">Install one skill. Your coding agent turns the repo you already have into a <b>scored, captioned launch film</b>, the kind agencies charge <b>$5,000+</b> for.</p>
-        <div class="copybox">
-          <code id="install-cmd">npx skills add Anshgrover23/product-demo-playbook</code>
-          <button onclick="cp('install-cmd', this)">Copy</button>
-        </div>
+      <div class="cta-row">
+        <a class="btn btn-dark" href="#prompt">Get the starter prompt →</a>
+        <a class="btn btn-light" href="manual.html">Read the manual →</a>
       </div>
     </div>
-
-    <div class="filmdesk">
-      <figure class="print print-a" onclick="watch('assets/watch-vouch.mp4')">
-        <span class="tapename">Vouch</span>
-        <div class="vframe"><video src="assets/hero-demo-loop.mp4" autoplay muted loop playsinline></video></div>
-        <span class="soundbadge">▶ Watch</span>
+    <div class="stack">
+      <figure class="float float-a" onclick="watch('assets/watch-vouch.mp4')">
+        <video src="assets/hero-demo-loop.mp4" autoplay muted loop playsinline></video>
+        <div class="meta"><b>Vouch</b><span class="play">Watch</span></div>
       </figure>
-      <figure class="print print-b" onclick="watch('assets/watch-excalidraw.mp4')">
-        <span class="tapename alt">Excalidraw</span>
-        <div class="vframe"><video src="assets/hero-excalidraw-loop.mp4" autoplay muted loop playsinline></video></div>
-        <span class="soundbadge blue">▶ Watch</span>
+      <figure class="float float-b" onclick="watch('assets/watch-excalidraw.mp4')">
+        <video src="assets/hero-excalidraw-loop.mp4" autoplay muted loop playsinline></video>
+        <div class="meta"><b>Excalidraw</b><span class="play">Watch</span></div>
       </figure>
     </div>
   </div>
 </header>
 
-<section id="steps">
+<section id="agents">
   <div class="wrap">
-    <span class="kick">How it works</span>
-    <h2>One prompt. Your agent runs the rest.</h2>
-    <p class="sub">Paste it once. The agent makes the whole film and asks you in chat only when it needs you: a yes on the script, the voiceover audio, the music file.</p>
-    <div class="prompt master">
-      <div class="plabel"><span>The starter prompt · the only one you paste</span><button onclick="cpEl(this)">Copy</button></div>
+    <h2 class="h2">Works with <em>every</em> agent.</h2>
+    <p class="lead">One install. Any tool that reads SKILL.md files picks it up automatically.</p>
+    <div class="agents">
+      <div class="agent"><span class="n">01</span><b>Claude Code</b></div>
+      <div class="agent"><span class="n">02</span><b>Cursor</b></div>
+      <div class="agent"><span class="n">03</span><b>Codex</b></div>
+      <div class="agent"><span class="n">04</span><b>Gemini CLI</b></div>
+      <div class="agent"><span class="n">05</span><b>GitHub Copilot</b></div>
+      <div class="agent"><span class="n">06</span><b>Windsurf</b></div>
+      <div class="agent"><span class="n">07</span><b>OpenCode</b></div>
+      <div class="agent"><span class="n">08</span><b>Goose</b></div>
+    </div>
+  </div>
+</section>
+
+<section id="films">
+  <div class="wrap">
+    <h2 class="h2">Real components. <em>Zero</em> screenshots.</h2>
+    <p class="lead">Both films were made with this skill, from the products' actual code. Sound on.</p>
+    <div class="films">
+      <div class="filmcard" onclick="watch('assets/watch-vouch.mp4')">
+        <video src="assets/hero-demo-loop.mp4" autoplay muted loop playsinline></video>
+        <div class="row">
+          <div class="t"><b>Vouch</b><span>Receipt splitting, filmed on its own React components</span></div>
+          <span class="watchpill">Watch</span>
+        </div>
+      </div>
+      <div class="filmcard" onclick="watch('assets/watch-excalidraw.mp4')">
+        <video src="assets/hero-excalidraw-loop.mp4" autoplay muted loop playsinline></video>
+        <div class="row">
+          <div class="t"><b>Excalidraw</b><span>Filmed on the real npm component, start to finish</span></div>
+          <span class="watchpill">Watch</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="prompt">
+  <div class="wrap">
+    <h2 class="h2">One prompt. <em>Your agent</em> runs the rest.</h2>
+    <p class="lead">Paste it once. The agent makes the whole film and asks you in chat only when it needs you.</p>
+    <div class="promptcard">
+      <div class="label"><span>The starter prompt</span><button onclick="cpEl(this)">Copy</button></div>
       <pre>Use the product-demo skill to make a launch demo video for the app in this repo. Run the whole pipeline yourself, start to finish. Ask me in chat when you need something: script approval, the voiceover audio, the music file. Track progress in demo/PROGRESS.md so we can resume anytime.</pre>
     </div>
-
-
-
-
-
-
+    <div class="asks">
+      <div class="ask"><span class="n">Ask 01</span><b>A yes on the script</b><p>It shows you the scene table and voiceover before writing any code.</p></div>
+      <div class="ask"><span class="n">Ask 02</span><b>The voiceover audio</b><p>It writes the tagged block for MiniMax or ElevenLabs. You paste, it retimes every line to the frame.</p></div>
+      <div class="ask"><span class="n">Ask 03</span><b>The music file</b><p>It writes the generator prompt too, then mixes the track under the voice from its arrival point.</p></div>
+    </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <div>
-      <h3>Showreel</h3>
-      <p>Built by <a href="https://x.com/Anshgrover23">Ansh Grover</a>. The pipeline was extracted from shipping one real launch film, then proved on a second, unrelated product. Everything here was used in anger; the numbers, commands, and failures are real.</p>
-      <span class="stampline">Real UI. No screenshots.</span>
-    </div>
-    <div>
-      <p class="mono">Links</p>
-      <p>
-        <a href="https://github.com/Anshgrover23/product-demo-playbook">Skill + templates on GitHub</a><br>
-        <a href="manual.html">The full manual (worked example, troubleshooting, commands)</a><br>
-        <a href="https://github.com/Anshgrover23/vouch">Reference demo #1: Vouch source</a><br>
-        <a href="https://github.com/Anshgrover23/product-demo-playbook/tree/main/examples/excalidraw">Reference demo #2: Excalidraw example</a><br>
-        <a href="https://x.com/Anshgrover23">@Anshgrover23 on X</a><br>
-        <a href="https://github.com/Anshgrover23/product-demo-playbook/issues/new?title=Made%20with%20the%20skill">Shipped a demo with the skill? Show me →</a>
-      </p>
-    </div>
+    <p>Built by <a href="https://x.com/Anshgrover23">Ansh Grover</a>. Extracted from shipping one real launch film, proved on a second, unrelated product. The numbers, commands, and failures are real.</p>
+    <nav>
+      <a href="https://github.com/Anshgrover23/product-demo-playbook">GitHub</a>
+      <a href="manual.html">Manual</a>
+      <a href="https://github.com/Anshgrover23/product-demo-playbook/issues/new?title=Made%20with%20the%20skill">Shipped one?</a>
+      <a href="https://x.com/Anshgrover23">X</a>
+    </nav>
   </div>
 </footer>
-
-<script>
-function flash(btn){ const t = btn.textContent; btn.textContent = "Copied!"; setTimeout(()=>btn.textContent=t, 1200); }
-function cp(id, btn){ navigator.clipboard.writeText(document.getElementById(id).textContent.trim()).then(()=>flash(btn)); }
-function cpEl(btn){ const pre = btn.closest('.prompt').querySelector('pre'); navigator.clipboard.writeText(pre.textContent.trim()).then(()=>flash(btn)); }
-</script>
 
 <div class="lb" id="lb" hidden onclick="if (event.target === this) lbClose()">
   <button class="lb-close" onclick="lbClose()">Close ✕</button>
   <video id="lbv" controls playsinline preload="none"></video>
 </div>
+
 <script>
-function watch(src) {
-  const lb = document.getElementById("lb"), v = document.getElementById("lbv");
-  lb.hidden = false; v.src = src; v.play(); return false;
-}
-function lbClose() {
-  const lb = document.getElementById("lb"), v = document.getElementById("lbv");
-  v.pause(); v.removeAttribute("src"); v.load(); lb.hidden = true;
-}
+function flash(btn) { const t = btn.textContent; btn.textContent = "Copied"; setTimeout(() => btn.textContent = t, 1200); }
+function cp(id, btn) { navigator.clipboard.writeText(document.getElementById(id).textContent.trim()).then(() => flash(btn)); }
+function cpEl(btn) { const pre = btn.closest(".promptcard").querySelector("pre"); navigator.clipboard.writeText(pre.textContent.trim()).then(() => flash(btn)); }
+function watch(src) { const lb = document.getElementById("lb"), v = document.getElementById("lbv"); lb.hidden = false; v.src = src; v.play(); return false; }
+function lbClose() { const lb = document.getElementById("lb"), v = document.getElementById("lbv"); v.pause(); v.removeAttribute("src"); v.load(); lb.hidden = true; }
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") lbClose(); });
+fetch("https://api.github.com/repos/Anshgrover23/product-demo-playbook")
+  .then((r) => r.json())
+  .then((j) => { if (j.stargazers_count != null) document.getElementById("stars").textContent = j.stargazers_count.toLocaleString(); })
+  .catch(() => {});
 </script>
+
 </body>
 </html>
