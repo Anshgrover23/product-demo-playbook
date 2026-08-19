@@ -26,6 +26,24 @@ silence from 0:48.5 to end.
 If the voice tool supports tags, use them: pause tags to hit timecodes,
 emotion tags per line, sound-word tags where supported.
 
+## ElevenLabs specifics (if that is the voice tool)
+
+- Generate line by line, and pass `previousText` and `nextText` on every
+  request. The model then inflects each line as part of a continuous
+  thought instead of six isolated headlines:
+
+  ```js
+  await client.textToSpeech.convert(VOICE_ID, {
+    text: lines[i].text,
+    previousText: lines[i - 1]?.text,
+    nextText: lines[i + 1]?.text,
+  });
+  ```
+
+- Settings that fix robotic delivery: stability 0.55, style 0.2,
+  speed 1.0. If it still sounds rushed, lengthen the scene, not the
+  speed; robotic TTS is usually a pacing problem, not a voice problem.
+
 ## Fixing a slow, flat voice clone
 
 In order of impact:

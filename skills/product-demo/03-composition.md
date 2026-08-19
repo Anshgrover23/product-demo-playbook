@@ -22,6 +22,16 @@ OM_SCENES = [
 Scene code keys off derived offsets (`CUES.Witness + 2.1`), never absolute
 times, retiming a scene is editing one number.
 
+## Using Remotion instead
+
+Every rule here transfers to Remotion if you prefer it: the scene table
+becomes the config both Root.tsx and the timeline read (one source of
+truth, no frame math in components), captions render as components behind
+the same flag, and the motion rules stand. Remotion renders
+deterministically out of the box, so skip the renderer in 04 and use
+`npx remotion render`. The custom clock below is for filming components
+in a plain static page with no framework dependency.
+
 ## The seek contract
 
 Expose a synchronous seek: an event that sets `T` and commits via `flushSync`

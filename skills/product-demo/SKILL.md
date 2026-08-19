@@ -56,6 +56,17 @@ playwright frame renderer), `mix-audio.mjs` (cue-driven ffmpeg mixer),
 scripts). Copy them into a `demo/` directory in the target repo and adapt
 paths; each recipe says when.
 
+## Complementary skills
+
+If the target repo uses Remotion or ElevenLabs, install their official
+skills too; this skill covers the pipeline and taste, theirs cover their
+APIs:
+
+```sh
+npx skills add remotion-dev/skills
+npx skills add elevenlabs/skills
+```
+
 ## Reference output
 
 The Vouch demo (54.3s) was shipped with exactly this pipeline; the repo
