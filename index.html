@@ -6,7 +6,7 @@
 <title>Product Demo Skill by the creators of Vouch</title>
 <meta name="description" content="Your coding agent makes your product demo video. A skill for Claude Code, Cursor, and any AI agent: script, composition, frame-perfect recording, sound design, music. From the creators of Vouch. $0, open source.">
 <meta property="og:title" content="Showreel">
-<meta property="og:description" content="Agencies charge $5,000 to $15,000 for a product demo video. Your coding agent can make one from your repo for $0.">
+<meta property="og:description" content="Install one skill. Your coding agent turns your repo into a scored, captioned launch film.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -136,6 +136,28 @@
   .media.duo .vframe { box-shadow: var(--shadow-hard-sm); border-width: 2px; }
   .media.duo .cap { font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin-top: 8px; }
   @media (max-width: 860px) { .heroduo { grid-template-columns: 1fr; } }
+
+  .hero-top { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: end; margin-bottom: 56px; }
+  @media (max-width: 900px) { .hero-top { grid-template-columns: 1fr; } }
+  .hero-side .lede { margin-top: 0; }
+  .filmdesk { display: grid; grid-template-columns: 1.04fr 0.96fr; align-items: start; }
+  @media (max-width: 900px) { .filmdesk { grid-template-columns: 1fr; gap: 40px; } .print-b { margin: 0 !important; } .print { transform: none !important; } }
+  .print { position: relative; margin: 0; cursor: pointer; transition: transform 180ms var(--ease-out); }
+  .print-a { transform: rotate(-1.4deg); z-index: 2; }
+  .print-b { transform: rotate(1.8deg); z-index: 3; margin-top: 46px; margin-left: -44px; }
+  .print:hover { transform: rotate(0deg) scale(1.015); z-index: 5; }
+  .print .vframe { border-width: 3px; }
+  .soundbadge {
+    position: absolute; right: 14px; bottom: 44px; z-index: 4;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--lime); color: var(--ink); border: 2px solid var(--ink);
+    padding: 6px 12px; box-shadow: var(--shadow-hard-sm);
+  }
+  .soundbadge.blue { background: var(--blue); color: var(--blue-ink); }
+  .print:hover .soundbadge { background: var(--paper-2); color: var(--ink); }
+  .print .cap { font-family: var(--font-mono); font-size: 11.5px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin-top: 14px; }
+  .thesis { text-align: center; margin-top: 44px; }
 
   /* copy box */
   .copybox {
@@ -273,42 +295,43 @@
 
 <header class="hero">
   <div class="wrap">
-    <div>
-      <span class="sticker sticker-lime">$0 · open source · works with any agent</span>
-      <h1>Your agent<br>makes your<br><span class="hl">demo video.</span></h1>
-      <p class="lede">Install one skill. Your coding agent turns the repo you already have into a <b>scored, captioned launch film</b>, the kind agencies charge <b>$5,000+</b> for.</p>
-      <div class="copybox">
-        <code id="install-cmd">npx skills add Anshgrover23/product-demo-playbook</code>
-        <button onclick="cp('install-cmd', this)">Copy</button>
+    <div class="hero-top">
+      <div>
+        <span class="sticker sticker-lime">Open source · works with any agent</span>
+        <h1>Your agent<br>makes your<br><span class="hl">demo video.</span></h1>
       </div>
-    </div>
-    <div>
-      <div class="heroduo">
-        <div>
-          <span class="tapename">Vouch</span>
-          <div class="vframe" onclick="watch('assets/watch-vouch.mp4')" style="cursor: pointer;">
-            <video src="assets/hero-demo-loop.mp4" autoplay muted loop playsinline></video>
-          </div>
-          <div class="cap">54.3s · the original · $0 · <a class="watch" href="#" onclick="return watch('assets/watch-vouch.mp4')">▶ watch with sound</a></div>
-        </div>
-        <div>
-          <span class="tapename alt">Excalidraw</span>
-          <div class="vframe" onclick="watch('assets/watch-excalidraw.mp4')" style="cursor: pointer;">
-            <video src="assets/hero-excalidraw-loop.mp4" autoplay muted loop playsinline></video>
-          </div>
-          <div class="cap">35.5s · by the skill, start to finish · <a class="watch" href="#" onclick="return watch('assets/watch-excalidraw.mp4')">▶ watch with sound</a></div>
+      <div class="hero-side">
+        <p class="lede">Install one skill. Your coding agent turns the repo you already have into a <b>scored, captioned launch film</b>, the kind agencies charge <b>$5,000+</b> for.</p>
+        <div class="copybox">
+          <code id="install-cmd">npx skills add Anshgrover23/product-demo-playbook</code>
+          <button onclick="cp('install-cmd', this)">Copy</button>
         </div>
       </div>
-      <p class="thesis">Two products. Zero screenshots. Real components only.</p>
     </div>
+
+    <div class="filmdesk">
+      <figure class="print print-a" onclick="watch('assets/watch-vouch.mp4')">
+        <span class="tapename">Vouch</span>
+        <div class="vframe"><video src="assets/hero-demo-loop.mp4" autoplay muted loop playsinline></video></div>
+        <span class="soundbadge">▶ Watch with sound</span>
+        <figcaption class="cap">54.3s · the original</figcaption>
+      </figure>
+      <figure class="print print-b" onclick="watch('assets/watch-excalidraw.mp4')">
+        <span class="tapename alt">Excalidraw</span>
+        <div class="vframe"><video src="assets/hero-excalidraw-loop.mp4" autoplay muted loop playsinline></video></div>
+        <span class="soundbadge blue">▶ Watch with sound</span>
+        <figcaption class="cap">35.5s · by the skill, start to finish</figcaption>
+      </figure>
+    </div>
+    <p class="thesis">Two products. Zero screenshots. Real components only.</p>
   </div>
 </header>
 
 <section id="steps">
   <div class="wrap">
-    <span class="kick">The pipeline · what your agent does</span>
+    <span class="kick">How it works</span>
     <h2>One prompt. Your agent runs the rest.</h2>
-    <p class="sub">Paste the starter prompt once. The agent works all eight steps itself and asks you in chat when it needs something only you have: a yes on the script, the voiceover audio (it writes the tagged block for MiniMax or ElevenLabs), the music file (it writes that prompt too). The eight steps it works through, with every number and failure, live in <a href="manual.html">the manual</a>.</p>
+    <p class="sub">Paste the starter prompt once. The agent writes the film, builds it from your real components, records it frame-perfect, and scores it. It asks you in chat only when it needs something you have: a yes on the script, the voiceover audio (it writes the tagged block for MiniMax or ElevenLabs), the music file (it writes that prompt too). The full playbook it follows lives in <a href="manual.html">the manual</a>.</p>
     <div class="prompt master">
       <div class="plabel"><span>The starter prompt · the only one you paste</span><button onclick="cpEl(this)">Copy</button></div>
       <pre>Use the product-demo skill to make a launch demo video for the app in this repo. Run the whole pipeline yourself, start to finish. Ask me in chat when you need something: script approval, the voiceover audio, the music file. Track progress in demo/PROGRESS.md so we can resume anytime.</pre>
