@@ -222,20 +222,6 @@
   .install-box .copybox { margin: 10px 0; }
   .agents { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
 
-  /* gallery */
-  .gal { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 30px; }
-  @media (max-width: 860px) { .gal { grid-template-columns: 1fr; } }
-  .gal .slot {
-    border: 2px dashed oklch(16% 0.02 80 / 0.4); padding: 22px; display: flex;
-    flex-direction: column; align-items: center; justify-content: center; text-align: center;
-    min-height: 220px; color: var(--muted); background: oklch(99% 0.008 102 / 0.5);
-  }
-  .gal .card { padding: 0; overflow: hidden; }
-  .gal .card .vframe { border: none; box-shadow: none; }
-  .gal .card .meta { padding: 14px 16px; border-top: 2px solid var(--ink); }
-  .gal .card .meta h3 { font-size: 1rem; }
-  .gal .card .meta p { font-size: 0.85rem; margin: 4px 0 0; }
-
   /* footer */
   footer { margin-top: 90px; border-top: 3px solid var(--ink); background: var(--graphite); color: var(--graphite-ink); }
   footer .wrap { padding: 40px 24px 56px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; }
@@ -261,7 +247,6 @@
     <nav>
       <a href="#steps" class="hide-sm">Pipeline</a>
       <a href="#install">Install</a>
-      <a href="#gallery" class="hide-sm">Gallery</a>
       <a href="manual.html">Manual</a>
       <a href="https://github.com/Anshgrover23/product-demo-playbook">GitHub ↗</a>
     </nav>
@@ -439,25 +424,6 @@
   </div>
 </section>
 
-<section id="gallery">
-  <div class="wrap">
-    <span class="kick">Made with this</span>
-    <h2>The gallery</h2>
-    <p class="sub">Every demo shipped with the skill earns a slot. Made one? <a href="https://github.com/Anshgrover23/product-demo-playbook/issues/new?title=Gallery%20submission">Open an issue</a> with your video and repo link.</p>
-    <div class="gal">
-      <div class="card">
-        <div class="vframe"><video src="assets/clip-drop.mp4" autoplay muted loop playsinline></video></div>
-        <div class="meta">
-          <h3>Vouch</h3>
-          <p>The reference: 54.3s, 6 scenes, 10 sound cues, $0. <a href="https://vouch.anshgrover.com">vouch.anshgrover.com</a> · <a href="https://github.com/Anshgrover23/vouch">source ↗</a></p>
-        </div>
-      </div>
-      <div class="slot"><span class="mono">Your demo here</span><p style="font-size:0.85rem">Ship one with the skill and PR the gallery.</p></div>
-      <div class="slot"><span class="mono">Your demo here</span><p style="font-size:0.85rem">Ship one with the skill and PR the gallery.</p></div>
-    </div>
-  </div>
-</section>
-
 <footer>
   <div class="wrap">
     <div>
@@ -471,7 +437,8 @@
         <a href="https://github.com/Anshgrover23/product-demo-playbook">Skill + templates on GitHub</a><br>
         <a href="manual.html">The full manual (worked example, troubleshooting, commands)</a><br>
         <a href="https://github.com/Anshgrover23/vouch">Vouch source — the reference demo/ directory</a><br>
-        <a href="https://x.com/Anshgrover23">@Anshgrover23 on X</a>
+        <a href="https://x.com/Anshgrover23">@Anshgrover23 on X</a><br>
+        <a href="https://github.com/Anshgrover23/product-demo-playbook/issues/new?title=Made%20with%20the%20skill">Shipped a demo with the skill? Show me →</a>
       </p>
     </div>
   </div>
