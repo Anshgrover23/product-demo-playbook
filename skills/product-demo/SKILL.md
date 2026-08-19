@@ -1,6 +1,6 @@
 ---
 name: product-demo
-description: Make a YC-grade product demo video (45-60s) from the real app code in a repo, script, animated composition, frame-perfect recording, captions, AI voiceover plan, self-scoring sound design, and music mixing. Use when the user asks to "make a product demo", "demo video for my app", "launch video", "promo video from my code", "record my app for a demo", "add sound to my demo", "fix stutter in my screen recording", or wants captions/voiceover/SFX/music for a product video. Built by the creators of Vouch (vouch.anshgrover.com); the Vouch demo is the reference output.
+description: Make a YC-grade product demo video (45-60s) from the real app code in a repo, script, animated composition, frame-perfect recording, captions, AI voiceover plan, self-scoring sound design, and music mixing. Use when the user asks to "make a product demo", "demo video for my app", "launch video", "promo video from my code", "record my app for a demo", "add sound to my demo", "fix stutter in my screen recording", or wants captions/voiceover/SFX/music for a product video. Part of Showreel; reference outputs are the Vouch and Excalidraw demos.
 ---
 
 # Product Demo

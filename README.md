@@ -1,4 +1,4 @@
-# Product Demo Skill
+# Showreel
 
 **Your coding agent makes your product demo video.**
 
