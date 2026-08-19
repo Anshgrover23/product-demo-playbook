@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Product Demo Skill — by the creators of Vouch</title>
-<meta name="description" content="Your coding agent makes your product demo video. A skill for Claude Code, Cursor, and any AI agent: script, composition, frame-perfect recording, sound design, music. From the creators of Vouch. $0, open source.">
+<title>Product Demo Skill — a Vouch project</title>
+<meta name="description" content="A product demo pipeline packaged as a skill for coding agents. Claude Code, Cursor, or any agent renders a scored, captioned launch film from the components already in your repo. $0, runs locally.">
 <meta property="og:title" content="Product Demo Skill">
-<meta property="og:description" content="Agencies charge $5,000–$15,000 for a product demo video. Your coding agent can make one from your repo for $0.">
+<meta property="og:description" content="Your coding agent renders a scored, captioned product demo from your repo. $0, runs locally.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --paper: oklch(96.2% 0.012 102);
@@ -17,25 +17,24 @@
     --paper-3: oklch(93% 0.014 102);
     --ink: oklch(16% 0.02 80);
     --ink-2: oklch(28% 0.02 80);
-    --muted: oklch(42% 0.014 80);
+    --muted: oklch(45% 0.014 80);
+    --faint: oklch(16% 0.02 80 / 0.16);
+    --hair: oklch(16% 0.02 80 / 0.28);
     --lime: oklch(94% 0.21 122);
     --blue: oklch(52% 0.27 270);
     --blue-ink: oklch(98% 0.01 102);
-    --pink: oklch(65% 0.24 12);
-    --orange: oklch(70% 0.2 50);
     --graphite: oklch(14% 0.012 80);
     --graphite-ink: oklch(96% 0.01 102);
-    --grid-line: oklch(16% 0.02 80 / 0.07);
-    --font-display: "Bricolage Grotesque", sans-serif;
-    --font-body: "Geist", sans-serif;
-    --font-mono: "Geist Mono", ui-monospace, monospace;
-    --shadow-hard: 5px 5px 0 0 var(--ink);
-    --shadow-hard-sm: 3px 3px 0 0 var(--ink);
-    --shadow-card: 6px 6px 0 0 var(--ink);
-    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-    --dur: 140ms;
+    --grid-line: oklch(16% 0.02 80 / 0.055);
+    --display: "Bricolage Grotesque", sans-serif;
+    --body: "Geist", sans-serif;
+    --mono: "Geist Mono", ui-monospace, monospace;
+    --shadow: 5px 5px 0 0 var(--ink);
+    --shadow-sm: 3px 3px 0 0 var(--ink);
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   html, body { overflow-x: clip; }
   body {
     margin: 0;
@@ -45,380 +44,355 @@
       linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 28px 28px;
     color: var(--ink-2);
-    font-family: var(--font-body);
-    font-size: 16.5px;
+    font-family: var(--body);
+    font-size: 16px;
     line-height: 1.55;
   }
-  h1, h2, h3 {
-    font-family: var(--font-display);
+  ::selection { background: var(--lime); }
+  h1, h2 {
+    font-family: var(--display);
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.035em;
     color: var(--ink);
-    line-height: 0.95;
+    line-height: 0.94;
     margin: 0;
   }
-  a { color: var(--ink); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  a { color: var(--ink); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
   a:hover { color: var(--blue); }
-  .mono {
-    font-family: var(--font-mono); letter-spacing: 0.08em;
-    text-transform: uppercase; font-size: 0.72rem; font-weight: 500;
-  }
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  :focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; }
+  .mono { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.07em; text-transform: uppercase; font-weight: 500; }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 28px; }
 
-  /* top bar */
-  .bar {
-    display: flex; align-items: center; gap: 14px;
-    padding: 14px 0; border-bottom: 2px solid var(--ink);
-    background: var(--paper-2);
-  }
-  .bar .wrap { display: flex; align-items: center; gap: 14px; width: 100%; }
-  .wordmark {
-    font-family: var(--font-display); font-weight: 800; font-size: 1.05rem;
-    letter-spacing: -0.02em; text-transform: uppercase; text-decoration: none;
-    background: var(--blue); color: var(--blue-ink);
-    padding: 4px 10px; border: 2px solid var(--ink); box-shadow: var(--shadow-hard-sm);
-    transform: rotate(-1.2deg);
-  }
-  .barlabel { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-  .bar nav { margin-left: auto; display: flex; gap: 18px; align-items: center; }
-  .bar nav a { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-bottom: 2px solid transparent; }
-  .bar nav a:hover { border-color: var(--blue); }
-  @media (max-width: 720px) { .bar nav a.hide-sm { display: none; } }
+  /* ---- nav ---- */
+  .nav { border-bottom: 1px solid var(--hair); background: color-mix(in oklch, var(--paper-2) 88%, transparent); backdrop-filter: blur(4px); position: sticky; top: 0; z-index: 10; }
+  .nav .wrap { display: flex; align-items: baseline; gap: 10px; padding-top: 15px; padding-bottom: 15px; }
+  .nav .mark { font-family: var(--display); font-weight: 800; font-size: 0.95rem; text-transform: uppercase; letter-spacing: -0.01em; text-decoration: none; color: var(--blue); }
+  .nav .sep { color: var(--faint); }
+  .nav .proj { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+  .nav nav { margin-left: auto; display: flex; gap: 22px; }
+  .nav nav a { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.07em; text-transform: uppercase; text-decoration: none; color: var(--ink-2); }
+  .nav nav a:hover { color: var(--blue); }
+  @media (max-width: 700px) { .nav .proj, .nav nav a.xs { display: none; } }
 
-  /* buttons */
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    border: 2px solid var(--ink); background: var(--paper-2); color: var(--ink);
-    padding: 12px 18px; font-family: var(--font-display); font-weight: 800;
-    font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
-    text-decoration: none; cursor: pointer; box-shadow: var(--shadow-hard);
-    transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
-  }
-  .btn:hover { transform: translate(2px, 2px); box-shadow: var(--shadow-hard-sm); color: var(--ink); }
-  .btn:active { transform: translate(5px, 5px); box-shadow: none; }
-  .btn-blue { background: var(--blue); color: var(--blue-ink); }
-  .btn-blue:hover { color: var(--blue-ink); }
-  .btn-lime { background: var(--lime); color: var(--ink); }
+  /* ---- hero ---- */
+  .hero { padding: 84px 0 0; }
+  .hero .grid { display: grid; grid-template-columns: 6fr 5fr; gap: 56px; align-items: start; }
+  @media (max-width: 900px) { .hero .grid { grid-template-columns: 1fr; } }
+  .eyebrow { display: flex; align-items: center; gap: 8px; color: var(--muted); }
+  .eyebrow::before { content: ""; width: 10px; height: 10px; background: var(--blue); display: inline-block; }
+  .hero h1 { font-size: clamp(2.7rem, 5.6vw, 4.3rem); margin: 20px 0 20px; max-width: 11em; }
+  .hero .lede { font-size: 1.05rem; max-width: 33em; margin: 0 0 12px; }
+  .hero .lede b { color: var(--ink); font-weight: 600; }
+  .hero .fine { font-size: 0.86rem; color: var(--muted); max-width: 36em; margin: 0 0 26px; }
 
-  /* hero */
-  .hero { padding: 64px 0 48px; }
-  .hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; }
-  @media (max-width: 920px) { .hero .wrap { grid-template-columns: 1fr; } }
-  .sticker {
-    display: inline-block; font-family: var(--font-mono); font-size: 0.7rem;
-    font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 4px 10px; border: 2px solid var(--ink); box-shadow: var(--shadow-hard-sm);
-  }
-  .sticker-lime { background: var(--lime); transform: rotate(-1.5deg); }
-  .sticker-pink { background: var(--pink); color: var(--blue-ink); transform: rotate(1.4deg); }
-  .sticker-orange { background: var(--orange); transform: rotate(-1deg); }
-  .hero h1 { font-size: clamp(2.6rem, 6.2vw, 4.7rem); margin: 18px 0 16px; }
-  .hero h1 .hl { background: var(--lime); box-shadow: var(--shadow-hard-sm); padding: 0 8px; display: inline-block; border: 2px solid var(--ink); }
-  .hero p.lede { font-size: 1.12rem; max-width: 34em; margin: 0 0 22px; }
-  .hero p.lede b { color: var(--ink); }
-  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 22px; }
-
-  /* copy box */
-  .copybox {
+  .cmd {
     display: flex; align-items: stretch; border: 2px solid var(--ink);
     background: var(--graphite); color: var(--graphite-ink);
-    box-shadow: var(--shadow-hard); max-width: 620px;
+    box-shadow: var(--shadow); max-width: 640px;
   }
-  .copybox code {
-    flex: 1; font-family: var(--font-mono); font-size: 0.78rem; padding: 13px 14px;
-    white-space: nowrap; overflow-x: auto;
+  .cmd code { flex: 1; font-family: var(--mono); font-size: 0.76rem; padding: 13px 14px; white-space: nowrap; overflow-x: auto; }
+  .cmd code::before { content: "$ "; color: oklch(70% 0.15 122); }
+  .cmd button {
+    border: none; border-left: 2px solid var(--ink); background: var(--lime); color: var(--ink);
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.07em; text-transform: uppercase;
+    font-weight: 500; padding: 0 16px; cursor: pointer;
   }
-  .copybox button {
-    border: none; border-left: 2px solid var(--paper); background: var(--lime); color: var(--ink);
-    font-family: var(--font-display); font-weight: 800; font-size: 0.75rem;
-    letter-spacing: 0.06em; text-transform: uppercase; padding: 0 16px; cursor: pointer;
-  }
-  .copybox button:hover { background: var(--paper-2); }
+  .cmd button:hover { background: var(--paper-2); }
+  .hero .after { margin-top: 12px; font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+  .hero .after a { color: var(--muted); }
 
-  /* video frames */
-  .vframe { position: relative; border: 3px solid var(--ink); box-shadow: var(--shadow-card); background: var(--ink); line-height: 0; }
-  .vframe video { width: 100%; height: auto; display: block; }
-  .tape {
-    position: absolute; width: 110px; height: 26px; background: var(--lime);
-    border: 2px solid var(--ink); opacity: 0.95; z-index: 2;
-    font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; display: flex; align-items: center; justify-content: center; color: var(--ink);
+  figure { margin: 0; }
+  .film { border: 3px solid var(--ink); box-shadow: var(--shadow); background: var(--ink); line-height: 0; }
+  .film video { width: 100%; height: auto; display: block; }
+  .filmcap {
+    padding: 10px 2px 0; display: flex; justify-content: space-between; gap: 12px; line-height: 1.5;
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
   }
-  .tape-tl { top: -14px; left: 18px; transform: rotate(-4deg); }
-  .tape-br { bottom: -14px; right: 22px; transform: rotate(3deg); background: var(--pink); color: var(--blue-ink); }
+  .filmcap a { color: var(--ink); }
 
-  /* ticker */
-  .ticker {
-    border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink);
-    background: var(--lime); overflow: hidden; padding: 10px 0; margin: 26px 0 0;
-  }
-  .ticker-inner {
-    display: flex; gap: 42px; white-space: nowrap; width: max-content;
-    font-family: var(--font-display); font-weight: 800; font-size: 0.95rem;
-    letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink);
-    animation: tick 26s linear infinite;
-  }
-  @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  /* ---- spec strip ---- */
+  .spec { margin-top: 72px; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+  .spec dl { margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 820px) { .spec dl { grid-template-columns: repeat(2, 1fr); } }
+  .spec .cell { padding: 18px; border-left: 1px solid var(--hair); }
+  .spec .cell:first-child { border-left: none; padding-left: 0; }
+  @media (max-width: 820px) { .spec .cell:nth-child(3) { border-left: none; padding-left: 0; } }
+  .spec dt { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); margin: 0 0 4px; }
+  .spec dd { margin: 0; font-family: var(--mono); font-size: 0.82rem; color: var(--ink); }
 
-  /* sections */
-  section { padding: 72px 0 8px; }
-  .kick { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); }
-  section h2 { font-size: clamp(1.9rem, 4vw, 3rem); margin: 10px 0 14px; }
-  .sub { max-width: 44em; font-size: 1.05rem; }
+  /* ---- sections ---- */
+  section { padding-top: 96px; }
+  .shead { display: grid; grid-template-columns: 160px 1fr; gap: 24px; align-items: baseline; }
+  @media (max-width: 700px) { .shead { grid-template-columns: 1fr; gap: 6px; } }
+  .shead .idx { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); }
+  .shead h2 { font-size: clamp(1.7rem, 3.4vw, 2.5rem); }
+  .lead-grid { display: grid; grid-template-columns: 160px 1fr; gap: 24px; margin-top: 12px; }
+  @media (max-width: 700px) { .lead-grid { grid-template-columns: 1fr; } }
+  .intro { max-width: 42em; margin: 0; }
+  .intro em { font-style: italic; }
+  code.tt, .step p code, .intro code, .ships p code { font-family: var(--mono); font-size: 0.82em; background: var(--paper-3); padding: 1px 5px; border: 1px solid var(--faint); }
 
-  /* what-it-is cards */
-  .cards3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 30px; }
-  @media (max-width: 860px) { .cards3 { grid-template-columns: 1fr; } }
-  .card {
-    border: 2px solid var(--ink); background: var(--paper-2); box-shadow: var(--shadow-card); padding: 22px;
-  }
-  .card h3 { font-size: 1.15rem; margin-bottom: 8px; }
-  .card p { margin: 8px 0 0; font-size: 0.95rem; }
-  .card .mono { color: var(--muted); }
+  /* ships table */
+  .ships { margin-top: 34px; border-top: 1px solid var(--hair); }
+  .ships .row { display: grid; grid-template-columns: 160px 200px 1fr; gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--hair); }
+  @media (max-width: 820px) { .ships .row { grid-template-columns: 1fr; gap: 6px; } }
+  .ships .path { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+  .ships h3 { font-family: var(--body); font-weight: 600; font-size: 0.95rem; color: var(--ink); margin: 0; }
+  .ships p { margin: 0; font-size: 0.92rem; max-width: 44em; }
 
-  /* steps */
-  .step {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 34px; align-items: center;
-    padding: 34px 0; border-top: 2px dashed oklch(16% 0.02 80 / 0.25);
-  }
-  .step:first-of-type { border-top: none; }
-  @media (max-width: 860px) { .step { grid-template-columns: 1fr; } .step .media { order: -1; } }
-  .stepnum {
-    font-family: var(--font-display); font-weight: 800; font-size: 0.8rem;
-    background: var(--ink); color: var(--paper-2); display: inline-block; padding: 3px 10px;
-    letter-spacing: 0.08em;
-  }
-  .step h3 { font-size: 1.5rem; margin: 10px 0 8px; }
-  .step p { font-size: 0.98rem; margin: 8px 0; }
-  .prompt {
-    margin-top: 14px; border: 2px solid var(--ink); background: var(--paper-2);
-    box-shadow: var(--shadow-hard-sm);
-  }
-  .prompt .plabel {
-    display: flex; align-items: center; justify-content: space-between;
-    border-bottom: 2px solid var(--ink); padding: 6px 10px; background: var(--paper-3);
-  }
-  .prompt .plabel span { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
-  .prompt .plabel button {
-    border: 2px solid var(--ink); background: var(--lime); font-family: var(--font-display);
-    font-weight: 800; font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase;
-    padding: 3px 10px; cursor: pointer; box-shadow: 2px 2px 0 0 var(--ink);
-  }
-  .prompt .plabel button:active { transform: translate(2px,2px); box-shadow: none; }
-  .prompt pre {
-    margin: 0; padding: 12px 14px; font-family: var(--font-mono); font-size: 0.78rem;
-    line-height: 1.5; white-space: pre-wrap; color: var(--ink-2);
-  }
-  .media .vframe { max-width: 520px; }
+  /* ---- pipeline ---- */
+  .steps { margin-top: 40px; border-top: 1px solid var(--hair); }
+  .step { display: grid; grid-template-columns: 56px 1fr 300px; gap: 28px; padding: 30px 0 34px; border-bottom: 1px solid var(--hair); }
+  @media (max-width: 880px) { .step { grid-template-columns: 40px 1fr; } .step .thumb { grid-column: 2; max-width: 380px; } }
+  .step .n { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); padding-top: 4px; }
+  .step h3 { font-family: var(--display); font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; font-size: 1.14rem; color: var(--ink); margin: 0 0 8px; }
+  .step .ref { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-left: 10px; font-weight: 400; }
+  .step p { margin: 0 0 14px; font-size: 0.94rem; max-width: 40em; }
 
-  /* install */
-  .install-box {
-    border: 3px solid var(--ink); background: var(--paper-2); box-shadow: var(--shadow-card);
-    padding: 30px; margin-top: 28px;
-  }
-  .install-box ol { padding-left: 22px; margin: 12px 0 0; }
-  .install-box li { margin: 10px 0; }
-  .install-box .copybox { margin: 10px 0; }
-  .agents { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .prompt { border: 1px solid var(--hair); background: var(--paper-2); max-width: 560px; }
+  .prompt .head { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; border-bottom: 1px solid var(--hair); }
+  .prompt .head span { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); }
+  .prompt .head button { border: none; background: none; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--blue); cursor: pointer; padding: 2px 4px; }
+  .prompt .head button:hover { text-decoration: underline; }
+  .prompt pre { margin: 0; padding: 10px 12px; font-family: var(--mono); font-size: 0.74rem; line-height: 1.55; white-space: pre-wrap; color: var(--ink-2); }
 
-  /* footer */
-  footer { margin-top: 90px; border-top: 3px solid var(--ink); background: var(--graphite); color: var(--graphite-ink); }
-  footer .wrap { padding: 40px 24px 56px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; }
-  @media (max-width: 720px) { footer .wrap { grid-template-columns: 1fr; } }
-  footer h3 { color: var(--graphite-ink); font-size: 1.3rem; margin-bottom: 10px; }
-  footer a { color: var(--lime); }
-  footer p { font-size: 0.92rem; }
-  footer .mono { color: oklch(70% 0.02 102); }
-  .stampline {
-    font-family: var(--font-display); font-weight: 800; text-transform: uppercase;
-    letter-spacing: -0.02em; font-size: 0.95rem; display: inline-block;
-    border: 2px solid var(--lime); color: var(--lime); padding: 4px 12px; transform: rotate(-1.6deg); margin-top: 12px;
+  .thumb { border: 2px solid var(--ink); background: var(--ink); line-height: 0; align-self: start; }
+  .thumb video { width: 100%; height: auto; display: block; }
+
+  /* ---- install ---- */
+  .install-grid { margin-top: 36px; display: grid; grid-template-columns: 160px 1fr; gap: 24px; }
+  @media (max-width: 700px) { .install-grid { grid-template-columns: 1fr; } }
+  .install-steps { border-top: 1px solid var(--hair); }
+  .irow { display: grid; grid-template-columns: 56px 1fr; gap: 28px; padding: 22px 0; border-bottom: 1px solid var(--hair); }
+  .irow .n { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); }
+  .irow p { margin: 0 0 10px; font-size: 0.94rem; }
+  .irow .cmd { box-shadow: none; border-width: 1.5px; max-width: 720px; }
+  .irow .note { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.05em; color: var(--muted); margin: 8px 0 0; }
+
+  /* ---- footer ---- */
+  footer { margin-top: 110px; border-top: 3px solid var(--ink); background: var(--graphite); color: var(--graphite-ink); }
+  footer .wrap { padding: 46px 28px 60px; display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 36px; }
+  @media (max-width: 820px) { footer .wrap { grid-template-columns: 1fr; } }
+  footer .mono { color: oklch(62% 0.02 102); margin-bottom: 12px; display: block; }
+  footer p { font-size: 0.88rem; margin: 0 0 8px; line-height: 1.6; }
+  footer a { color: var(--graphite-ink); text-decoration-color: oklch(50% 0.02 102); }
+  footer a:hover { color: var(--lime); }
+  footer .colophon { color: oklch(62% 0.02 102); font-size: 0.8rem; }
+  footer .stamp {
+    display: inline-block; margin-top: 16px; padding: 3px 10px;
+    border: 1.5px solid var(--lime); color: var(--lime);
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase;
   }
-  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } html { scroll-behavior: auto; } }
 </style>
 </head>
 <body>
 
-<div class="bar">
+<div class="nav">
   <div class="wrap">
-    <a class="wordmark" href="https://vouch.anshgrover.com">Vouch</a>
-    <span class="barlabel">presents · product demo skill</span>
+    <a class="mark" href="https://vouch.anshgrover.com">Vouch</a>
+    <span class="sep">/</span>
+    <span class="proj">product-demo-skill</span>
     <nav>
-      <a href="#steps" class="hide-sm">Pipeline</a>
+      <a href="#ships" class="xs">Contents</a>
+      <a href="#pipeline">Pipeline</a>
       <a href="#install">Install</a>
       <a href="manual.html">Manual</a>
-      <a href="https://github.com/Anshgrover23/product-demo-playbook">GitHub ↗</a>
+      <a href="https://github.com/Anshgrover23/product-demo-playbook">GitHub</a>
     </nav>
   </div>
 </div>
 
 <header class="hero">
-  <div class="wrap">
+  <div class="wrap grid">
     <div>
-      <span class="sticker sticker-lime">A Vouch project</span>
-      <span class="sticker sticker-pink">$0 · open source</span>
-      <h1>Your agent<br>makes your<br><span class="hl">demo video.</span></h1>
-      <p class="lede">Agencies charge <b>$5,000–$15,000</b> for a 60-second product demo. This is a skill for Claude Code, Cursor, and any coding agent that makes one <b>from your repo, on your machine, for $0</b> — script, animation, frame-perfect recording, sound design, music. Everything on this page was made with it.</p>
-      <div class="copybox">
+      <span class="mono eyebrow">A Vouch project · skill for coding agents</span>
+      <h1>Your agent makes the demo video.</h1>
+      <p class="lede">A product demo pipeline packaged as an agent skill. Claude&nbsp;Code, Cursor, or any agent that reads instructions renders a <b>scored, captioned launch film</b> from the components already in your repo.</p>
+      <p class="fine">The going agency rate for the same sixty seconds is $5,000–15,000. This runs on your machine, from your code, for the cost of nothing.</p>
+      <div class="cmd">
         <code id="install-cmd">npx degit Anshgrover23/product-demo-playbook/skills/product-demo .claude/skills/product-demo</code>
-        <button onclick="cp('install-cmd', this)">Copy</button>
+        <button onclick="cp('install-cmd', this)">copy</button>
       </div>
-      <div class="cta-row">
-        <a class="btn btn-blue" href="#install">Install the skill</a>
-        <a class="btn btn-lime" href="#steps">See the pipeline</a>
-        <a class="btn" href="manual.html">Read the manual</a>
-      </div>
+      <p class="after">then ask: “make a product demo for this app” · <a href="#install">details</a></p>
     </div>
-    <div>
-      <div class="vframe">
-        <div class="tape tape-tl">reference cut</div>
+    <figure>
+      <div class="film">
         <video src="assets/hero-demo-loop.mp4" autoplay muted loop playsinline></video>
-        <div class="tape tape-br">54.3s · $0</div>
       </div>
-      <p class="mono" style="margin-top:14px; color: var(--muted);">The Vouch demo — rendered, captioned, and scored entirely by this pipeline. <a href="https://x.com/Anshgrover23/status/2089328367413969208">Watch with sound ↗</a></p>
+      <figcaption class="filmcap">
+        <span>Reference cut — Vouch, 54.3s, rendered by this pipeline</span>
+        <span><a href="https://x.com/Anshgrover23/status/2089328367413969208">with sound ↗</a></span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <div class="spec">
+    <div class="wrap">
+      <dl>
+        <div class="cell" style="padding-left:0"><dt>Output</dt><dd>2560×1440 · 60 fps · H.264</dd></div>
+        <div class="cell"><dt>Cost</dt><dd>$0.00 · renders locally</dd></div>
+        <div class="cell"><dt>Stack</dt><dd>node · playwright · ffmpeg</dd></div>
+        <div class="cell"><dt>License</dt><dd>open source</dd></div>
+      </dl>
     </div>
   </div>
 </header>
 
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-inner">
-    <span>Script ✶ Composition ✶ Record ✶ Captions ✶ Sound ✶ Music ✶ Ship ✶&nbsp;</span>
-    <span>Script ✶ Composition ✶ Record ✶ Captions ✶ Sound ✶ Music ✶ Ship ✶&nbsp;</span>
-  </div>
-</div>
-
-<section id="what">
+<section id="ships">
   <div class="wrap">
-    <span class="kick">What you actually get</span>
-    <h2>A folder your agent knows how to use</h2>
-    <p class="sub">Not a SaaS, not a template store. One skill folder — instructions, decision rules, and working scripts — that turns "make me a product demo" into a repeatable engineering pipeline your agent executes locally.</p>
-    <div class="cards3">
-      <div class="card">
-        <span class="mono">skills/product-demo/</span>
-        <h3>The Skill</h3>
-        <p>SKILL.md plus 8 recipe files — the full pipeline as agent instructions with decision rules and non-negotiables ("nothing fades", "honest data", "never screen-record").</p>
+    <div class="shead">
+      <span class="idx">01 — Contents</span>
+      <h2>What ships</h2>
+    </div>
+    <div class="lead-grid">
+      <span></span>
+      <p class="intro">Not a SaaS and not a template store. One folder of instructions, decision rules, and working scripts. The skill encodes the judgment — <em>nothing fades, honest data, never screen-record, no sound beats a forced sound</em> — and the scripts do the labor.</p>
+    </div>
+    <div class="ships">
+      <div class="row">
+        <span class="path">skills/product-demo/</span>
+        <h3>The skill</h3>
+        <p>SKILL.md and eight recipe files: the full pipeline as agent instructions, with decision rules for entering at any step — no script yet, footage that stutters, sound that buries.</p>
       </div>
-      <div class="card">
-        <span class="mono">templates/</span>
+      <div class="row">
+        <span class="path">templates/</span>
         <h3>Working scripts</h3>
-        <p><code>record.mjs</code> — the deterministic playwright frame renderer. <code>mix-audio.mjs</code> — the cue-driven ffmpeg auto-mixer. <code>sfx-cues.example.json</code> — a real 10-cue score. All shipped from a real launch.</p>
+        <p><code>record.mjs</code>, the deterministic Playwright frame renderer. <code>mix-audio.mjs</code>, the cue-driven ffmpeg mixer. <code>sfx-cues.example.json</code>, a real ten-cue score. Lifted from a shipped launch, not written for this page.</p>
       </div>
-      <div class="card">
-        <span class="mono">manual.html</span>
-        <h3>The Manual</h3>
-        <p>Every number, command, and failure from shipping the Vouch demo: the full worked example, a 15-entry troubleshooting log, and the complete ffmpeg reference. <a href="manual.html">Read it →</a></p>
+      <div class="row">
+        <span class="path">manual.html</span>
+        <h3>The manual</h3>
+        <p>Every number, command, and failure from shipping the reference demo: the worked example, a fifteen-entry troubleshooting log, the complete ffmpeg reference. <a href="manual.html">Read it</a>.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="steps">
+<section id="pipeline">
   <div class="wrap">
-    <span class="kick">The pipeline · 8 steps</span>
-    <h2>Copy a prompt. Paste it to your agent.</h2>
-    <p class="sub">Each step is a recipe file the skill carries. The clips are real output from the reference demo — nothing here is a mockup.</p>
-
-    <div class="step">
-      <div>
-        <span class="stepnum">01 · Script</span>
-        <h3>Write the story first</h3>
-        <p>45–60 seconds, ~6 scenes, one claim per scene: problem → drop → magic → interaction → proof → brand. Interactions on a 0.6s grid (that's 100 BPM — the music locks to it later, free). Real data only: real items, printed prices, totals that reconcile.</p>
-        <div class="prompt">
-          <div class="plabel"><span>Prompt · paste into your agent</span><button onclick="cpEl(this)">Copy</button></div>
-          <pre>Read .claude/skills/product-demo (start with SKILL.md and 01-script.md). Write the scene table and voiceover script for a ~50s demo of the app in this repo. One claim per scene, real fixture data, interactions on a 0.6s grid.</pre>
-        </div>
-      </div>
-      <div class="media"><div class="vframe"><video src="assets/clip-script.mp4" autoplay muted loop playsinline></video></div></div>
+    <div class="shead">
+      <span class="idx">02 — Pipeline</span>
+      <h2>Eight steps, in order</h2>
+    </div>
+    <div class="lead-grid">
+      <span></span>
+      <p class="intro">Each step is a recipe file with a prompt you can paste to your agent verbatim. The clips are unedited output from the reference demo.</p>
     </div>
 
-    <div class="step">
-      <div>
-        <span class="stepnum">02 + 03 · Composition</span>
-        <h3>Your real UI, on one clock</h3>
-        <p>Vendor your actual components into a static bundle, then author the film as one React tree — a pure function of a clock <code>T</code>, with a synchronous seek contract. Nothing fades. Everything stamps, slides, rips, or snaps.</p>
-        <div class="prompt">
-          <div class="plabel"><span>Prompt</span><button onclick="cpEl(this)">Copy</button></div>
-          <pre>Follow 02-standalone-ui.md and 03-composition.md: vendor this repo's UI components into demo/ds/ so they render from a static folder, then build the composition with an OM_SCENES cue table and a synchronous seek event. Motion rule: nothing fades.</pre>
+    <div class="steps">
+      <div class="step">
+        <span class="n">01</span>
+        <div>
+          <h3>Script<span class="ref">01-script.md</span></h3>
+          <p>45–60 seconds, six scenes, one claim per scene: problem, drop, magic, interaction, proof, brand. Interactions sit on a 0.6-second grid — that is 100&nbsp;BPM, and the music will lock to it unedited. Fixture data is real: real items, printed prices, totals that reconcile.</p>
+          <div class="prompt">
+            <div class="head"><span>prompt</span><button onclick="cpEl(this)">copy</button></div>
+            <pre>Read .claude/skills/product-demo (SKILL.md, then 01-script.md). Write the scene table and voiceover script for a ~50s demo of the app in this repo. One claim per scene, real fixture data, interactions on a 0.6s grid.</pre>
+          </div>
         </div>
+        <div class="thumb"><video src="assets/clip-script.mp4" autoplay muted loop playsinline></video></div>
       </div>
-      <div class="media"><div class="vframe"><video src="assets/clip-composition.mp4" autoplay muted loop playsinline></video></div></div>
-    </div>
 
-    <div class="step">
-      <div>
-        <span class="stepnum">04 · Record</span>
-        <h3>Frame-perfect, never screen-recorded</h3>
-        <p>Screen recording inherits every dropped frame — that stutter can't be edited out. The renderer seeks to each timestamp and screenshots it: 3,260 deterministic PNGs → visually lossless H.264. CSS animations get pinned to the clock (a spinner once ran 11× too fast without this).</p>
-        <div class="prompt">
-          <div class="plabel"><span>Prompt</span><button onclick="cpEl(this)">Copy</button></div>
-          <pre>Follow 04-record.md using templates/record.mjs: render the composition frame-by-frame (smoke test first), pin CSS animations to the seek clock, and encode two 1440p60 masters — captions burned and clean.</pre>
+      <div class="step">
+        <span class="n">02–03</span>
+        <div>
+          <h3>Composition<span class="ref">02-standalone-ui.md · 03-composition.md</span></h3>
+          <p>Vendor the app's actual components into a static bundle, then author the film as one React tree — a pure function of a clock <code>T</code> with a synchronous seek contract. The motion rule is absolute: nothing fades. Everything stamps, slides, rips, or snaps.</p>
+          <div class="prompt">
+            <div class="head"><span>prompt</span><button onclick="cpEl(this)">copy</button></div>
+            <pre>Follow 02-standalone-ui.md and 03-composition.md: vendor this repo's UI into demo/ds/ so it renders from a static folder, then build the composition with an OM_SCENES cue table and a synchronous seek event. Nothing fades.</pre>
+          </div>
         </div>
+        <div class="thumb"><video src="assets/clip-composition.mp4" autoplay muted loop playsinline></video></div>
       </div>
-      <div class="media"><div class="vframe"><video src="assets/clip-scan.mp4" autoplay muted loop playsinline></video></div></div>
-    </div>
 
-    <div class="step">
-      <div>
-        <span class="stepnum">05 · Captions + VO</span>
-        <h3>Captions from the source of truth</h3>
-        <p>The composition already knows every line and time — SRT/VTT are projections, never transcriptions. The VO script ships with per-line timecodes and sync notes ("'Show it.' lands on the squash-on-impact frame"), ready for your voice tool.</p>
-        <div class="prompt">
-          <div class="plabel"><span>Prompt</span><button onclick="cpEl(this)">Copy</button></div>
-          <pre>Follow 05-captions-vo.md: project the composition's caption table into SRT and VTT sidecars, and write the timecoded voiceover script with sync notes for an AI voice tool.</pre>
+      <div class="step">
+        <span class="n">04</span>
+        <div>
+          <h3>Record<span class="ref">04-record.md</span></h3>
+          <p>Screen recording inherits every dropped frame; that stutter cannot be edited out. The renderer seeks to each timestamp and screenshots it — thousands of deterministic PNGs into visually lossless H.264. CSS animations are pinned to the clock; a spinner once ran eleven times too fast without this.</p>
+          <div class="prompt">
+            <div class="head"><span>prompt</span><button onclick="cpEl(this)">copy</button></div>
+            <pre>Follow 04-record.md with templates/record.mjs: smoke-test four frames, then render frame-by-frame with CSS animations pinned to the seek clock. Encode two 1440p60 masters, captions burned and clean.</pre>
+          </div>
         </div>
+        <div class="thumb"><video src="assets/clip-scan.mp4" autoplay muted loop playsinline></video></div>
       </div>
-      <div class="media"><div class="vframe"><video src="assets/clip-captions.mp4" autoplay muted loop playsinline></video></div></div>
-    </div>
 
-    <div class="step">
-      <div>
-        <span class="stepnum">06 · Sound</span>
-        <h3>The demo scores itself</h3>
-        <p>Ten sparse cues in a JSON file the composition owns — each with a measured hit offset (AI sound effects pad ~0.3s of silence before the impact) and a true peak level (they're mastered quiet; the mixer normalizes). One cue file, two players: live browser preview and the ffmpeg export mixer. They can never disagree.</p>
-        <div class="prompt">
-          <div class="plabel"><span>Prompt</span><button onclick="cpEl(this)">Copy</button></div>
-          <pre>Follow 06-sound.md: write sfx-cues.json for this demo (max ~10 cues, one per story turn, each with a why), measure every sound file's hit offset, wire the WebAudio preview player, and score the export with templates/mix-audio.mjs.</pre>
+      <div class="step">
+        <span class="n">05</span>
+        <div>
+          <h3>Captions &amp; voiceover<span class="ref">05-captions-vo.md</span></h3>
+          <p>The composition already knows every line and time; SRT and VTT are projections of that table, never transcriptions. The voiceover script carries per-line timecodes and frame-level sync notes, ready for a voice tool.</p>
+          <div class="prompt">
+            <div class="head"><span>prompt</span><button onclick="cpEl(this)">copy</button></div>
+            <pre>Follow 05-captions-vo.md: project the composition's caption table into SRT and VTT sidecars, and write the timecoded voiceover script with sync notes.</pre>
+          </div>
         </div>
+        <div class="thumb"><video src="assets/clip-captions.mp4" autoplay muted loop playsinline></video></div>
       </div>
-      <div class="media"><div class="vframe"><video src="assets/clip-stamp.mp4" autoplay muted loop playsinline></video></div></div>
-    </div>
 
-    <div class="step">
-      <div>
-        <span class="stepnum">07 + 08 · Music + Ship</span>
-        <h3>Carve, duck, start at the drop</h3>
-        <p>Music at the grid's BPM, trimmed to its drop (nobody grants your video a 15-second build). EQ-notched at 250 Hz and 2.8 kHz so the voice pops through without pumping. Then: founder intro, one branded tape transition, stems into the editor, −14 LUFS out.</p>
-        <div class="prompt">
-          <div class="plabel"><span>Prompt</span><button onclick="cpEl(this)">Copy</button></div>
-          <pre>Follow 07-music.md and 08-assemble.md: add the music bed with mix-audio.mjs (--bgm-start at the track's drop), then assemble intro + transition + stems and export a 1440p master plus a captioned X-ready 1080p cut.</pre>
+      <div class="step">
+        <span class="n">06</span>
+        <div>
+          <h3>Sound<span class="ref">06-sound.md</span></h3>
+          <p>Ten sparse cues in a JSON file the composition owns, each with a measured hit offset — AI sound effects pad ~0.3s of silence before the impact — and a true peak level. One cue file feeds two players, the live browser preview and the export mixer, so they cannot disagree.</p>
+          <div class="prompt">
+            <div class="head"><span>prompt</span><button onclick="cpEl(this)">copy</button></div>
+            <pre>Follow 06-sound.md: write sfx-cues.json (≤10 cues, one per story turn, each with a why), measure every file's hit offset, wire the preview player, and score the export with templates/mix-audio.mjs.</pre>
+          </div>
         </div>
+        <div class="thumb"><video src="assets/clip-stamp.mp4" autoplay muted loop playsinline></video></div>
       </div>
-      <div class="media"><div class="vframe"><video src="assets/clip-stickers.mp4" autoplay muted loop playsinline></video></div></div>
+
+      <div class="step">
+        <span class="n">07–08</span>
+        <div>
+          <h3>Music &amp; ship<span class="ref">07-music.md · 08-assemble.md</span></h3>
+          <p>Music at the grid's tempo, trimmed to its drop. EQ notches at 250&nbsp;Hz and 2.8&nbsp;kHz let the voice pop through without audible ducking. Then the founder intro, one branded transition, stems into the editor, −14&nbsp;LUFS out — plus a captioned cut for platforms that autoplay muted.</p>
+          <div class="prompt">
+            <div class="head"><span>prompt</span><button onclick="cpEl(this)">copy</button></div>
+            <pre>Follow 07-music.md and 08-assemble.md: add the music bed with mix-audio.mjs (--bgm-start at the track's drop), assemble intro + transition + stems, and export a 1440p master plus a captioned 1080p cut.</pre>
+          </div>
+        </div>
+        <div class="thumb"><video src="assets/clip-stickers.mp4" autoplay muted loop playsinline></video></div>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="install">
   <div class="wrap">
-    <span class="kick">Install · 30 seconds</span>
-    <h2>Drop the folder in. Ask for a demo.</h2>
-    <div class="install-box">
-      <ol>
-        <li><b>Get the skill</b> (Claude Code shown; any agent that reads instruction folders works):
-          <div class="copybox"><code id="cmd1">npx degit Anshgrover23/product-demo-playbook/skills/product-demo .claude/skills/product-demo</code><button onclick="cp('cmd1', this)">Copy</button></div>
-          <span class="mono" style="color:var(--muted)">or clone the repo and copy skills/product-demo/ anywhere your agent reads</span>
-        </li>
-        <li><b>Prereqs on your machine:</b> Node 20+, ffmpeg, <code>npx playwright install chromium</code></li>
-        <li><b>Ask your agent:</b>
-          <div class="copybox"><code id="cmd2">Make a product demo video for this app. Use the product-demo skill, start with the scene table.</code><button onclick="cp('cmd2', this)">Copy</button></div>
-        </li>
-      </ol>
-      <div class="agents">
-        <span class="sticker sticker-lime">Claude Code</span>
-        <span class="sticker sticker-orange">Cursor</span>
-        <span class="sticker sticker-pink">Codex</span>
-        <span class="sticker sticker-lime">Any agent</span>
+    <div class="shead">
+      <span class="idx">03 — Install</span>
+      <h2>Thirty seconds</h2>
+    </div>
+    <div class="install-grid">
+      <span></span>
+      <div class="install-steps">
+        <div class="irow">
+          <span class="n">01</span>
+          <div>
+            <p>Get the skill. Claude Code shown; any agent that reads instruction folders works.</p>
+            <div class="cmd"><code id="cmd1">npx degit Anshgrover23/product-demo-playbook/skills/product-demo .claude/skills/product-demo</code><button onclick="cp('cmd1', this)">copy</button></div>
+            <p class="note">or clone the repo and copy skills/product-demo/ wherever your agent reads</p>
+          </div>
+        </div>
+        <div class="irow">
+          <span class="n">02</span>
+          <div>
+            <p>Prerequisites: Node 20+, ffmpeg, <code class="tt">npx playwright install chromium</code>.</p>
+          </div>
+        </div>
+        <div class="irow">
+          <span class="n">03</span>
+          <div>
+            <p>Ask your agent:</p>
+            <div class="cmd"><code id="cmd2">Make a product demo video for this app. Use the product-demo skill, start with the scene table.</code><button onclick="cp('cmd2', this)">copy</button></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -427,27 +401,30 @@
 <footer>
   <div class="wrap">
     <div>
-      <h3>A Vouch Project</h3>
-      <p>Built by <a href="https://x.com/Anshgrover23">Ansh Grover</a>, creator of <a href="https://vouch.anshgrover.com">Vouch</a> — the open-source anti-Splitwise. This whole pipeline exists because Vouch needed a launch video and agencies wanted $5k. Everything here was used in anger; the numbers, commands, and failures are real.</p>
-      <span class="stampline">Three taps. No fights.</span>
+      <span class="mono">A Vouch project</span>
+      <p>Built by <a href="https://x.com/Anshgrover23">Ansh Grover</a>, creator of <a href="https://vouch.anshgrover.com">Vouch</a>. The pipeline exists because Vouch needed a launch film and agencies wanted five thousand dollars. Everything here was used to ship it; the numbers and the failures are real.</p>
+      <span class="stamp">Three taps · no fights</span>
     </div>
     <div>
-      <p class="mono">Links</p>
+      <span class="mono">Index</span>
       <p>
-        <a href="https://github.com/Anshgrover23/product-demo-playbook">Skill + templates on GitHub</a><br>
-        <a href="manual.html">The full manual (worked example, troubleshooting, commands)</a><br>
-        <a href="https://github.com/Anshgrover23/vouch">Vouch source — the reference demo/ directory</a><br>
-        <a href="https://x.com/Anshgrover23">@Anshgrover23 on X</a><br>
-        <a href="https://github.com/Anshgrover23/product-demo-playbook/issues/new?title=Made%20with%20the%20skill">Shipped a demo with the skill? Show me →</a>
+        <a href="https://github.com/Anshgrover23/product-demo-playbook">Skill + templates</a><br>
+        <a href="manual.html">The manual</a><br>
+        <a href="https://github.com/Anshgrover23/vouch">Vouch source, reference demo/</a><br>
+        <a href="https://github.com/Anshgrover23/product-demo-playbook/issues/new?title=Made%20with%20the%20skill">Shipped one? Show me</a>
       </p>
+    </div>
+    <div>
+      <span class="mono">Colophon</span>
+      <p class="colophon">Set in Bricolage Grotesque, Geist, and Geist Mono on Vouch's paper grid. The hero film and every clip on this page were rendered by the pipeline this site documents. No screen recordings were made.</p>
     </div>
   </div>
 </footer>
 
 <script>
-function flash(btn){ const t = btn.textContent; btn.textContent = "Copied!"; setTimeout(()=>btn.textContent=t, 1200); }
+function flash(btn){ const t = btn.textContent; btn.textContent = "copied"; setTimeout(()=>btn.textContent = t, 1200); }
 function cp(id, btn){ navigator.clipboard.writeText(document.getElementById(id).textContent.trim()).then(()=>flash(btn)); }
-function cpEl(btn){ const pre = btn.closest('.prompt').querySelector('pre'); navigator.clipboard.writeText(pre.textContent.trim()).then(()=>flash(btn)); }
+function cpEl(btn){ const pre = btn.closest(".prompt").querySelector("pre"); navigator.clipboard.writeText(pre.textContent.trim()).then(()=>flash(btn)); }
 </script>
 
 </body>
