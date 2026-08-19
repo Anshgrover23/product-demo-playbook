@@ -26,12 +26,8 @@ instructions. Prereqs: Node 20+, ffmpeg, `npx playwright install chromium`.
 
 Then ask your agent:
 
-> Make a product demo video for this app using the product-demo skill. Run
-> the full pipeline and track progress in demo/PROGRESS.md.
-
-The skill orchestrates all eight steps itself and pauses at three gates
-(script sign-off, smoke frames, scored preview). demo/PROGRESS.md makes a
-half-finished run resumable in any later session.
+> Make a product demo video for this app. Use the product-demo skill, start
+> with the scene table.
 
 ## What's inside
 
