@@ -122,19 +122,19 @@
   .heroduo { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   .heroduo > div { position: relative; }
   .tapename {
-    position: absolute; top: -13px; left: 14px; z-index: 3;
-    font-family: var(--font-mono); font-size: 11px; font-weight: 700;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    padding: 4px 14px; border: 2px solid var(--color-ink);
-    background: var(--color-lime); color: var(--color-ink);
+    position: absolute; top: -15px; left: 16px; z-index: 3;
+    font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase; line-height: 1;
+    padding: 4px 14px; border: 2px solid var(--ink);
+    background: var(--lime); color: var(--ink);
     box-shadow: var(--shadow-hard-sm); transform: rotate(-3deg);
   }
-  .tapename.alt { left: auto; right: 14px; transform: rotate(2deg); background: var(--color-blue); color: var(--color-blue-ink); }
-  .thesis { font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-ink); margin-top: 16px; }
-  .heroduo .cap { font-family: var(--font-mono); font-size: 11.5px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-2); margin-top: 12px; }
+  .tapename.alt { left: auto; right: 14px; transform: rotate(2deg); background: var(--blue); color: var(--blue-ink); }
+  .thesis { font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); margin-top: 16px; }
+  .heroduo .cap { font-family: var(--font-mono); font-size: 11.5px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin-top: 12px; }
   .media.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 580px; align-self: start; padding-top: 6px; }
   .media.duo .vframe { box-shadow: var(--shadow-hard-sm); border-width: 2px; }
-  .media.duo .cap { font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-2); margin-top: 8px; }
+  .media.duo .cap { font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin-top: 8px; }
   @media (max-width: 860px) { .heroduo { grid-template-columns: 1fr; } }
 
   /* copy box */
@@ -186,7 +186,7 @@
   /* steps */
   .step {
     display: grid; grid-template-columns: 1fr 1fr; gap: 34px; align-items: start;
-    padding: 44px 0 48px; border-top: 3px solid var(--color-ink);
+    padding: 44px 0 48px; border-top: 3px solid var(--ink);
   }
   .step:first-of-type { border-top: none; }
   @media (max-width: 860px) { .step { grid-template-columns: 1fr; } .step .media { order: -1; } }
@@ -198,7 +198,7 @@
   .step h3 { font-size: 1.5rem; margin: 10px 0 8px; }
   .step p { font-size: 0.98rem; margin: 8px 0; }
   .prompt.master { max-width: 760px; margin: 26px 0 6px; }
-  .prompt.master .plabel { background: var(--color-lime); }
+  .prompt.master .plabel { background: var(--lime); }
   .prompt {
     margin-top: 14px; border: 2px solid var(--ink); background: var(--paper-2);
     box-shadow: var(--shadow-hard-sm);
@@ -243,6 +243,17 @@
     letter-spacing: -0.02em; font-size: 0.95rem; display: inline-block;
     border: 2px solid var(--lime); color: var(--lime); padding: 4px 12px; transform: rotate(-1.6deg); margin-top: 12px;
   }
+  .watch { color: var(--blue); font-weight: 700; text-decoration-thickness: 1.5px; }
+  .watch:hover { color: var(--ink); }
+  .lb { position: fixed; inset: 0; z-index: 100; background: oklch(16% 0.02 80 / 0.88); display: flex; align-items: center; justify-content: center; padding: 4vmin; }
+  .lb[hidden] { display: none; }
+  .lb video { max-width: min(1280px, 92vw); max-height: 86vh; border: 3px solid var(--ink); background: #000; box-shadow: var(--shadow-hard); }
+  .lb-close {
+    position: absolute; top: 22px; right: 26px; border: 2px solid var(--ink);
+    background: var(--lime); color: var(--ink); font-family: var(--font-display);
+    font-weight: 800; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 8px 14px; cursor: pointer; box-shadow: var(--shadow-hard-sm);
+  }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 </head>
@@ -263,8 +274,7 @@
 <header class="hero">
   <div class="wrap">
     <div>
-      <span class="sticker sticker-lime">An agent skill</span>
-      <span class="sticker" style="background: var(--color-blue); color: var(--color-blue-ink); transform: rotate(1.4deg);">$0 · open source</span>
+      <span class="sticker sticker-lime">$0 · open source · works with any agent</span>
       <h1>Your agent<br>makes your<br><span class="hl">demo video.</span></h1>
       <p class="lede">Install one skill. Your coding agent turns the repo you already have into a <b>scored, captioned launch film</b>, the kind agencies charge <b>$5,000+</b> for.</p>
       <div class="copybox">
@@ -276,17 +286,17 @@
       <div class="heroduo">
         <div>
           <span class="tapename">Vouch</span>
-          <div class="vframe">
+          <div class="vframe" onclick="watch('assets/watch-vouch.mp4')" style="cursor: pointer;">
             <video src="assets/hero-demo-loop.mp4" autoplay muted loop playsinline></video>
           </div>
-          <div class="cap">54.3s · the original · $0</div>
+          <div class="cap">54.3s · the original · $0 · <a class="watch" href="#" onclick="return watch('assets/watch-vouch.mp4')">▶ watch with sound</a></div>
         </div>
         <div>
           <span class="tapename alt">Excalidraw</span>
-          <div class="vframe">
+          <div class="vframe" onclick="watch('assets/watch-excalidraw.mp4')" style="cursor: pointer;">
             <video src="assets/hero-excalidraw-loop.mp4" autoplay muted loop playsinline></video>
           </div>
-          <div class="cap">35.5s · by the skill, start to finish</div>
+          <div class="cap">35.5s · by the skill, start to finish · <a class="watch" href="#" onclick="return watch('assets/watch-excalidraw.mp4')">▶ watch with sound</a></div>
         </div>
       </div>
       <p class="thesis">Two products. Zero screenshots. Real components only.</p>
@@ -339,5 +349,20 @@ function cp(id, btn){ navigator.clipboard.writeText(document.getElementById(id).
 function cpEl(btn){ const pre = btn.closest('.prompt').querySelector('pre'); navigator.clipboard.writeText(pre.textContent.trim()).then(()=>flash(btn)); }
 </script>
 
+<div class="lb" id="lb" hidden onclick="if (event.target === this) lbClose()">
+  <button class="lb-close" onclick="lbClose()">Close ✕</button>
+  <video id="lbv" controls playsinline preload="none"></video>
+</div>
+<script>
+function watch(src) {
+  const lb = document.getElementById("lb"), v = document.getElementById("lbv");
+  lb.hidden = false; v.src = src; v.play(); return false;
+}
+function lbClose() {
+  const lb = document.getElementById("lb"), v = document.getElementById("lbv");
+  v.pause(); v.removeAttribute("src"); v.load(); lb.hidden = true;
+}
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") lbClose(); });
+</script>
 </body>
 </html>
