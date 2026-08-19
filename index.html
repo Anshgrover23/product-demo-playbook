@@ -119,6 +119,8 @@
   .hero p.lede b { color: var(--ink); }
   .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 22px; }
 
+  .hero .after { margin-top: 12px; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); max-width: 40em; }
+
   /* copy box */
   .copybox {
     display: flex; align-items: stretch; border: 2px solid var(--ink);
@@ -248,7 +250,6 @@
     <span class="barlabel">presents · product demo skill</span>
     <nav>
       <a href="#steps" class="hide-sm">Pipeline</a>
-      <a href="#install">Install</a>
       <a href="manual.html">Manual</a>
       <a href="https://github.com/Anshgrover23/product-demo-playbook">GitHub ↗</a>
     </nav>
@@ -261,16 +262,12 @@
       <span class="sticker sticker-lime">A Vouch project</span>
       <span class="sticker sticker-pink">$0 · open source</span>
       <h1>Your agent<br>makes your<br><span class="hl">demo video.</span></h1>
-      <p class="lede">Agencies charge <b>$5,000–$15,000</b> for a 60-second product demo. This is a skill for Claude Code, Cursor, and any coding agent that makes one <b>from your repo, on your machine, for $0</b> — script, animation, frame-perfect recording, sound design, music. Everything on this page was made with it.</p>
+      <p class="lede">Install one skill. Your coding agent turns the repo you already have into a <b>scored, captioned launch film</b> — the kind agencies charge <b>$5,000+</b> for.</p>
       <div class="copybox">
         <code id="install-cmd">npx skills add Anshgrover23/product-demo-playbook</code>
         <button onclick="cp('install-cmd', this)">Copy</button>
       </div>
-      <div class="cta-row">
-        <a class="btn btn-blue" href="#install">Install the skill</a>
-        <a class="btn btn-lime" href="#steps">See the pipeline</a>
-        <a class="btn" href="manual.html">Read the manual</a>
-      </div>
+      <p class="after">then ask: “make a product demo for this app” · node 20+ · ffmpeg · claude code, cursor, codex + 14 more</p>
     </div>
     <div>
       <div class="vframe">
@@ -278,7 +275,6 @@
         <video src="assets/hero-demo-loop.mp4" autoplay muted loop playsinline></video>
         <div class="tape tape-br">54.3s · $0</div>
       </div>
-      <p class="mono" style="margin-top:14px; color: var(--muted);">The Vouch demo — rendered, captioned, and scored entirely by this pipeline. <a href="https://x.com/Anshgrover23/status/2089328367413969208">Watch with sound ↗</a></p>
     </div>
   </div>
 </header>
@@ -310,31 +306,6 @@
         <span class="mono">manual.html</span>
         <h3>The Manual</h3>
         <p>Every number, command, and failure from shipping the Vouch demo: the full worked example, a 15-entry troubleshooting log, and the complete ffmpeg reference. <a href="manual.html">Read it →</a></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="install">
-  <div class="wrap">
-    <span class="kick">Install · 30 seconds</span>
-    <h2>Drop the folder in. Ask for a demo.</h2>
-    <div class="install-box">
-      <ol>
-        <li><b>Get the skill</b> via the <a href="https://skills.sh">skills</a> CLI (detects your agent; installs for Claude Code, Cursor, Codex, Copilot, Windsurf + a dozen more):
-          <div class="copybox"><code id="cmd1">npx skills add Anshgrover23/product-demo-playbook</code><button onclick="cp('cmd1', this)">Copy</button></div>
-          <span class="mono" style="color:var(--muted)">or plain copy: npx degit Anshgrover23/product-demo-playbook/skills/product-demo .claude/skills/product-demo</span>
-        </li>
-        <li><b>Prereqs on your machine:</b> Node 20+, ffmpeg, <code>npx playwright install chromium</code></li>
-        <li><b>Ask your agent:</b>
-          <div class="copybox"><code id="cmd2">Make a product demo video for this app. Use the product-demo skill, start with the scene table.</code><button onclick="cp('cmd2', this)">Copy</button></div>
-        </li>
-      </ol>
-      <div class="agents">
-        <span class="sticker sticker-lime">Claude Code</span>
-        <span class="sticker sticker-orange">Cursor</span>
-        <span class="sticker sticker-pink">Codex</span>
-        <span class="sticker sticker-lime">Any agent</span>
       </div>
     </div>
   </div>
