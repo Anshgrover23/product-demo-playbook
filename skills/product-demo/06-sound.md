@@ -1,4 +1,4 @@
-# Step 6 — Sound (self-scoring)
+# Step 6: Sound (self-scoring)
 
 Sound is where demos most often turn amateur. A first pass of 58 hand-placed
 synth blips earned the only feedback that matters: "no sound effects are
@@ -11,17 +11,17 @@ better than harsh and forceful sound effects." The rebuilt rules:
 - **Reward scales with the moment.** Taps are whispers (-13 dB); the thesis
   moment gets the one big hit (-8 dB). Establish a repeated sound once, then
   let the rest play silent.
-- **Whoosh and impact are different sounds in different frequency ranges** —
+- **Whoosh and impact are different sounds in different frequency ranges**;
   layer them.
 - **Generate organic sounds** (paper, rubber stamp, felt tap), not synth
   beeps. Taps: short clean plastic transient. Success: warm two-note
-  resolution — and if it sits next to a bigger hit, cut it entirely.
+  resolution, and if it sits next to a bigger hit, cut it entirely.
 
 ## Two traps in AI-generated SFX
 
 1. **They pad silence before the hit** (a stamp's impact 0.35s into the file;
    a whoosh peaking at 1.15s). Measure each file's peak-energy offset, store
-   it as `hit`, and have every player subtract it — or every impact lands
+   it as `hit`, and have every player subtract it, or every impact lands
    ~0.3s late and reads "cheap".
 2. **They are mastered quiet** (peaks at -9.6 dBFS). Peak-normalize each file
    at mix time so cue levels mean what they say, or the SFX bury under any
@@ -38,7 +38,7 @@ ffprobe -f lavfi -i "amovie=x.mp3,astats=metadata=1:reset=1" \
 
 ## The self-scoring architecture
 
-Cues live IN the composition as data — one file is the single source of sound
+Cues live IN the composition as data, one file is the single source of sound
 truth (see [templates/sfx-cues.example.json](./templates/sfx-cues.example.json)):
 
 ```json
@@ -48,7 +48,7 @@ truth (see [templates/sfx-cues.example.json](./templates/sfx-cues.example.json))
   ] }
 ```
 
-Every cue carries a `why` — the review surface. A cue that cannot justify
+Every cue carries a `why`, the review surface. A cue that cannot justify
 itself in one clause gets deleted.
 
 Two consumers read the same file:
@@ -57,7 +57,7 @@ Two consumers read the same file:
    authoring. The composition calls `window.__SFX_TICK(T)` per rendered frame;
    fire cues only during forward playback (`0 < dt < 0.25`) so seeks stay
    silent.
-2. **[templates/mix-audio.mjs](./templates/mix-audio.mjs)** — bakes identical
+2. **[templates/mix-audio.mjs](./templates/mix-audio.mjs)**, bakes identical
    cues onto any export: per-file peak normalization, hit retiming
    (`startAt = t - hit`), adelay+volume per cue, one `amix` with
    `normalize=0`, limiter at 0.95, and `apad` to the video's length so the

@@ -1,4 +1,4 @@
-# Step 3 — Composition
+# Step 3: Composition
 
 The whole demo is one React tree rendered as a pure function of an authored
 clock `T`. No GUI timelines. A function from seconds to pixels.
@@ -20,7 +20,7 @@ OM_SCENES = [
 ```
 
 Scene code keys off derived offsets (`CUES.Witness + 2.1`), never absolute
-times — retiming a scene is editing one number.
+times, retiming a scene is editing one number.
 
 ## The seek contract
 
@@ -49,7 +49,7 @@ twice. This contract powers recording (04) and self-scoring sound (06).
 ## Fixtures are the honesty layer
 
 Data tables (items, prices, people) live at the top of the scene file with a
-standing comment: fixtures must match the real artifact — printed prices, a
+standing comment: fixtures must match the real artifact, printed prices, a
 total that reconciles. Review catches "improved" numbers against that rule.
 
 ## Captions are part of the composition
@@ -67,6 +67,6 @@ function CaptionStamp(...) {
 ## Styling vendored components
 
 Override component CSS by targeting the hashed class names in the vendored
-bundle. Names survive rebuilds unless a source CSS module is renamed — after
+bundle. Names survive rebuilds unless a source CSS module is renamed, after
 every design-system refresh, run the smoke render (04) before trusting a full
 run.

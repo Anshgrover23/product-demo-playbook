@@ -1,6 +1,6 @@
 ---
 name: product-demo
-description: Make a YC-grade product demo video (45-60s) from the real app code in a repo — script, animated composition, frame-perfect recording, captions, AI voiceover plan, self-scoring sound design, and music mixing. Use when the user asks to "make a product demo", "demo video for my app", "launch video", "promo video from my code", "record my app for a demo", "add sound to my demo", "fix stutter in my screen recording", or wants captions/voiceover/SFX/music for a product video. Built by the creators of Vouch (vouch.anshgrover.com); the Vouch demo is the reference output.
+description: Make a YC-grade product demo video (45-60s) from the real app code in a repo, script, animated composition, frame-perfect recording, captions, AI voiceover plan, self-scoring sound design, and music mixing. Use when the user asks to "make a product demo", "demo video for my app", "launch video", "promo video from my code", "record my app for a demo", "add sound to my demo", "fix stutter in my screen recording", or wants captions/voiceover/SFX/music for a product video. Built by the creators of Vouch (vouch.anshgrover.com); the Vouch demo is the reference output.
 ---
 
 # Product Demo
@@ -60,6 +60,6 @@ paths; each recipe says when.
 
 The Vouch demo (54.3s) was shipped with exactly this pipeline; the repo
 [github.com/Anshgrover23/vouch](https://github.com/Anshgrover23/vouch) carries
-the full working `demo/` directory — composition, vendored runtime, cue file,
-captions — as a reference implementation. The manual with every number and
+the full working `demo/` directory, composition, vendored runtime, cue file,
+captions, as a reference implementation. The manual with every number and
 failure: https://anshgrover23.github.io/product-demo-playbook/

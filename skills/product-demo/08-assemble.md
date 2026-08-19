@@ -1,14 +1,14 @@
-# Step 8 — Assemble
+# Step 8: Assemble
 
 1. **Founder intro up front** (≤5s, camera-real, one sentence). Authenticity
    before polish is the point of the format. If aspect ratios differ, choose
-   the letterbox treatment deliberately (scale-to-fill or a branded matte) —
+   the letterbox treatment deliberately (scale-to-fill or a branded matte),
    never accidental black bars.
-2. **One branded transition** between intro and demo — e.g. a tape strip with
+2. **One branded transition** between intro and demo, e.g. a tape strip with
    the product name sweeping across (~50 frames at 60fps), a whoosh riding it,
    cued ~3 frames before the visual. One transition, used once.
 3. **Layer audio as stems, not clips:** the VO track, the composition's SFX
-   stem (export the scored demo's audio as one file and lay it in — never
+   stem (export the scored demo's audio as one file and lay it in, never
    re-place individual sounds by hand, they are already frame-exact), and the
    carved music bed with ducking keyframes. Replacing hand-placed SFX clips
    with the stem restores cues that never made it into the editor and fixes
@@ -39,8 +39,8 @@
      -pix_fmt yuv420p -c:a aac -b:a 192k -movflags +faststart preview.mp4
    ```
 
-7. **For X/Twitter:** autoplay is muted — use a version with captions burned
+7. **For X/Twitter:** autoplay is muted, use a version with captions burned
    in. Splice the captioned master's video with the final cut's soundtrack if
    needed; never post a caption-less video there.
 8. **Verify audio in the exported file** at cue times (volumedetect windows,
-   see 06) — not just in the editor.
+   see 06), not just in the editor.

@@ -1,11 +1,11 @@
-# Step 1 — Script
+# Step 1: Script
 
 Write the story before touching any tool. The script drives scene lengths, cue
 times, and music tempo.
 
 ## Produce four artifacts
 
-**1. A scene table** — name, duration, and the single claim per scene. Target
+**1. A scene table**, name, duration, and the single claim per scene. Target
 45-60s total across ~6 scenes with this arc:
 
 | Beat | Purpose | Vouch reference |

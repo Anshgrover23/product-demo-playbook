@@ -1,7 +1,7 @@
-# Step 4 — Record
+# Step 4: Record
 
 Never screen-record: live playback capture inherits every skipped
-requestAnimationFrame — that is the stutter you cannot edit out. Drive the
+requestAnimationFrame, that is the stutter you cannot edit out. Drive the
 seek contract instead: for each output frame, seek to its timestamp,
 screenshot, repeat. A slow frame costs render time, never a dropped frame.
 
@@ -13,7 +13,7 @@ for (let f = 0; f <= frames; f++) {
   await page.evaluate((time) => {
     stage.dispatchEvent(new CustomEvent('seek-to-time',
       { detail: { time, sync: true } }));
-    // Pin CSS keyframe animations to the authored clock — they run on
+    // Pin CSS keyframe animations to the authored clock, they run on
     // wall-clock time and race ahead under slow capture otherwise.
     for (const a of document.getAnimations()) {
       try { a.pause(); a.currentTime = time * 1000; } catch {}
@@ -35,7 +35,7 @@ too fast in output before it, because CSS animations ignore the seek clock.
   gives 4K.
 - `--smoke` renders 4 spot frames for a seconds-long eyeball check. Run it
   after every component refresh, before any full run.
-- `--no-captions` sets `window.__NO_CAPTIONS` via an init script — two
+- `--no-captions` sets `window.__NO_CAPTIONS` via an init script, two
   masters (burned + clean) from one composition.
 
 ## Encode

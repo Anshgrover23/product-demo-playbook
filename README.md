@@ -2,16 +2,16 @@
 
 **Your coding agent makes your product demo video.**
 
-Agencies charge $5,000–$15,000 for a 60-second product demo. This skill lets
+Agencies charge $5,000-$15,000 for a 60-second product demo. This skill lets
 Claude Code, Cursor, or any coding agent make one from your repo, on your
-machine, for $0 — script, animated composition from your real components,
+machine, for $0, script, animated composition from your real components,
 frame-perfect recording, captions, AI voiceover plan, self-scoring sound
 design, and music mixing.
 
 A [Vouch](https://vouch.anshgrover.com) project by
 [Ansh Grover](https://x.com/Anshgrover23). The
 [Vouch demo](https://github.com/Anshgrover23/vouch/tree/main/demo) is the
-reference output — everything on the site was made with this pipeline.
+reference output, everything on the site was made with this pipeline.
 
 **Site: https://anshgrover23.github.io/product-demo-playbook/**
 
@@ -45,8 +45,8 @@ skills/product-demo/
   templates/          record.mjs, mix-audio.mjs, sfx-cues.example.json
 ```
 
-The deep manual — full worked example, 15-entry troubleshooting log, complete
-command reference — lives at
+The deep manual, full worked example, 15-entry troubleshooting log, complete
+command reference, lives at
 [manual.html](https://anshgrover23.github.io/product-demo-playbook/manual.html).
 
 ## Gallery

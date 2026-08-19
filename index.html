@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Product Demo Skill — by the creators of Vouch</title>
+<title>Product Demo Skill by the creators of Vouch</title>
 <meta name="description" content="Your coding agent makes your product demo video. A skill for Claude Code, Cursor, and any AI agent: script, composition, frame-perfect recording, sound design, music. From the creators of Vouch. $0, open source.">
 <meta property="og:title" content="Product Demo Skill">
-<meta property="og:description" content="Agencies charge $5,000–$15,000 for a product demo video. Your coding agent can make one from your repo for $0.">
+<meta property="og:description" content="Agencies charge $5,000 to $15,000 for a product demo video. Your coding agent can make one from your repo for $0.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -118,8 +118,6 @@
   .hero p.lede { font-size: 1.12rem; max-width: 34em; margin: 0 0 22px; }
   .hero p.lede b { color: var(--ink); }
   .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 22px; }
-
-  .hero .after { margin-top: 12px; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); max-width: 40em; }
 
   /* copy box */
   .copybox {
@@ -262,12 +260,11 @@
       <span class="sticker sticker-lime">A Vouch project</span>
       <span class="sticker sticker-pink">$0 · open source</span>
       <h1>Your agent<br>makes your<br><span class="hl">demo video.</span></h1>
-      <p class="lede">Install one skill. Your coding agent turns the repo you already have into a <b>scored, captioned launch film</b> — the kind agencies charge <b>$5,000+</b> for.</p>
+      <p class="lede">Install one skill. Your coding agent turns the repo you already have into a <b>scored, captioned launch film</b>, the kind agencies charge <b>$5,000+</b> for.</p>
       <div class="copybox">
         <code id="install-cmd">npx skills add Anshgrover23/product-demo-playbook</code>
         <button onclick="cp('install-cmd', this)">Copy</button>
       </div>
-      <p class="after">then ask: “make a product demo for this app” · node 20+ · ffmpeg · claude code, cursor, codex + 14 more</p>
     </div>
     <div>
       <div class="vframe">
@@ -286,42 +283,17 @@
   </div>
 </div>
 
-<section id="what">
-  <div class="wrap">
-    <span class="kick">What you actually get</span>
-    <h2>A folder your agent knows how to use</h2>
-    <p class="sub">Not a SaaS, not a template store. One skill folder — instructions, decision rules, and working scripts — that turns "make me a product demo" into a repeatable engineering pipeline your agent executes locally.</p>
-    <div class="cards3">
-      <div class="card">
-        <span class="mono">skills/product-demo/</span>
-        <h3>The Skill</h3>
-        <p>SKILL.md plus 8 recipe files — the full pipeline as agent instructions with decision rules and non-negotiables ("nothing fades", "honest data", "never screen-record").</p>
-      </div>
-      <div class="card">
-        <span class="mono">templates/</span>
-        <h3>Working scripts</h3>
-        <p><code>record.mjs</code> — the deterministic playwright frame renderer. <code>mix-audio.mjs</code> — the cue-driven ffmpeg auto-mixer. <code>sfx-cues.example.json</code> — a real 10-cue score. All shipped from a real launch.</p>
-      </div>
-      <div class="card">
-        <span class="mono">manual.html</span>
-        <h3>The Manual</h3>
-        <p>Every number, command, and failure from shipping the Vouch demo: the full worked example, a 15-entry troubleshooting log, and the complete ffmpeg reference. <a href="manual.html">Read it →</a></p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="steps">
   <div class="wrap">
     <span class="kick">The pipeline · 8 steps</span>
     <h2>Copy a prompt. Paste it to your agent.</h2>
-    <p class="sub">Each step is a recipe file the skill carries. The clips are real output from the reference demo — nothing here is a mockup.</p>
+    <p class="sub">Each step is a recipe file the skill carries. The clips are real output from the reference demo. Nothing here is a mockup.</p>
 
     <div class="step">
       <div>
         <span class="stepnum">01 · Script</span>
         <h3>Write the story first</h3>
-        <p>45–60 seconds, ~6 scenes, one claim per scene: problem → drop → magic → interaction → proof → brand. Interactions on a 0.6s grid (that's 100 BPM — the music locks to it later, free). Real data only: real items, printed prices, totals that reconcile.</p>
+        <p>45 to 60 seconds, ~6 scenes, one claim per scene: problem, drop, magic, interaction, proof, brand. Interactions on a 0.6s grid (that's 100 BPM, so the music locks to it later, free). Real data only: real items, printed prices, totals that reconcile.</p>
         <div class="prompt">
           <div class="plabel"><span>Prompt · paste into your agent</span><button onclick="cpEl(this)">Copy</button></div>
           <pre>Read .claude/skills/product-demo (start with SKILL.md and 01-script.md). Write the scene table and voiceover script for a ~50s demo of the app in this repo. One claim per scene, real fixture data, interactions on a 0.6s grid.</pre>
@@ -334,7 +306,7 @@
       <div>
         <span class="stepnum">02 + 03 · Composition</span>
         <h3>Your real UI, on one clock</h3>
-        <p>Vendor your actual components into a static bundle, then author the film as one React tree — a pure function of a clock <code>T</code>, with a synchronous seek contract. Nothing fades. Everything stamps, slides, rips, or snaps.</p>
+        <p>Vendor your actual components into a static bundle, then author the film as one React tree: a pure function of a clock <code>T</code>, with a synchronous seek contract. Nothing fades. Everything stamps, slides, rips, or snaps.</p>
         <div class="prompt">
           <div class="plabel"><span>Prompt</span><button onclick="cpEl(this)">Copy</button></div>
           <pre>Follow 02-standalone-ui.md and 03-composition.md: vendor this repo's UI components into demo/ds/ so they render from a static folder, then build the composition with an OM_SCENES cue table and a synchronous seek event. Motion rule: nothing fades.</pre>
@@ -347,10 +319,10 @@
       <div>
         <span class="stepnum">04 · Record</span>
         <h3>Frame-perfect, never screen-recorded</h3>
-        <p>Screen recording inherits every dropped frame — that stutter can't be edited out. The renderer seeks to each timestamp and screenshots it: 3,260 deterministic PNGs → visually lossless H.264. CSS animations get pinned to the clock (a spinner once ran 11× too fast without this).</p>
+        <p>Screen recording inherits every dropped frame; that stutter can't be edited out. The renderer seeks to each timestamp and screenshots it: 3,260 deterministic PNGs into visually lossless H.264. CSS animations get pinned to the clock (a spinner once ran 11× too fast without this).</p>
         <div class="prompt">
           <div class="plabel"><span>Prompt</span><button onclick="cpEl(this)">Copy</button></div>
-          <pre>Follow 04-record.md using templates/record.mjs: render the composition frame-by-frame (smoke test first), pin CSS animations to the seek clock, and encode two 1440p60 masters — captions burned and clean.</pre>
+          <pre>Follow 04-record.md using templates/record.mjs: render the composition frame-by-frame (smoke test first), pin CSS animations to the seek clock, and encode two 1440p60 masters, captions burned and clean.</pre>
         </div>
       </div>
       <div class="media"><div class="vframe"><video src="assets/clip-scan.mp4" autoplay muted loop playsinline></video></div></div>
@@ -360,7 +332,7 @@
       <div>
         <span class="stepnum">05 · Captions + VO</span>
         <h3>Captions from the source of truth</h3>
-        <p>The composition already knows every line and time — SRT/VTT are projections, never transcriptions. The VO script ships with per-line timecodes and sync notes ("'Show it.' lands on the squash-on-impact frame"), ready for your voice tool.</p>
+        <p>The composition already knows every line and time; SRT/VTT are projections, never transcriptions. The VO script ships with per-line timecodes and sync notes ("'Show it.' lands on the squash-on-impact frame"), ready for your voice tool.</p>
         <div class="prompt">
           <div class="plabel"><span>Prompt</span><button onclick="cpEl(this)">Copy</button></div>
           <pre>Follow 05-captions-vo.md: project the composition's caption table into SRT and VTT sidecars, and write the timecoded voiceover script with sync notes for an AI voice tool.</pre>
@@ -373,7 +345,7 @@
       <div>
         <span class="stepnum">06 · Sound</span>
         <h3>The demo scores itself</h3>
-        <p>Ten sparse cues in a JSON file the composition owns — each with a measured hit offset (AI sound effects pad ~0.3s of silence before the impact) and a true peak level (they're mastered quiet; the mixer normalizes). One cue file, two players: live browser preview and the ffmpeg export mixer. They can never disagree.</p>
+        <p>Ten sparse cues in a JSON file the composition owns, each with a measured hit offset (AI sound effects pad ~0.3s of silence before the impact) and a true peak level (they're mastered quiet; the mixer normalizes). One cue file, two players: live browser preview and the ffmpeg export mixer. They can never disagree.</p>
         <div class="prompt">
           <div class="plabel"><span>Prompt</span><button onclick="cpEl(this)">Copy</button></div>
           <pre>Follow 06-sound.md: write sfx-cues.json for this demo (max ~10 cues, one per story turn, each with a why), measure every sound file's hit offset, wire the WebAudio preview player, and score the export with templates/mix-audio.mjs.</pre>
@@ -401,7 +373,7 @@
   <div class="wrap">
     <div>
       <h3>A Vouch Project</h3>
-      <p>Built by <a href="https://x.com/Anshgrover23">Ansh Grover</a>, creator of <a href="https://vouch.anshgrover.com">Vouch</a> — the open-source anti-Splitwise. This whole pipeline exists because Vouch needed a launch video and agencies wanted $5k. Everything here was used in anger; the numbers, commands, and failures are real.</p>
+      <p>Built by <a href="https://x.com/Anshgrover23">Ansh Grover</a>, creator of <a href="https://vouch.anshgrover.com">Vouch</a>, the open-source anti-Splitwise. This whole pipeline exists because Vouch needed a launch video and agencies wanted $5k. Everything here was used in anger; the numbers, commands, and failures are real.</p>
       <span class="stampline">Three taps. No fights.</span>
     </div>
     <div>
@@ -409,7 +381,7 @@
       <p>
         <a href="https://github.com/Anshgrover23/product-demo-playbook">Skill + templates on GitHub</a><br>
         <a href="manual.html">The full manual (worked example, troubleshooting, commands)</a><br>
-        <a href="https://github.com/Anshgrover23/vouch">Vouch source — the reference demo/ directory</a><br>
+        <a href="https://github.com/Anshgrover23/vouch">Vouch source, the reference demo/ directory</a><br>
         <a href="https://x.com/Anshgrover23">@Anshgrover23 on X</a><br>
         <a href="https://github.com/Anshgrover23/product-demo-playbook/issues/new?title=Made%20with%20the%20skill">Shipped a demo with the skill? Show me →</a>
       </p>
