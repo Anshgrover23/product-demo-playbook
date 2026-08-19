@@ -77,7 +77,7 @@
 
   /* ---- hero ---- */
   .hero { padding: 84px 0 0; }
-  .hero .grid { display: grid; grid-template-columns: 6fr 5fr; gap: 56px; align-items: start; }
+  .hero .grid { display: grid; grid-template-columns: 10fr 11fr; gap: 48px; align-items: start; }
   @media (max-width: 900px) { .hero .grid { grid-template-columns: 1fr; } }
   .eyebrow { display: flex; align-items: center; gap: 8px; color: var(--muted); }
   .eyebrow::before { content: ""; width: 10px; height: 10px; background: var(--blue); display: inline-block; }
@@ -143,22 +143,22 @@
 
   /* ---- pipeline ---- */
   .steps { margin-top: 40px; border-top: 1px solid var(--hair); }
-  .step { display: grid; grid-template-columns: 56px 1fr 300px; gap: 28px; padding: 30px 0 34px; border-bottom: 1px solid var(--hair); }
+  .step { display: grid; grid-template-columns: 56px 1fr 340px; gap: 28px; padding: 30px 0 34px; border-bottom: 1px solid var(--hair); align-items: start; }
   @media (max-width: 880px) { .step { grid-template-columns: 40px 1fr; } .step .thumb { grid-column: 2; max-width: 380px; } }
   .step .n { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); padding-top: 4px; }
   .step h3 { font-family: var(--display); font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; font-size: 1.14rem; color: var(--ink); margin: 0 0 8px; }
   .step .ref { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-left: 10px; font-weight: 400; }
-  .step p { margin: 0 0 14px; font-size: 0.94rem; max-width: 40em; }
+  .step p { margin: 0 0 14px; font-size: 0.94rem; }
 
-  .prompt { border: 1px solid var(--hair); background: var(--paper-2); max-width: 560px; }
+  .prompt { border: 1px solid var(--hair); background: var(--paper-2); }
   .prompt .head { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; border-bottom: 1px solid var(--hair); }
   .prompt .head span { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); }
   .prompt .head button { border: none; background: none; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--blue); cursor: pointer; padding: 2px 4px; }
   .prompt .head button:hover { text-decoration: underline; }
   .prompt pre { margin: 0; padding: 10px 12px; font-family: var(--mono); font-size: 0.74rem; line-height: 1.55; white-space: pre-wrap; color: var(--ink-2); }
 
-  .thumb { border: 2px solid var(--ink); background: var(--ink); line-height: 0; align-self: start; }
-  .thumb video { width: 100%; height: auto; display: block; }
+  .thumb { border: 2px solid var(--ink); background: var(--ink); line-height: 0; align-self: start; margin-top: 3px; }
+  .thumb video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
 
   /* ---- install ---- */
   .install-grid { margin-top: 36px; display: grid; grid-template-columns: 160px 1fr; gap: 24px; }
@@ -195,9 +195,9 @@
     <span class="sep">/</span>
     <span class="proj">product-demo-skill</span>
     <nav>
-      <a href="#ships" class="xs">Contents</a>
-      <a href="#pipeline">Pipeline</a>
       <a href="#install">Install</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#ships" class="xs">Contents</a>
       <a href="manual.html">Manual</a>
       <a href="https://github.com/Anshgrover23/product-demo-playbook">GitHub</a>
     </nav>
@@ -212,7 +212,7 @@
       <p class="lede">A product demo pipeline packaged as an agent skill. Claude&nbsp;Code, Cursor, or any agent that reads instructions renders a <b>scored, captioned launch film</b> from the components already in your repo.</p>
       <p class="fine">The going agency rate for the same sixty seconds is $5,000–15,000. This runs on your machine, from your code, for the cost of nothing.</p>
       <div class="cmd">
-        <code id="install-cmd">npx degit Anshgrover23/product-demo-playbook/skills/product-demo .claude/skills/product-demo</code>
+        <code id="install-cmd">npx skills add Anshgrover23/product-demo-playbook</code>
         <button onclick="cp('install-cmd', this)">copy</button>
       </div>
       <p class="after">then ask: “make a product demo for this app” · <a href="#install">details</a></p>
@@ -240,31 +240,36 @@
   </div>
 </header>
 
-<section id="ships">
+<section id="install">
   <div class="wrap">
     <div class="shead">
-      <span class="idx">01 — Contents</span>
-      <h2>What ships</h2>
+      <span class="idx">01 — Install</span>
+      <h2>Thirty seconds</h2>
     </div>
-    <div class="lead-grid">
+    <div class="install-grid">
       <span></span>
-      <p class="intro">Not a SaaS and not a template store. One folder of instructions, decision rules, and working scripts. The skill encodes the judgment — <em>nothing fades, honest data, never screen-record, no sound beats a forced sound</em> — and the scripts do the labor.</p>
-    </div>
-    <div class="ships">
-      <div class="row">
-        <span class="path">skills/product-demo/</span>
-        <h3>The skill</h3>
-        <p>SKILL.md and eight recipe files: the full pipeline as agent instructions, with decision rules for entering at any step — no script yet, footage that stutters, sound that buries.</p>
-      </div>
-      <div class="row">
-        <span class="path">templates/</span>
-        <h3>Working scripts</h3>
-        <p><code>record.mjs</code>, the deterministic Playwright frame renderer. <code>mix-audio.mjs</code>, the cue-driven ffmpeg mixer. <code>sfx-cues.example.json</code>, a real ten-cue score. Lifted from a shipped launch, not written for this page.</p>
-      </div>
-      <div class="row">
-        <span class="path">manual.html</span>
-        <h3>The manual</h3>
-        <p>Every number, command, and failure from shipping the reference demo: the worked example, a fifteen-entry troubleshooting log, the complete ffmpeg reference. <a href="manual.html">Read it</a>.</p>
+      <div class="install-steps">
+        <div class="irow">
+          <span class="n">01</span>
+          <div>
+            <p>Get the skill via the <a href="https://skills.sh">skills</a> CLI — it detects your agent and installs for Claude Code, Cursor, Codex, Copilot, Windsurf, and a dozen more.</p>
+            <div class="cmd"><code id="cmd1">npx skills add Anshgrover23/product-demo-playbook</code><button onclick="cp('cmd1', this)">copy</button></div>
+            <p class="note">one command, 17 agents — or plain copy: npx degit Anshgrover23/product-demo-playbook/skills/product-demo .claude/skills/product-demo</p>
+          </div>
+        </div>
+        <div class="irow">
+          <span class="n">02</span>
+          <div>
+            <p>Prerequisites: Node 20+, ffmpeg, <code class="tt">npx playwright install chromium</code>.</p>
+          </div>
+        </div>
+        <div class="irow">
+          <span class="n">03</span>
+          <div>
+            <p>Ask your agent:</p>
+            <div class="cmd"><code id="cmd2">Make a product demo video for this app. Use the product-demo skill, start with the scene table.</code><button onclick="cp('cmd2', this)">copy</button></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -363,36 +368,31 @@
   </div>
 </section>
 
-<section id="install">
+<section id="ships">
   <div class="wrap">
     <div class="shead">
-      <span class="idx">03 — Install</span>
-      <h2>Thirty seconds</h2>
+      <span class="idx">03 — Contents</span>
+      <h2>What ships</h2>
     </div>
-    <div class="install-grid">
+    <div class="lead-grid">
       <span></span>
-      <div class="install-steps">
-        <div class="irow">
-          <span class="n">01</span>
-          <div>
-            <p>Get the skill. Claude Code shown; any agent that reads instruction folders works.</p>
-            <div class="cmd"><code id="cmd1">npx degit Anshgrover23/product-demo-playbook/skills/product-demo .claude/skills/product-demo</code><button onclick="cp('cmd1', this)">copy</button></div>
-            <p class="note">or clone the repo and copy skills/product-demo/ wherever your agent reads</p>
-          </div>
-        </div>
-        <div class="irow">
-          <span class="n">02</span>
-          <div>
-            <p>Prerequisites: Node 20+, ffmpeg, <code class="tt">npx playwright install chromium</code>.</p>
-          </div>
-        </div>
-        <div class="irow">
-          <span class="n">03</span>
-          <div>
-            <p>Ask your agent:</p>
-            <div class="cmd"><code id="cmd2">Make a product demo video for this app. Use the product-demo skill, start with the scene table.</code><button onclick="cp('cmd2', this)">copy</button></div>
-          </div>
-        </div>
+      <p class="intro">Not a SaaS and not a template store. One folder of instructions, decision rules, and working scripts. The skill encodes the judgment — <em>nothing fades, honest data, never screen-record, no sound beats a forced sound</em> — and the scripts do the labor.</p>
+    </div>
+    <div class="ships">
+      <div class="row">
+        <span class="path">skills/product-demo/</span>
+        <h3>The skill</h3>
+        <p>SKILL.md and eight recipe files: the full pipeline as agent instructions, with decision rules for entering at any step — no script yet, footage that stutters, sound that buries.</p>
+      </div>
+      <div class="row">
+        <span class="path">templates/</span>
+        <h3>Working scripts</h3>
+        <p><code>record.mjs</code>, the deterministic Playwright frame renderer. <code>mix-audio.mjs</code>, the cue-driven ffmpeg mixer. <code>sfx-cues.example.json</code>, a real ten-cue score. Lifted from a shipped launch, not written for this page.</p>
+      </div>
+      <div class="row">
+        <span class="path">manual.html</span>
+        <h3>The manual</h3>
+        <p>Every number, command, and failure from shipping the reference demo: the worked example, a fifteen-entry troubleshooting log, the complete ffmpeg reference. <a href="manual.html">Read it</a>.</p>
       </div>
     </div>
   </div>

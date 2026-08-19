@@ -18,7 +18,7 @@ reference output — everything on the site was made with this pipeline.
 ## Install
 
 ```sh
-npx degit Anshgrover23/product-demo-playbook/skills/product-demo .claude/skills/product-demo
+npx skills add Anshgrover23/product-demo-playbook
 ```
 
 or clone and copy `skills/product-demo/` anywhere your agent reads
