@@ -13,12 +13,12 @@ A [Vouch](https://vouch.anshgrover.com) project by
 [Vouch demo](https://github.com/Anshgrover23/vouch/tree/main/demo) is the
 reference output — everything on the site was made with this pipeline.
 
-**Site: https://divanshu-go.github.io/product-demo-playbook/**
+**Site: https://anshgrover23.github.io/product-demo-playbook/**
 
 ## Install
 
 ```sh
-npx degit divanshu-go/product-demo-playbook/skills/product-demo .claude/skills/product-demo
+npx degit Anshgrover23/product-demo-playbook/skills/product-demo .claude/skills/product-demo
 ```
 
 or clone and copy `skills/product-demo/` anywhere your agent reads
@@ -47,10 +47,10 @@ skills/product-demo/
 
 The deep manual — full worked example, 15-entry troubleshooting log, complete
 command reference — lives at
-[manual.html](https://divanshu-go.github.io/product-demo-playbook/manual.html).
+[manual.html](https://anshgrover23.github.io/product-demo-playbook/manual.html).
 
 ## Gallery
 
 Shipped a demo with the skill?
-[Open an issue](https://github.com/divanshu-go/product-demo-playbook/issues/new?title=Gallery%20submission)
+[Open an issue](https://github.com/Anshgrover23/product-demo-playbook/issues/new?title=Gallery%20submission)
 with the video and repo link to claim a gallery slot.

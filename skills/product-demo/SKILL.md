@@ -62,4 +62,4 @@ The Vouch demo (54.3s) was shipped with exactly this pipeline; the repo
 [github.com/Anshgrover23/vouch](https://github.com/Anshgrover23/vouch) carries
 the full working `demo/` directory — composition, vendored runtime, cue file,
 captions — as a reference implementation. The manual with every number and
-failure: https://divanshu-go.github.io/product-demo-playbook/
+failure: https://anshgrover23.github.io/product-demo-playbook/
