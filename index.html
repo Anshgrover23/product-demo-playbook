@@ -119,11 +119,22 @@
   .hero p.lede b { color: var(--ink); }
   .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 22px; }
 
-  .heroduo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .heroduo .cap { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #6b6a75); margin-top: 10px; }
-  .media.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 560px; }
+  .heroduo { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .heroduo > div { position: relative; }
+  .tapename {
+    position: absolute; top: -13px; left: 14px; z-index: 3;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 4px 14px; border: 2px solid var(--color-ink);
+    background: var(--color-lime); color: var(--color-ink);
+    box-shadow: var(--shadow-hard-sm); transform: rotate(-3deg);
+  }
+  .tapename.alt { left: auto; right: 14px; transform: rotate(2deg); background: var(--color-blue); color: var(--color-blue-ink); }
+  .thesis { font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-ink); margin-top: 16px; }
+  .heroduo .cap { font-family: var(--font-mono); font-size: 11.5px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-2); margin-top: 12px; }
+  .media.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 580px; align-self: start; padding-top: 6px; }
   .media.duo .vframe { box-shadow: var(--shadow-hard-sm); border-width: 2px; }
-  .media.duo .cap { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #6b6a75); margin-top: 8px; }
+  .media.duo .cap { font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-2); margin-top: 8px; }
   @media (max-width: 860px) { .heroduo { grid-template-columns: 1fr; } }
 
   /* copy box */
@@ -147,7 +158,6 @@
   .vframe { position: relative; border: 3px solid var(--ink); box-shadow: var(--shadow-card); background: var(--ink); line-height: 0; }
   .vframe video { width: 100%; height: auto; display: block; }
   .step .media video { aspect-ratio: 16 / 9; object-fit: cover; height: auto; }
-  .step .media { padding-top: 34px; }
   .tape {
     position: absolute; width: 110px; height: 26px; background: var(--lime);
     border: 2px solid var(--ink); opacity: 0.95; z-index: 2;
@@ -176,7 +186,7 @@
   /* steps */
   .step {
     display: grid; grid-template-columns: 1fr 1fr; gap: 34px; align-items: start;
-    padding: 34px 0; border-top: 2px dashed oklch(16% 0.02 80 / 0.25);
+    padding: 44px 0 48px; border-top: 3px solid var(--color-ink);
   }
   .step:first-of-type { border-top: none; }
   @media (max-width: 860px) { .step { grid-template-columns: 1fr; } .step .media { order: -1; } }
@@ -252,7 +262,7 @@
   <div class="wrap">
     <div>
       <span class="sticker sticker-lime">An agent skill</span>
-      <span class="sticker sticker-pink">$0 · open source</span>
+      <span class="sticker" style="background: var(--color-blue); color: var(--color-blue-ink); transform: rotate(1.4deg);">$0 · open source</span>
       <h1>Your agent<br>makes your<br><span class="hl">demo video.</span></h1>
       <p class="lede">Install one skill. Your coding agent turns the repo you already have into a <b>scored, captioned launch film</b>, the kind agencies charge <b>$5,000+</b> for.</p>
       <div class="copybox">
@@ -263,19 +273,21 @@
     <div>
       <div class="heroduo">
         <div>
+          <span class="tapename">Vouch</span>
           <div class="vframe">
             <video src="assets/hero-demo-loop.mp4" autoplay muted loop playsinline></video>
           </div>
-          <div class="cap">Vouch · 54.3s · the original · $0</div>
+          <div class="cap">54.3s · the original · $0</div>
         </div>
         <div>
+          <span class="tapename alt">Excalidraw</span>
           <div class="vframe">
             <video src="assets/hero-excalidraw-loop.mp4" autoplay muted loop playsinline></video>
           </div>
-          <div class="cap">Excalidraw · 35.5s · made by the skill, start to finish</div>
+          <div class="cap">35.5s · by the skill, start to finish</div>
         </div>
       </div>
-      <p class="cap" style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6a75; margin-top: 12px;">Two products, zero screenshots: both filmed on their real components.</p>
+      <p class="thesis">Two products. Zero screenshots. Real components only.</p>
     </div>
   </div>
 </header>
