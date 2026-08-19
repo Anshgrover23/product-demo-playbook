@@ -150,19 +150,6 @@
   .tape-tl { top: -14px; left: 18px; transform: rotate(-4deg); }
   .tape-br { bottom: -14px; right: 22px; transform: rotate(3deg); background: var(--pink); color: var(--blue-ink); }
 
-  /* ticker */
-  .ticker {
-    border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink);
-    background: var(--lime); overflow: hidden; padding: 10px 0; margin: 26px 0 0;
-  }
-  .ticker-inner {
-    display: flex; gap: 42px; white-space: nowrap; width: max-content;
-    font-family: var(--font-display); font-weight: 800; font-size: 0.95rem;
-    letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink);
-    animation: tick 26s linear infinite;
-  }
-  @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
   /* sections */
   section { padding: 72px 0 8px; }
   .kick { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); }
@@ -276,18 +263,10 @@
   </div>
 </header>
 
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-inner">
-    <span>Script ✶ Composition ✶ Record ✶ Captions ✶ Sound ✶ Music ✶ Ship ✶&nbsp;</span>
-    <span>Script ✶ Composition ✶ Record ✶ Captions ✶ Sound ✶ Music ✶ Ship ✶&nbsp;</span>
-  </div>
-</div>
-
 <section id="steps">
   <div class="wrap">
     <span class="kick">The pipeline · 8 steps</span>
     <h2>Copy a prompt. Paste it to your agent.</h2>
-    <p class="sub">Each step is a recipe file the skill carries. The clips are real output from the reference demo. Nothing here is a mockup.</p>
 
     <div class="step">
       <div>
