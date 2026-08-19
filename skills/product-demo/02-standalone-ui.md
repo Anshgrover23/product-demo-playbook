@@ -10,6 +10,23 @@ Bundle components + CSS + tokens + fonts into one static snapshot (esbuild
 works) committed next to the demo (e.g. `demo/ds/`), with a refresh script for
 when components change. The demo must outlive every tool that made it.
 
+## The npm-component shortcut
+
+If the product ships itself as an npm package (Excalidraw, tldraw, most
+editor-like products), skip the vendoring work: bundle the real package
+plus React into one browser global with esbuild and film that. Learned
+shipping the Excalidraw reference demo:
+
+- Packages may gate exports behind a `production` condition; esbuild needs
+  `conditions: ['production']` or the CSS import fails to resolve.
+- Ship the package's own fonts and set its asset-path global before the
+  bundle loads (`window.EXCALIDRAW_ASSET_PATH` style).
+- Drive the component per frame imperatively: compute the scene from `T`,
+  push it in `useLayoutEffect` (commits inside the synchronous seek), keep
+  `pointer-events: none` on the container.
+- Pin any per-element random `seed` the library uses for hand-drawn
+  jitter, or the render boils frame to frame.
+
 ## The gotchas (each cost a day; check all of them)
 
 - **Pin every component explicitly.** In an app repo (vs a packaged design

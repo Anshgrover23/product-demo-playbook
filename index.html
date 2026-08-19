@@ -119,6 +119,13 @@
   .hero p.lede b { color: var(--ink); }
   .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 22px; }
 
+  .heroduo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .heroduo .cap { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #6b6a75); margin-top: 10px; }
+  .media.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 560px; }
+  .media.duo .vframe { box-shadow: var(--shadow-hard-sm); border-width: 2px; }
+  .media.duo .cap { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #6b6a75); margin-top: 8px; }
+  @media (max-width: 860px) { .heroduo { grid-template-columns: 1fr; } }
+
   /* copy box */
   .copybox {
     display: flex; align-items: stretch; border: 2px solid var(--ink);
@@ -254,11 +261,23 @@
       </div>
     </div>
     <div>
-      <div class="vframe">
-        <div class="tape tape-tl">reference cut</div>
-        <video src="assets/hero-demo-loop.mp4" autoplay muted loop playsinline></video>
-        <div class="tape tape-br">54.3s · $0</div>
+      <div class="heroduo">
+        <div>
+          <div class="vframe">
+            <div class="tape tape-tl">Vouch</div>
+            <video src="assets/hero-demo-loop.mp4" autoplay muted loop playsinline></video>
+          </div>
+          <div class="cap">54.3s · the original · $0</div>
+        </div>
+        <div>
+          <div class="vframe">
+            <div class="tape tape-tl" style="background: var(--color-blue); color: var(--color-blue-ink);">Excalidraw</div>
+            <video src="assets/hero-excalidraw-loop.mp4" autoplay muted loop playsinline></video>
+          </div>
+          <div class="cap">35.5s · made by the skill, start to finish</div>
+        </div>
       </div>
+      <p class="cap" style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6a75; margin-top: 12px;">Two products, zero screenshots: both filmed on their real components.</p>
     </div>
   </div>
 </header>
@@ -267,6 +286,7 @@
   <div class="wrap">
     <span class="kick">The pipeline · 8 steps</span>
     <h2>Copy a prompt. Paste it to your agent.</h2>
+    <p class="sub">The agent does the film. You do exactly two paste jobs: it hands you a tagged voiceover script for MiniMax or ElevenLabs, and a style prompt for the music generator. Paste each, download the audio, give it the files. That is the whole human workload.</p>
 
     <div class="step">
       <div>
@@ -278,7 +298,7 @@
           <pre>Read .claude/skills/product-demo (start with SKILL.md and 01-script.md). Write the scene table and voiceover script for a ~50s demo of the app in this repo. One claim per scene, real fixture data, interactions on a 0.6s grid.</pre>
         </div>
       </div>
-      <div class="media"><div class="vframe"><video src="assets/clip-script.mp4" autoplay muted loop playsinline></video></div></div>
+      <div class="media duo"><div><div class="vframe"><video src="assets/clip-script.mp4" autoplay muted loop playsinline></video></div><div class="cap">Vouch</div></div><div><div class="vframe"><video src="assets/clip-x-script.mp4" autoplay muted loop playsinline></video></div><div class="cap">Excalidraw</div></div></div>
     </div>
 
     <div class="step">
@@ -291,7 +311,7 @@
           <pre>Follow 02-standalone-ui.md and 03-composition.md: vendor this repo's UI components into demo/ds/ so they render from a static folder, then build the composition with an OM_SCENES cue table and a synchronous seek event. Motion rule: nothing fades.</pre>
         </div>
       </div>
-      <div class="media"><div class="vframe"><video src="assets/clip-composition.mp4" autoplay muted loop playsinline></video></div></div>
+      <div class="media duo"><div><div class="vframe"><video src="assets/clip-composition.mp4" autoplay muted loop playsinline></video></div><div class="cap">Vouch</div></div><div><div class="vframe"><video src="assets/clip-x-canvas.mp4" autoplay muted loop playsinline></video></div><div class="cap">Excalidraw</div></div></div>
     </div>
 
     <div class="step">
@@ -304,20 +324,20 @@
           <pre>Follow 04-record.md using templates/record.mjs: render the composition frame-by-frame (smoke test first), pin CSS animations to the seek clock, and encode two 1440p60 masters, captions burned and clean.</pre>
         </div>
       </div>
-      <div class="media"><div class="vframe"><video src="assets/clip-scan.mp4" autoplay muted loop playsinline></video></div></div>
+      <div class="media duo"><div><div class="vframe"><video src="assets/clip-scan.mp4" autoplay muted loop playsinline></video></div><div class="cap">Vouch</div></div><div><div class="vframe"><video src="assets/clip-x-diagram.mp4" autoplay muted loop playsinline></video></div><div class="cap">Excalidraw</div></div></div>
     </div>
 
     <div class="step">
       <div>
         <span class="stepnum">05 · Captions + VO</span>
         <h3>Captions from the source of truth</h3>
-        <p>The composition already knows every line and time; SRT/VTT are projections, never transcriptions. The VO script ships with per-line timecodes and sync notes ("'Show it.' lands on the squash-on-impact frame"), ready for your voice tool.</p>
+        <p>The composition already knows every line and time, so the agent hands you a paste-ready tagged script for MiniMax or ElevenLabs (emotion tags, pause tags, breaths) plus a private sync-notes file. Paste the tag block only. If the tool drifts the pauses, the agent re-times each line to the frame afterward.</p>
         <div class="prompt">
           <div class="plabel"><span>Prompt</span><button onclick="cpEl(this)">Copy</button></div>
-          <pre>Follow 05-captions-vo.md: project the composition's caption table into SRT and VTT sidecars, and write the timecoded voiceover script with sync notes for an AI voice tool.</pre>
+          <pre>Follow 05-captions-vo.md: project the caption table into SRT/VTT sidecars, and give me a paste-ready tagged voiceover block for MiniMax (emotion + pause tags, no sync notes in the block). After I return the MP3, retime each line to its timecode.</pre>
         </div>
       </div>
-      <div class="media"><div class="vframe"><video src="assets/clip-captions.mp4" autoplay muted loop playsinline></video></div></div>
+      <div class="media duo"><div><div class="vframe"><video src="assets/clip-captions.mp4" autoplay muted loop playsinline></video></div><div class="cap">Vouch</div></div><div><div class="vframe"><video src="assets/clip-x-collab.mp4" autoplay muted loop playsinline></video></div><div class="cap">Excalidraw</div></div></div>
     </div>
 
     <div class="step">
@@ -330,20 +350,20 @@
           <pre>Follow 06-sound.md: write sfx-cues.json for this demo (max ~10 cues, one per story turn, each with a why), measure every sound file's hit offset, wire the WebAudio preview player, and score the export with templates/mix-audio.mjs.</pre>
         </div>
       </div>
-      <div class="media"><div class="vframe"><video src="assets/clip-stamp.mp4" autoplay muted loop playsinline></video></div></div>
+      <div class="media duo"><div><div class="vframe"><video src="assets/clip-stamp.mp4" autoplay muted loop playsinline></video></div><div class="cap">Vouch</div></div><div><div class="vframe"><video src="assets/clip-x-stamp.mp4" autoplay muted loop playsinline></video></div><div class="cap">Excalidraw</div></div></div>
     </div>
 
     <div class="step">
       <div>
         <span class="stepnum">07 + 08 · Music + Ship</span>
         <h3>Carve, duck, start at the drop</h3>
-        <p>Music at the grid's BPM, trimmed to its drop (nobody grants your video a 15-second build). EQ-notched at 250 Hz and 2.8 kHz so the voice pops through without pumping. Then: founder intro, one branded tape transition, stems into the editor, −14 LUFS out.</p>
+        <p>The agent writes your music-generator prompt too (instruments, the grid's BPM, an explicit no-drums list, "starts immediately"). You paste it, hand back the file, and the mixer finds the track's real arrival point, carves 250 Hz and 2.8 kHz for the voice, and fades out with the picture.</p>
         <div class="prompt">
           <div class="plabel"><span>Prompt</span><button onclick="cpEl(this)">Copy</button></div>
-          <pre>Follow 07-music.md and 08-assemble.md: add the music bed with mix-audio.mjs (--bgm-start at the track's drop), then assemble intro + transition + stems and export a 1440p master plus a captioned X-ready 1080p cut.</pre>
+          <pre>Follow 07-music.md and 08-assemble.md: write me a music prompt for MiniMax Music (grid BPM, no drums, starts immediately). When I give you the file, scan for its arrival point, mix it carved under the voice, and export the masters.</pre>
         </div>
       </div>
-      <div class="media"><div class="vframe"><video src="assets/clip-stickers.mp4" autoplay muted loop playsinline></video></div></div>
+      <div class="media duo"><div><div class="vframe"><video src="assets/clip-stickers.mp4" autoplay muted loop playsinline></video></div><div class="cap">Vouch</div></div><div><div class="vframe"><video src="assets/clip-x-end.mp4" autoplay muted loop playsinline></video></div><div class="cap">Excalidraw</div></div></div>
     </div>
   </div>
 </section>

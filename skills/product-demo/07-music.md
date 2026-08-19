@@ -1,5 +1,24 @@
 # Step 7: Music
 
+- **Write the user's music-generator prompt.** The agent authors it; the
+  user only pastes. Template that works on MiniMax Music and ElevenLabs:
+  lead with the instruments ("soft felt piano and warm upright bass"),
+  state the grid BPM, ban the kit explicitly as a list ("no drum kit, no
+  snare, no claps, no hi-hats"), demand "starts immediately at full
+  arrangement", give a length with trim headroom, and end with
+  "background bed under a spoken voiceover". Generators weight the first
+  phrase heaviest and treat "lo-fi" as permission for boom-bap drums, so
+  ban by name, not by genre.
+- **Find the arrival point by measurement, not by ear.** Scan mean volume
+  in 4s windows, then fine-scan 0.5s windows around the jump; trim the
+  bed to start there:
+
+  ```sh
+  for t in 0 4 8 12 16 20 24; do
+    ffmpeg -ss $t -t 4 -i bgm.mp3 -af volumedetect -f null - 2>&1 | grep mean_volume
+  done
+  ```
+
 - **Tempo-match the picture.** The interaction grid from step 1 is a BPM
   (0.6s = 100 BPM). Music at that tempo puts the taps on the beat with zero
   editing. Chillhop/lo-fi lives right there.

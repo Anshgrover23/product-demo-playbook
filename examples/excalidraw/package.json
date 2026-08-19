@@ -1,0 +1,18 @@
+{
+  "name": "excalidraw-demo-example",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bundle": "node build.mjs && cp -r node_modules/@excalidraw/excalidraw/dist/prod/fonts vendor/fonts",
+    "smoke": "node record.mjs --smoke",
+    "record": "node record.mjs",
+    "encode": "ffmpeg -y -framerate 60 -i out/frames/f%05d.png -vf scale=2560:1440:flags=lanczos -c:v libx264 -preset slow -crf 12 -pix_fmt yuv420p -movflags +faststart out/excalidraw-demo-1440p60.mp4",
+    "mix": "node mix-audio.mjs --video out/excalidraw-demo-1440p60.mp4"
+  },
+  "dependencies": {
+    "@excalidraw/excalidraw": "^0.18.1",
+    "react": "^19",
+    "react-dom": "^19"
+  },
+  "devDependencies": { "esbuild": "^0.25", "playwright": "^1.62" }
+}

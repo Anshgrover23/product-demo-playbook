@@ -67,9 +67,18 @@ npx skills add remotion-dev/skills
 npx skills add elevenlabs/skills
 ```
 
-## Reference output
+## What the user receives (besides the film)
 
-The Vouch demo (54.3s) was shipped with exactly this pipeline; the repo
+Two paste-ready artifacts, so the human workload is exactly two paste
+jobs: a tagged voiceover block for the voice tool (05) and a style prompt
+for the music generator (07). Never make the user write either.
+
+## Reference outputs
+
+Two demos prove the pipeline on unrelated products: the Vouch demo
+(54.3s, receipt splitting) and an Excalidraw demo (35.5s, filmed on the
+real @excalidraw/excalidraw npm component, source in this repo under
+examples/excalidraw). The Vouch repo
 [github.com/Anshgrover23/vouch](https://github.com/Anshgrover23/vouch) carries
 the full working `demo/` directory, composition, vendored runtime, cue file,
 captions, as a reference implementation. The manual with every number and

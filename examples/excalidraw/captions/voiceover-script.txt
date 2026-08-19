@@ -1,0 +1,23 @@
+EXCALIDRAW, 35.5s DEMO, VOICEOVER SCRIPT
+(read deadpan; timecodes are line START times; tags for ElevenLabs)
+
+{neutral}Every idea deserves a napkin.{/neutral}<#0.3#>Your tools keep handing you forms.<#1.6#>{fluent}This is Excalidraw.{/fluent}<#0.8#>A canvas that starts in zero seconds.<#1.4#>{neutral}Boxes. Arrows. Handwriting.{/neutral}<#0.4#>{happy}It looks like you drew it.{/happy}<#1.0#>(breath){neutral}Because that's the point.{/neutral}<#2.6#>{fluent}Share a link. Sketch together.{/fluent}<#0.9#>No accounts. Nothing to install.<#2.5#>{neutral}Free. Open source. Yours.{/neutral}<#0.5#>(breath){happy}Stop describing it. Draw it.{/happy}
+
+[00:00.6] Every idea deserves a napkin.
+[00:02.7] Your tools keep handing you forms.
+[00:06.2] This is Excalidraw.
+[00:08.4] A canvas that starts in zero seconds.
+[00:12.0] Boxes. Arrows. Handwriting.
+[00:14.3] It looks like you drew it.
+[00:16.9] Because that's the point.
+[00:21.0] Share a link. Sketch together.
+[00:23.9] No accounts. Nothing to install.
+[00:28.6] Free. Open source. Yours.
+[00:31.1] Stop describing it. Draw it.
+
+Sync notes: 'This is Excalidraw' never before 6.0 (paper tear settles ~5.9);
+'Free. Open source. Yours.' starts 0.1s AFTER the big stamp at 28.5;
+silence 33.1 to 35.5 for the sticker settle and URL button;
+trim pauses after lines, never the gap before the tape wipe at 27.6.
+Voice: stability 0.55, style 0.2, speed 1.0; generate line by line with
+previousText/nextText stitching.

@@ -1,0 +1,24 @@
+{
+  "comment": "Sound cues for the Excalidraw demo. Authored seconds on the demo clock. Sparse: one sound per story turn. Scenes: ColdOpen 0, TheCanvas 5.5, DrawsItself 11.5, Together 20.5, JustDraw 28. Each sound's hit is its measured in-file impact offset; players subtract it.",
+  "sounds": {
+    "paper-drop": { "file": "../sfx/paper-drop.mp3", "hit": 0.1 },
+    "page-whoosh": { "file": "../sfx/page-whoosh.mp3", "hit": 1.15 },
+    "rubber-stamp": { "file": "../sfx/rubber-stamp.mp3", "hit": 0.0 },
+    "ui-tap": { "file": "../sfx/ui-tap.mp3", "hit": 0.0 },
+    "big-stamp": { "file": "../sfx/big-stamp.mp3", "hit": 0.35 },
+    "notification-pop": { "file": "../sfx/notification-pop.mp3", "hit": 0.05 },
+    "tape-whoosh": { "file": "../sfx/tape-whoosh.mp3", "hit": 0.15 }
+  },
+  "cues": [
+    { "t": 0.5, "sound": "rubber-stamp", "db": -12, "why": "thesis line stamps in" },
+    { "t": 5.05, "sound": "page-whoosh", "db": -13, "why": "paper tears open onto the canvas" },
+    { "t": 7.2, "sound": "ui-tap", "db": -12, "why": "first box drawn (establishes the sound)" },
+    { "t": 12.4, "sound": "ui-tap", "db": -14, "why": "api box lands mid-assembly, quieter echo of the first" },
+    { "t": 16.0, "sound": "paper-drop", "db": -11, "why": "your idea slides into its seat in the diagram" },
+    { "t": 23.7, "sound": "notification-pop", "db": -13, "why": "RILEY's drag lands, box recolors" },
+    { "t": 25.9, "sound": "rubber-stamp", "db": -12, "why": "SAM circles it: SHIP IT" },
+    { "t": 27.6, "sound": "tape-whoosh", "db": -12, "why": "violet tape wipe into the end card" },
+    { "t": 28.5, "sound": "big-stamp", "db": -8, "why": "EXCALIDRAW wordmark, the one big hit" },
+    { "t": 31.9, "sound": "notification-pop", "db": -14, "why": "excalidraw.com button lands" }
+  ]
+}

@@ -26,6 +26,38 @@ silence from 0:48.5 to end.
 If the voice tool supports tags, use them: pause tags to hit timecodes,
 emotion tags per line, sound-word tags where supported.
 
+## Deliverable: a paste-ready tag block
+
+Hand the user ONE block they paste into the voice tool unedited, plus a
+separate sync-notes section they never paste. Tools like MiniMax read
+emotion tags, pause tags, and breaths inline:
+
+```
+{neutral}Every idea deserves a napkin.{/neutral}<#0.3#>Your tools keep
+handing you forms.<#1.6#>{fluent}This is Excalidraw.{/fluent}<#0.8#>...
+```
+
+Rules for the block: pauses between lines computed from the timecodes,
+emotion per fragment (not per paragraph), (breath) before the punch lines,
+and NO timecodes or sync notes inside the block; those live below it in
+the script file.
+
+## Retiming after generation (always needed)
+
+TTS tools compress long pause tags (a 2.6s tag comes back ~1.4s), so the
+read drifts off the picture by mid-film. Do not nudge the whole clip;
+cut it at its silences and place every line at its authored timecode:
+
+```sh
+ffmpeg -i vo.mp3 -af silencedetect=noise=-32dB:d=0.25 -f null -   # boundaries
+# then one filter_complex: atrim each line, adelay to its timecode ms,
+# amix normalize=0, apad to the film length
+```
+
+Map segments to lines by matching the BIG pauses first (they survive
+compression in rank order even when shrunk). Tighten intra-line gaps the
+same way when a line must clear a transition.
+
 ## ElevenLabs specifics (if that is the voice tool)
 
 - Generate line by line, and pass `previousText` and `nextText` on every
