@@ -114,12 +114,29 @@
   .lead { color: var(--ink-2); max-width: 36em; margin: 0; }
 
   /* agents */
-  .agents { margin-top: 44px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-  @media (max-width: 900px) { .agents { grid-template-columns: repeat(2, 1fr); } }
-  .agent { background: var(--card); border-radius: var(--r-md); box-shadow: var(--shadow-soft);
-    padding: 18px 20px; display: flex; align-items: baseline; gap: 14px; }
-  .agent .n { font-family: var(--mono); font-size: 12px; color: var(--muted); }
-  .agent b { font-weight: 600; font-size: 15.5px; }
+  .compat-label { text-align: center; font-size: 15px; font-weight: 500; color: var(--ink-2); margin: 54px 0 18px; }
+  .agents { display: grid; grid-template-columns: repeat(8, 1fr); gap: 12px; }
+  @media (max-width: 1000px) { .agents { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 620px) { .agents { grid-template-columns: repeat(2, 1fr); } }
+  .agent { position: relative; background: var(--card); border-radius: var(--r-md); box-shadow: var(--shadow-soft);
+    padding: 34px 10px 20px; display: flex; flex-direction: column; align-items: center; gap: 14px;
+    transition: transform 160ms ease, box-shadow 160ms ease; }
+  .agent:hover { transform: translateY(-3px); box-shadow: var(--shadow-float); }
+  .agent .n { position: absolute; top: 11px; left: 13px; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .agent .tile { width: 48px; height: 48px; border-radius: 13px; display: grid; place-items: center; font-size: 21px; }
+  .agent b { font-weight: 500; font-size: 13.5px; color: var(--ink-2); text-align: center; }
+
+  /* statement */
+  .statement { padding: 150px 0 20px; text-align: center; }
+  .statement .line { font-size: clamp(52px, 8.4vw, 118px); font-weight: 700; letter-spacing: -0.05em; line-height: 1.06; }
+  .statement em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--accent); letter-spacing: -0.01em; }
+  .statement .red { color: #bf3527; }
+  .statement .spark { color: var(--accent); font-size: 0.55em; vertical-align: 0.28em; }
+  .inlinevid { display: inline-block; vertical-align: middle; height: 0.78em; aspect-ratio: 2.35 / 1;
+    border-radius: 999px; object-fit: cover; transform: rotate(-4deg); box-shadow: var(--shadow-soft);
+    margin: 0 0.06em 0.1em; cursor: pointer; transition: transform 180ms ease; }
+  .inlinevid.alt { transform: rotate(3deg); }
+  .inlinevid:hover { transform: rotate(0deg) scale(1.06); }
 
   /* films */
   .films { margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
@@ -192,7 +209,7 @@
 <header class="hero">
   <div class="wrap">
     <div>
-      <a class="badge" href="https://github.com/Anshgrover23/product-demo-playbook/tree/main/examples/excalidraw">Second reference film just shipped</a>
+      <span class="badge">Repo in. Film out.</span>
       <h1>Showreel</h1>
       <p class="sub">The demo-video skill for AI&nbsp;agents</p>
       <p class="tagline">Your agent makes the demo video.</p>
@@ -223,16 +240,25 @@
   <div class="wrap">
     <h2 class="h2">Works with <em>every</em> agent.</h2>
     <p class="lead">One install. Any tool that reads SKILL.md files picks it up automatically.</p>
+    <p class="compat-label">Compatible coding agents</p>
     <div class="agents">
-      <div class="agent"><span class="n">01</span><b>Claude Code</b></div>
-      <div class="agent"><span class="n">02</span><b>Cursor</b></div>
-      <div class="agent"><span class="n">03</span><b>Codex</b></div>
-      <div class="agent"><span class="n">04</span><b>Gemini CLI</b></div>
-      <div class="agent"><span class="n">05</span><b>GitHub Copilot</b></div>
-      <div class="agent"><span class="n">06</span><b>Windsurf</b></div>
-      <div class="agent"><span class="n">07</span><b>OpenCode</b></div>
-      <div class="agent"><span class="n">08</span><b>Goose</b></div>
+      <div class="agent"><span class="n">01</span><span class="tile" style="background:#f6e8df;color:#d97757">✳</span><b>Claude Code</b></div>
+      <div class="agent"><span class="n">02</span><span class="tile" style="background:#171512;color:#fff">◆</span><b>Cursor</b></div>
+      <div class="agent"><span class="n">03</span><span class="tile" style="background:#e7f2ee;color:#0d9373">⬡</span><b>Codex</b></div>
+      <div class="agent"><span class="n">04</span><span class="tile" style="background:linear-gradient(135deg,#e8f0fe,#ece4fb);color:#4285f4">✦</span><b>Gemini CLI</b></div>
+      <div class="agent"><span class="n">05</span><span class="tile" style="background:#eceef1;color:#24292f">◉</span><b>Copilot</b></div>
+      <div class="agent"><span class="n">06</span><span class="tile" style="background:#e3f4f4;color:#0e9394">≋</span><b>Windsurf</b></div>
+      <div class="agent"><span class="n">07</span><span class="tile" style="background:#171512;color:#fff">❯</span><b>OpenCode</b></div>
+      <div class="agent"><span class="n">08</span><span class="tile" style="background:#fdeee1;color:#e8590c">◗</span><b>Goose</b></div>
     </div>
+  </div>
+</section>
+
+<section class="statement" aria-label="Stop faking your demo">
+  <div class="wrap">
+    <div class="line">Stop <video class="inlinevid" src="assets/hero-demo-loop.mp4" autoplay muted loop playsinline onclick="watch('assets/watch-vouch.mp4')"></video></div>
+    <div class="line"><em>faking</em> your</div>
+    <div class="line"><span class="spark">✦</span> <span class="red">demo.</span> <video class="inlinevid alt" src="assets/hero-excalidraw-loop.mp4" autoplay muted loop playsinline onclick="watch('assets/watch-excalidraw.mp4')"></video></div>
   </div>
 </section>
 
