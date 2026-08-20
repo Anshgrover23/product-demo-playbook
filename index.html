@@ -186,9 +186,13 @@
     outline: 1px solid var(--img-line); outline-offset: -1px; }
   .float .meta { display: flex; justify-content: space-between; align-items: center; padding: 12px 6px 2px; }
   .float .meta b { font-size: 14.5px; font-weight: 600; }
-  .float .play { display: inline-flex; align-items: center; gap: 7px; background: var(--bg); border-radius: var(--r-pill);
-    padding: 6px 13px; font-size: 12.5px; font-weight: 600; color: var(--ink); }
-  .float .play .ico-play { color: var(--accent); }
+  .float .play,
+  .watchpill { display: inline-flex; align-items: center; gap: 7px; background: var(--bg); color: var(--ink);
+    border-radius: var(--r-pill); font-weight: 600; white-space: nowrap; flex-shrink: 0;
+    box-shadow: 0 1px 2px rgba(23,21,18,0.06); }
+  .float .play { padding: 6px 13px; font-size: 12.5px; }
+  .float .play .ico-play,
+  .watchpill .ico-play { color: var(--accent); }
   .float-a { width: 78%; top: 0; left: 0; transform: rotate(-2.4deg); z-index: 1; }
   .float-b { width: 74%; bottom: 0; right: 0; transform: rotate(1.8deg); z-index: 2; }
   .float:hover { transform: rotate(0deg) scale(1.02); z-index: 5; }
@@ -266,13 +270,11 @@
   .filmcard:active { transform: scale(0.96); }
   .filmcard video { display: block; width: 100%; border-radius: 8px;
     outline: 1px solid var(--img-line); outline-offset: -1px; }
-  .filmcard .row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 8px 0; }
+  .filmcard .row { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 14px 8px 0; }
   .filmcard .t { min-width: 0; flex: 1; }
   .filmcard .t b { font-size: 17px; font-weight: 600; display: block; }
   .filmcard .t span { font-size: 13.5px; color: var(--muted); }
-  .watchpill { background: var(--dark); color: var(--dark-ink); border-radius: var(--r-pill); white-space: nowrap;
-    padding: 9px 18px; font-size: 13.5px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0; }
-  .watchpill .ico-play { color: var(--accent); }
+  .watchpill { padding: 9px 18px; font-size: 13.5px; margin-top: 2px; }
 
   /* prompt */
   .promptcard { margin-top: 48px; background: var(--dark); color: var(--dark-ink); border-radius: var(--r-lg);
