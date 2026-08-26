@@ -27,6 +27,29 @@ shipping the Excalidraw reference demo:
 - Pin any per-element random `seed` the library uses for hand-drawn
   jitter, or the render boils frame to frame.
 
+## The native-app path (Qt/QML, Swift, Flutter, anything not web)
+
+When nothing in the repo can run in a browser, rebuild the surfaces in
+HTML from the app's own materials, and only those. Learned shipping the
+Colosseum demo (a Qt 6 QML Windows app):
+
+- **Tokens from the source, not from eyeballing.** Find the theme file
+  (`Theme.qml`, a design-tokens struct, a `.xcassets` color set) and copy
+  every color, font, and radius into the composition's kit verbatim.
+- **Fonts and icons from the repo.** Apps bundle their typefaces
+  (`assets/fonts`) and SVG icons; load them directly. Inline SVGs so
+  stroke colors follow the tokens.
+- **Art from the app's own screenshots.** `docs/` and README hero GIFs are
+  real app pixels. Crop regions with ffmpeg (`crop=w:h:x:y`), skipping
+  burned-in chrome and text, and rebuild that chrome yourself in the same
+  positions. Record every crop in NOTES.md (source file, crop rectangle).
+- **Data from the screenshots too.** Titles, counts, timestamps, ratings
+  visible in those screens are the fixture. The honesty rule holds: if a
+  crop is unusable (an overlay button burned into a cover), swap in another
+  item that is genuinely in the same screen, and say so in NOTES.md.
+- **Contact-sheet every crop before composing** (ffmpeg hstack/vstack);
+  a bad crop found at smoke time costs a rebuild.
+
 ## The gotchas (each cost a day; check all of them)
 
 - **Pin every component explicitly.** In an app repo (vs a packaged design

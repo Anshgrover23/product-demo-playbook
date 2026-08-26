@@ -78,13 +78,18 @@ question instead of restarting. Update it after every step.
    story turn, nothing repeated back-to-back.
 5. **Two masters.** Captions burned + clean, from one composition via a
    `window.__NO_CAPTIONS` flag.
+6. **No flat black.** Every dark scene sits on the product's own art or
+   wallpaper, blurred and graded down; the first frame is the thumbnail.
+   Flat black only where it is the product's real surface (03).
 
 ## Templates
 
 Working scripts in [templates/](./templates/): `record.mjs` (deterministic
-playwright frame renderer), `mix-audio.mjs` (cue-driven ffmpeg mixer),
-`sfx-cues.example.json` (a real 10-cue score), `package.json` (the npm
-scripts). Copy them into a `demo/` directory in the target repo and adapt
+playwright frame renderer, resumable), `mix-audio.mjs` (cue-driven ffmpeg
+mixer; `--vo` for a retimed voiceover stem, `--bgm` for the bed),
+`retime-vo.mjs` (cuts a generated read at its silences and places each
+phrase on its authored timecode), `sfx-cues.example.json` (a real 10-cue
+score), `package.json` (the npm scripts). Copy them into a `demo/` directory in the target repo and adapt
 paths; each recipe says when.
 
 ## Complementary skills
@@ -106,10 +111,13 @@ for the music generator (07). Never make the user write either.
 
 ## Reference outputs
 
-Two demos prove the pipeline on unrelated products: the Vouch demo
-(54.3s, receipt splitting) and an Excalidraw demo (35.5s, filmed on the
+Four demos prove the pipeline on unrelated products: the Vouch demo
+(54.3s, receipt splitting), an Excalidraw demo (35.5s, filmed on the
 real @excalidraw/excalidraw npm component, source in this repo under
-examples/excalidraw). The Vouch repo
+examples/excalidraw), Asakiri Studio (54s, a Tauri+React course editor,
+real components bundled with esbuild), and Colosseum (54s, a Qt/QML
+Windows media app, surfaces rebuilt from its tokens and its own
+screenshots; see the native-app path in 02). The Vouch repo
 [github.com/Anshgrover23/vouch](https://github.com/Anshgrover23/vouch) carries
 the full working `demo/` directory, composition, vendored runtime, cue file,
 captions, as a reference implementation. The manual with every number and

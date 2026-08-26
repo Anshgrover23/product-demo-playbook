@@ -37,6 +37,12 @@ too fast in output before it, because CSS animations ignore the seek clock.
   after every component refresh, before any full run.
 - `--no-captions` sets `window.__NO_CAPTIONS` via an init script, two
   masters (burned + clean) from one composition.
+- Screenshot the page with a fixed `clip`, not the stage element: element
+  screenshots wait for the node to be "stable" and time out while the
+  composition re-renders every frame.
+- Skip frames that already exist on disk so a crashed render resumes; the
+  flip side is that after a composition change you must `rm -rf out/frames`
+  or the old frames survive into the new encode.
 
 ## Encode
 

@@ -3,7 +3,9 @@
 // preview and export always agree.
 // Usage:
 //   node mix-audio.mjs --video out/vouch-demo-1440p60-nocaptions.mp4 \
-//     [--bgm path.mp3] [--bgm-start 17.9] [--bgm-db -21] [--out path.mp4]
+//     [--vo vo-final.wav] [--vo-db 0] [--bgm path.mp3] [--bgm-start 17.9] [--bgm-db -21] [--out path.mp4]
+// --vo lays a voiceover stem in flat; retime it onto the authored timecodes
+// first (retime-vo.mjs) so the mixer never has to guess where lines land.
 // BGM is EQ-carved for voice clarity (250Hz/2.8kHz notches) and faded.
 import { execFileSync, spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
@@ -16,6 +18,8 @@ const arg = (name, dflt) => {
   return i >= 0 ? process.argv[i + 1] : dflt;
 };
 const video = resolve(arg('--video', join(HERE, 'out/vouch-demo-1440p60-nocaptions.mp4')));
+const vo = arg('--vo', null);
+const voDb = Number(arg('--vo-db', 0));
 const bgm = arg('--bgm', null);
 const bgmStart = Number(arg('--bgm-start', 0));
 const bgmDb = Number(arg('--bgm-db', -21));
@@ -50,6 +54,12 @@ for (const cue of spec.cues) {
   mixIns.push(`[s${idx}]`);
   idx++;
 }
+if (vo) {
+  inputs.push('-i', resolve(vo));
+  chains.push(`[${idx}]volume=${voDb}dB,atrim=0:${dur.toFixed(3)}[vo]`);
+  mixIns.push('[vo]');
+  idx++;
+}
 if (bgm) {
   inputs.push('-ss', String(bgmStart), '-i', resolve(bgm));
   chains.push(
@@ -64,4 +74,4 @@ if (bgm) {
 const graph = chains.join(';') + `;${mixIns.join('')}amix=inputs=${mixIns.length}:duration=longest:normalize=0,alimiter=limit=0.95,apad=whole_dur=${dur.toFixed(3)}[aout]`;
 execFileSync('ffmpeg', ['-y', '-v', 'error', ...inputs, '-filter_complex', graph,
   '-map', '0:v', '-map', '[aout]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '256k', '-shortest', out]);
-console.log(`scored → ${out} (${spec.cues.length} cues${bgm ? ' + bgm' : ''})`);
+console.log(`scored → ${out} (${spec.cues.length} cues${vo ? ' + vo' : ''}${bgm ? ' + bgm' : ''})`);

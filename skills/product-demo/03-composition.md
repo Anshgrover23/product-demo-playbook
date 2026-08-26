@@ -56,6 +56,26 @@ twice. This contract powers recording (04) and self-scoring sound (06).
   badge, cursor, tape-wipe, paper-tear, scan-beam) and compose scenes from
   those, the way a soundtrack is composed from a few sounds.
 
+## No frame sits on flat black
+
+Viewers read a flat `#000`-ish background as unfinished, and the opening
+frames are the thumbnail. Every dark scene gets texture: the product's own
+wallpaper or art, blurred 25-35px and graded to 0.3-0.45 brightness under a
+radial vignette. Interstitials can use the upcoming scenes' art as dim
+full-height columns (a triptych). Flat black is allowed only when it IS the
+product's surface (a reader canvas, a paused player). Check the first frame
+of the smoke render specifically for this.
+
+## Scene handoffs happen under the wipe
+
+A sweeping band covers the whole frame for only ~0.13s of its 0.72s travel.
+Render the transition at the root (over every scene), and switch scenes
+inside that covered window (`HOME_IN = CUES.OneHome - 0.25`), never on the
+scene boundary itself, or the cut pops after the band clears.
+
+Stickers and badges need an `until`: a badge that stays up leaks into the
+next beat and buries the one landing there.
+
 ## Fixtures are the honesty layer
 
 Data tables (items, prices, people) live at the top of the scene file with a

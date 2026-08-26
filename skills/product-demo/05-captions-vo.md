@@ -58,6 +58,22 @@ Map segments to lines by matching the BIG pauses first (they survive
 compression in rank order even when shrunk). Tighten intra-line gaps the
 same way when a line must clear a transition.
 
+[templates/retime-vo.mjs](./templates/retime-vo.mjs) does the placement:
+fill its `SEGS` table with `[srcStart, srcEnd, timelineAt]` triples and it
+writes `vo-final.wav`, which `mix-audio.mjs --vo` lays in flat. Confirm the
+map before mixing: if the five longest authored pauses come back as the
+five longest gaps in the same order, the segments are right. Placing
+phrases separately also lets a fragment land on its frame (a "Right to
+left." on the badge stamp) even when the tool read the line as one breath.
+
+## MiniMax tag set
+
+MiniMax accepts exactly eight emotion tags: `{happy}`, `{sad}`, `{angry}`,
+`{fearful}`, `{disgusted}`, `{surprised}`, `{neutral}`, `{fluent}`. Anything
+else (`{confident}`, `{calm}`) is silently ignored. For a deadpan product
+read use only `{neutral}` for claims and `{fluent}` for the lines that ride
+motion; the other six emote too hard for this format.
+
 ## ElevenLabs specifics (if that is the voice tool)
 
 - Generate line by line, and pass `previousText` and `nextText` on every

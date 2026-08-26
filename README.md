@@ -49,7 +49,7 @@ skills/product-demo/
   06-sound.md         cue-file format, hit offsets, the 10-cue discipline
   07-music.md         carve + duck + start at the drop, -14 LUFS
   08-assemble.md      intro, transition, stems, X-ready export
-  templates/          record.mjs, mix-audio.mjs, sfx-cues.example.json
+  templates/          record.mjs, mix-audio.mjs, retime-vo.mjs, sfx-cues.example.json
 ```
 
 The deep manual, full worked example, 15-entry troubleshooting log, complete

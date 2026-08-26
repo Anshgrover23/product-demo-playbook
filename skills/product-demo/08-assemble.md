@@ -44,3 +44,30 @@
    needed; never post a caption-less video there.
 8. **Verify audio in the exported file** at cue times (volumedetect windows,
    see 06), not just in the editor.
+
+## Assembling in an editor the agent can drive
+
+If an MCP-driven NLE is connected (Palmier Pro was used for the Colosseum
+demo), keep the split: ffmpeg does the precision work, the editor does the
+assembly you may want to tweak by hand later.
+
+- Prepare three stems with the templates: `vo-final.wav` (retimed),
+  `sfx-stem.wav` (run `mix-audio.mjs` on the clean master with no `--vo`,
+  then extract the audio), and a carved, trimmed music bed
+  (`-ss <drop> -t <film length>` plus the 250Hz/2.8kHz notches).
+- One clip per track: picture on V1, then Dialogue, SFX, Music. Never let
+  two audio clips share a track; a drop trims whatever it overlaps.
+- Draw ducking as volume keyframes on the music clip (clip-relative
+  frames): about -21 dB under lines, swells to -14/-16 dB in the air
+  pockets, a -7 dB outro, then down to silence with the last frame.
+- Export from the editor, then master with ffmpeg: measure with loudnorm,
+  apply a plain `volume=` correction (gain down needs no limiter), and
+  re-measure. Target -14 LUFS / -1 dBTP. Reference the stems in place so a
+  picture-only re-render only needs a remux (`-map 0:v -map 1:a -c copy`).
+
+## Picture-only revisions
+
+When only the composition changes after the mix is final, do not re-mix.
+Re-render, re-encode both masters, extract the mastered soundtrack once,
+and remux it onto the new picture and the captions master. Rebuild the
+1080p copies from those. Audio stays bit-identical to what you verified.

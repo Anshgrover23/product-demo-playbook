@@ -9,7 +9,7 @@
 // by timestamp and screenshotting it makes dropped frames impossible; live
 // playback capture inherits every skipped requestAnimationFrame.
 import { createServer } from 'node:http';
-import { readFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, extname, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
@@ -51,6 +51,8 @@ console.log(`duration=${duration}s frames=${frames} fps=${FPS} scale=${SCALE}x c
 
 for (let f = 0; f <= frames; f++) {
   const t = SMOKE ? [2, 16, 36.5, 48][f] : Math.min(f / FPS, duration - 1e-4);
+  const outPath = join(OUT, SMOKE ? `smoke-${t}.png` : `f${String(f).padStart(5, '0')}.png`);
+  if (!SMOKE && existsSync(outPath)) continue; // resume a crashed render
   await page.evaluate((time) => {
     const el = document.querySelector('[data-om-exportable-video-with-duration-secs]');
     el.dispatchEvent(new CustomEvent('data-om-seek-to-time-frame', { detail: { time, sync: true } }));
@@ -60,8 +62,11 @@ for (let f = 0; f <= frames; f++) {
       try { a.pause(); a.currentTime = time * 1000; } catch { /* detached */ }
     }
   }, t);
-  await stage.screenshot({ path: join(OUT, `f${String(f).padStart(5, '0')}.png`) });
-  if (f % 300 === 0) console.log(`frame ${f}/${frames}`);
+  if (SMOKE) await page.waitForTimeout(350); // lazy images settle on spot frames
+  // Fixed-clip page screenshot: element screenshots wait for the node to be
+  // "stable", which times out while the composition re-renders every frame.
+  await page.screenshot({ path: outPath, clip: { x: 0, y: 0, width: 1280, height: 720 } });
+  if (!SMOKE && f % 300 === 0) console.log(`frame ${f}/${frames}`);
 }
 console.log(`done → ${OUT}`);
 await browser.close();
