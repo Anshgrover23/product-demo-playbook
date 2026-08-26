@@ -388,9 +388,9 @@
         <video src="assets/hero-demo-loop.mp4" autoplay muted loop playsinline></video>
         <div class="meta"><b>Vouch</b><span class="play"><svg class="ico-play" viewBox="0 0 8 8" aria-hidden="true"><path d="M1.2.6v6.8L7.4 4 1.2.6z"/></svg> Watch</span></div>
       </figure>
-      <figure class="float float-b" onclick="watch('assets/watch-excalidraw.mp4')">
-        <video src="assets/hero-excalidraw-loop.mp4" autoplay muted loop playsinline></video>
-        <div class="meta"><b>Excalidraw</b><span class="play"><svg class="ico-play" viewBox="0 0 8 8" aria-hidden="true"><path d="M1.2.6v6.8L7.4 4 1.2.6z"/></svg> Watch</span></div>
+      <figure class="float float-b" onclick="watch('assets/watch-colosseum.mp4')">
+        <video src="assets/hero-colosseum-loop.mp4" autoplay muted loop playsinline></video>
+        <div class="meta"><b>Colosseum</b><span class="play"><svg class="ico-play" viewBox="0 0 8 8" aria-hidden="true"><path d="M1.2.6v6.8L7.4 4 1.2.6z"/></svg> Watch</span></div>
       </figure>
     </div>
   </div>
@@ -527,6 +527,31 @@ function lbNodes() {
   const lb = document.getElementById("lb");
   return [document.getElementById("lb-close"), document.getElementById("lbv")].filter(Boolean);
 }
+// Hero stack: Vouch + Colosseum on the first visit, then a random pair of
+// two different films on every later load. The markup default is the
+// no-JS and first-paint state.
+(function () {
+  const FILMS = [
+    { name: "Vouch", loop: "assets/hero-demo-loop.mp4", watch: "assets/watch-vouch.mp4" },
+    { name: "Excalidraw", loop: "assets/hero-excalidraw-loop.mp4", watch: "assets/watch-excalidraw.mp4" },
+    { name: "Asakiri Studio", loop: "assets/hero-asakiri-loop.mp4", watch: "assets/watch-asakiri.mp4" },
+    { name: "Colosseum", loop: "assets/hero-colosseum-loop.mp4", watch: "assets/watch-colosseum.mp4" },
+  ];
+  let seen = false;
+  try { seen = localStorage.getItem("showreel-hero-seen") === "1"; localStorage.setItem("showreel-hero-seen", "1"); } catch (e) {}
+  if (!seen) return;
+  const pool = FILMS.slice();
+  const pick = () => pool.splice(Math.floor(Math.random() * pool.length), 1)[0];
+  const pair = [pick(), pick()];
+  document.querySelectorAll(".stack .float").forEach((fig, i) => {
+    const f = pair[i]; if (!f) return;
+    const v = fig.querySelector("video");
+    if (v.getAttribute("src") !== f.loop) { v.setAttribute("src", f.loop); v.load(); v.play().catch(() => {}); }
+    fig.querySelector(".meta b").textContent = f.name;
+    fig.setAttribute("onclick", "watch('" + f.watch + "')");
+  });
+})();
+
 function watch(src, opener) {
   const lb = document.getElementById("lb");
   const v = document.getElementById("lbv");
